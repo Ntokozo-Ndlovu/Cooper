@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Cooper.Core/bin/Debug/net6.0
+/Cooper.Core/obj
+/Cooper.Data/.vs
+/Cooper.Data/bin/Debug/net6.0
+/Cooper.Data/obj
