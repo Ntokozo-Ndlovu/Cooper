@@ -1,0 +1,20 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>{{challenge?.title}}</ion-card-title>
+    <ion-card-subtitle>{{challenge?.startDate | date}} to {{challenge?.endDate | date}}</ion-card-subtitle>
+    <ion-card-subtitle>Win: {{challenge?.price}}</ion-card-subtitle>
+  </ion-card-header>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      {{challenge?.description}}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button size="small">Join</ion-button>
+      <ion-button size="small" (click)="handleViewPosts(challenge)">View Posts</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>    
+</ion-card>

@@ -8,3 +8,5 @@
 /Cooper.Data/.vs
 /Cooper.Data/bin/Debug/net6.0
 /Cooper.Data/obj
+/Cooper.API.Service/bin/Debug/net6.0
+/Cooper.API.Service/obj
