@@ -1,4 +1,5 @@
-﻿using Cooper.Data.Entity;
+﻿using Cooper.Data;
+using Cooper.Data.Entity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cooper.API.Service.Controllers
@@ -6,6 +7,10 @@ namespace Cooper.API.Service.Controllers
     [Route("api/v1")]
     public class PostController : ControllerBase
     {
+
+        public PostController(CooperDbContext context) {
+            new Cooper.Domain.Post(context);
+        }
         [HttpGet]
         [Route("post/{postId}")]
         public string GetPostById(Guid postId)
@@ -22,15 +27,11 @@ namespace Cooper.API.Service.Controllers
 
         [HttpPost]
         [Route("post")]
-        public ActionResult<Post> CreatePost()
+        public ActionResult<Post> CreatePost([FromBody] Post post)
         {
 
-            return Ok(new Post()
-            {
-                Likes = 10,
-                Description = "Ntokozo",
-                Id = 12
-            });
+            var createdPost = Cooper.Domain.Post.AddPost(post);
+            return Ok(createdPost);
         }
 
         [HttpDelete]

@@ -3,6 +3,7 @@ using System;
 using Cooper.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Cooper.Data.Migrations
 {
     [DbContext(typeof(CooperDbContext))]
-    partial class CooperDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231226171137_SetTablesPrimaryKeys")]
+    partial class SetTablesPrimaryKeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,8 +53,6 @@ namespace Cooper.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("EntityId");
-
                     b.ToTable("Address");
                 });
 
@@ -80,8 +80,6 @@ namespace Cooper.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("EntityId");
-
                     b.ToTable("Challenge");
                 });
 
@@ -101,8 +99,6 @@ namespace Cooper.Data.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("EntityId");
 
                     b.ToTable("Comment");
                 });
@@ -146,8 +142,6 @@ namespace Cooper.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("EntityId");
-
                     b.ToTable("Media");
                 });
 
@@ -179,8 +173,6 @@ namespace Cooper.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("EntityId");
-
                     b.ToTable("Person");
                 });
 
@@ -204,8 +196,6 @@ namespace Cooper.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("EntityId");
-
                     b.ToTable("Post");
                 });
 
@@ -225,8 +215,6 @@ namespace Cooper.Data.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("EntityId");
 
                     b.ToTable("Username");
                 });

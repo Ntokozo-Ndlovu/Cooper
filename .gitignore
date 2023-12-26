@@ -13,3 +13,5 @@
 /Cooper.Domain/obj
 /Cooper.UnitTests/bin/Debug/net6.0
 /Cooper.UnitTests/obj
+/Cooper.Mobile/android
+/Cooper.Domain/bin/Debug/net6.0
