@@ -27,10 +27,14 @@ namespace Cooper.API.Service.Controllers
 
         [HttpPost]
         [Route("post")]
-        public ActionResult<Post> CreatePost([FromBody] Post post)
+        public ActionResult<Post> CreatePost([FromBody] Request.Post.CreatePostRequest post)
         {
-
-            var createdPost = Cooper.Domain.Post.AddPost(post);
+            var newPost = new Post()
+            {
+                Description = post.Description,
+                Likes = post.Likes
+            };
+            var createdPost = Cooper.Domain.Post.AddPost(newPost);
             return Ok(createdPost);
         }
 

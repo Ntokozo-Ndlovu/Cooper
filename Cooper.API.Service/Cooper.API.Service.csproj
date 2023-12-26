@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Cooper.API\Cooper.API.csproj" />
     <ProjectReference Include="..\Cooper.Core\Cooper.Core.csproj" />
     <ProjectReference Include="..\Cooper.Data\Cooper.Data.csproj" />
     <ProjectReference Include="..\Cooper.Domain\Cooper.Domain.csproj" />

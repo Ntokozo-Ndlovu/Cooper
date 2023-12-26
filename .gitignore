@@ -15,3 +15,5 @@
 /Cooper.UnitTests/obj
 /Cooper.Mobile/android
 /Cooper.Domain/bin/Debug/net6.0
+/Cooper.API/obj
+/Cooper.API/bin/Debug/net6.0
