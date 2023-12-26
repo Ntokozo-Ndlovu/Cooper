@@ -30,11 +30,12 @@ namespace Cooper.Data
 
         public DbSet<Address> Address {  get; set; }
         public DbSet<Challenge> Challenge { get; set; }
-        public DbSet<EntityType> Entities { get; set; }
+        public DbSet<Cooper.Data.Entity.Entity> Entities { get; set; }
         public DbSet<Media> Media { get; set; }
         public DbSet<Person> Person { get; set; }
         public DbSet<Post> Post { get; set; }
         public DbSet<Username> Username { get; set; }
+        public DbSet<Comment> Comment { get; set; }
 
     }
 }

@@ -13,6 +13,7 @@ namespace Cooper.Data.Entity
         public string Suburb {  get; set; }
         public string City { get; set; }
         public string PostalCode {  get; set; }
+        public int EntityId { get; set; }
 
     }
 }

@@ -83,12 +83,18 @@ namespace Cooper.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<Guid>("UUID")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
                     b.ToTable("Entities");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("EntityType");
                 });
 
             modelBuilder.Entity("Cooper.Data.Entity.Media", b =>
@@ -177,6 +183,17 @@ namespace Cooper.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Username");
+                });
+
+            modelBuilder.Entity("Cooper.Data.Entity.Comment", b =>
+                {
+                    b.HasBaseType("Cooper.Data.Entity.EntityType");
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasDiscriminator().HasValue("Comment");
                 });
 #pragma warning restore 612, 618
         }

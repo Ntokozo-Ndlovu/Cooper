@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cooper.Data.Entity
+namespace Cooper.Domain
 {
-    public class EntityType
+    internal class Comment
     {
-        public int Id { get; set; }
-        public Guid UUID { get; set; }
-
     }
 }
