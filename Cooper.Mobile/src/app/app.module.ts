@@ -8,9 +8,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
+import { ChallengeReducer, PostReducer } from './core/store/reducers';
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule,HttpClientModule,IonicModule.forRoot(), AppRoutingModule, StoreModule.forRoot({}, {})],
+  imports: [BrowserModule,HttpClientModule,IonicModule.forRoot() ,AppRoutingModule, StoreModule.forRoot({Challenge:ChallengeReducer, Post:PostReducer}, {})],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

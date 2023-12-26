@@ -10,3 +10,6 @@
 /Cooper.Data/obj
 /Cooper.API.Service/bin/Debug/net6.0
 /Cooper.API.Service/obj
+/Cooper.Domain/obj
+/Cooper.UnitTests/bin/Debug/net6.0
+/Cooper.UnitTests/obj

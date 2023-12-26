@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { Post } from 'src/app/core/models';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-challenge-posts',
@@ -9,9 +8,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./challenge-posts.component.scss'],
 })
 export class ChallengePostsComponent  implements OnInit {
-  posts:Observable<Post[]>;
-  constructor(private HttpClient:HttpClient) { 
-    this.posts = this.HttpClient.get<Post[]>('assets/dummy-data.json');
+  @Input() posts?:Observable<Post[]>;
+  constructor() { 
   }
 
   ngOnInit() {}

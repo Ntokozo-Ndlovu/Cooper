@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Cooper.Data.Entity
 {
-    public class Post
+    public class Entity
     {
         public int Id { get; set; }
-        public string Description {  get; set; }
-        public int Likes {get; set; }
-        public int EntityId {  get; set; }
+        public Guid UUID { get; set; }
+
     }
 }

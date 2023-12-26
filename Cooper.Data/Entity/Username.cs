@@ -10,5 +10,6 @@ namespace Cooper.Data.Entity
     {
         public int Id { get; set; }
         public string UserName { get; set; }
+        public int EntityId { get; set; }
     }
 }

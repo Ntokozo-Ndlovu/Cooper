@@ -12,5 +12,6 @@ namespace Cooper.Data.Entity
         public Guid MediaGuid { get; set; }
         public int MediaType {  get; set; }
         public string Link {  get; set; }
+        public int EntityId { get; set; }
     }
 }

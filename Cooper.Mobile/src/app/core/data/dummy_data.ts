@@ -1,0 +1,37 @@
+export default {data:[
+    { media:[{
+      type:0,
+      url:"https://imageio.forbes.com/specials-images/imageserve/5d35eacaf1176b0008974b54/2020-Chevrolet-Corvette-Stingray/0x0.jpg?format=jpg&crop=4560,2565,x790,y784,safe&width=960"
+    },
+    {
+      type:0,
+      url:"https://carwow-uk-wp-3.imgix.net/18015-MC20BluInfinito-scaled-e1666008987698.jpg"
+    }],
+  title:"Best Car",
+  description:"Its an Okay Car",
+  like:12,
+  comments:[]},
+  { media:[{
+    type:0,
+    url:"https://cdn.motor1.com/images/mgl/JO94P6/s1/most-expensive-cars-in-the-world.jpg"
+  },
+  {
+    type:1,
+    url:"https://carwow-uk-wp-3.imgix.net/18015-MC20BluInfinito-scaled-e1666008987698.jpg"
+  }],
+title:"My Favorite Car",
+description:"It is a beautiful car",
+like:15,
+comments:[]},{ "media":[{
+  type:1,
+  url:"https://img.autotrader.co.za/27268641/Crop640x480"
+},
+{
+  type:1,
+  url:"https://www.motortrend.com/uploads/2022/08/2022-Bugatti-Chiron-Super-Sport-2-1.jpg"
+}],
+title:"My Favorite Car",
+description:"It is a beautiful car",
+like:15,
+comments:[]}
+  ]};
