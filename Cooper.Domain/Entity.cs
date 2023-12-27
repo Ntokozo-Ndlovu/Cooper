@@ -1,4 +1,5 @@
 ﻿using Cooper.Data;
+using Cooper.Data.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Cooper.Domain
         }
 
 
-        public static  Data.Entity.Entity createEntity()
+        public static  Data.Entity.Entity CreateEntity()
         {
             var changeTrack = _db.Entities.Add(new Data.Entity.Entity()
             {
@@ -25,6 +26,20 @@ namespace Cooper.Domain
             _db.SaveChanges();
 
             return changeTrack.Entity;
+        }
+
+        public static Data.Entity.Entity DeleteEntity(Data.Entity.Entity entity)
+        {
+            _db.Entities.Remove(entity);
+            _db.SaveChanges();
+            return entity;
+        }
+
+
+        public static Data.Entity.Entity FindEntityById(Guid id)
+        {
+            var entity = _db.Entities.FirstOrDefault(x =>  x.UUID == id)?? throw new Exception("Entity not found");
+            return entity;
         }
     }
 }

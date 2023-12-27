@@ -1,4 +1,6 @@
-﻿using Cooper.Data;
+﻿using Cooper.API.Request.Post;
+using Cooper.API.Response.Post;
+using Cooper.Data;
 using Cooper.Data.Entity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,20 +11,33 @@ namespace Cooper.API.Service.Controllers
     {
 
         public PostController(CooperDbContext context) {
-            new Cooper.Domain.Post(context);
+            _ = new Cooper.Domain.Post(context);
         }
         [HttpGet]
         [Route("post/{postId}")]
-        public string GetPostById(Guid postId)
+        public ActionResult<FindPostResponse> GetPostById(Guid postId)
         {
-            return "Ok";
+            var post = Domain.Post.FindById(postId);
+            var response = new FindPostResponse()
+            {
+                Description = post.Description,
+                Likes = post.Likes,
+            };
+            return Ok(response);
         }
 
         [HttpGet]
         [Route("post")]
-        public string GetPosts(string postId)
+        public ActionResult<List<FindPostResponse>> GetPosts()
         {
-            return "Post";
+            List<FindPostResponse> list = new List<FindPostResponse>();
+
+            var postList = Domain.Post.FindAllPost();
+            postList.ForEach(x =>
+            {
+                list.Add(new FindPostResponse() { Description = x.Description, Likes = x.Likes});
+            });
+            return Ok(list);
         }
 
         [HttpPost]
@@ -40,16 +55,33 @@ namespace Cooper.API.Service.Controllers
 
         [HttpDelete]
         [Route("post/{postId}")]
-        public ActionResult<Post> DeletePost(Guid postId)
+        public ActionResult<FindPostResponse> DeletePost(Guid postId)
         {
-            return Ok();
+            var post = Domain.Post.DeletePost(postId);
+            var response = new FindPostResponse()
+            {
+                Description = post.Description,
+                Likes = post.Likes
+            };
+
+            return Ok(response);
         }
 
         [HttpPatch]
         [Route("post/{postId}")]
-        public ActionResult UpdatePost(Guid postId)
+        public ActionResult<UpdatePostResponse> UpdatePost(Guid postId, [FromBody]UpdatePostRequest postData)
         {
-            return Ok();
+            var post = Domain.Post.FindById(postId);
+            post.Description = postData.Description;
+            post.Likes = postData.Likes;
+            var tempPost = Domain.Post.UpdatePost(post);
+
+            var response = new UpdatePostResponse()
+            {
+                Description = tempPost.Description,
+                Likes = tempPost.Likes
+            };
+            return Ok(response);
         }
 
     }
