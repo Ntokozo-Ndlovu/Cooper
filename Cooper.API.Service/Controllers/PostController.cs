@@ -1,4 +1,7 @@
-﻿using Cooper.Data.Entity;
+﻿using Cooper.API.Request.Post;
+using Cooper.API.Response.Post;
+using Cooper.Data;
+using Cooper.Data.Entity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cooper.API.Service.Controllers
@@ -6,45 +9,79 @@ namespace Cooper.API.Service.Controllers
     [Route("api/v1")]
     public class PostController : ControllerBase
     {
+
+        public PostController(CooperDbContext context) {
+            _ = new Cooper.Domain.Post(context);
+        }
         [HttpGet]
         [Route("post/{postId}")]
-        public string GetPostById(Guid postId)
+        public ActionResult<FindPostResponse> GetPostById(Guid postId)
         {
-            return "Ok";
+            var post = Domain.Post.FindById(postId);
+            var response = new FindPostResponse()
+            {
+                Description = post.Description,
+                Likes = post.Likes,
+            };
+            return Ok(response);
         }
 
         [HttpGet]
         [Route("post")]
-        public string GetPosts(string postId)
+        public ActionResult<List<FindPostResponse>> GetPosts()
         {
-            return "Post";
+            List<FindPostResponse> list = new List<FindPostResponse>();
+
+            var postList = Domain.Post.FindAllPost();
+            postList.ForEach(x =>
+            {
+                list.Add(new FindPostResponse() { Description = x.Description, Likes = x.Likes});
+            });
+            return Ok(list);
         }
 
         [HttpPost]
         [Route("post")]
-        public ActionResult<Post> CreatePost()
+        public ActionResult<Post> CreatePost([FromBody] Request.Post.CreatePostRequest post)
         {
-
-            return Ok(new Post()
+            var newPost = new Post()
             {
-                Likes = 10,
-                Description = "Ntokozo",
-                Id = 12
-            });
+                Description = post.Description,
+                Likes = post.Likes
+            };
+            var createdPost = Cooper.Domain.Post.AddPost(newPost);
+            return Ok(createdPost);
         }
 
         [HttpDelete]
         [Route("post/{postId}")]
-        public ActionResult<Post> DeletePost(Guid postId)
+        public ActionResult<FindPostResponse> DeletePost(Guid postId)
         {
-            return Ok();
+            var post = Domain.Post.DeletePost(postId);
+            var response = new FindPostResponse()
+            {
+                Description = post.Description,
+                Likes = post.Likes
+            };
+
+            return Ok(response);
         }
 
         [HttpPatch]
         [Route("post/{postId}")]
-        public ActionResult UpdatePost(Guid postId)
+        public ActionResult<UpdatePostResponse> UpdatePost(Guid postId, [FromBody]UpdatePostRequest postData)
         {
-            return Ok();
+            var post = Domain.Post.FindById(postId);
+            post.Description = postData.Description;
+            post.Likes = postData.Likes;
+            var tempPost = Domain.Post.UpdatePost(post);
+
+            var response = new UpdatePostResponse()
+            {
+                Description = tempPost.Description,
+                Likes = tempPost.Likes
+            };
+            return Ok(response);
         }
 
     }

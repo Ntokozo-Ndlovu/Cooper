@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Cooper.API.Request.Challenge;
+using Cooper.API.Response.Challenge;
+using Cooper.Data;
+using Cooper.Data.Entity;
+using Cooper.Domain;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cooper.API.Service.Controllers
 {
@@ -6,40 +11,84 @@ namespace Cooper.API.Service.Controllers
     public class ChallengeController: ControllerBase
     {
 
+
+        public ChallengeController(CooperDbContext db) {
+            _ = new Domain.Challenge(db);
+        }
         [HttpGet]
         [Route("challenge")]
-        public ActionResult GetAllChallenge()
+        public ActionResult<List<ChallengeResponse>> GetAllChallenge()
         {
-            return Ok();
+            List<Data.Entity.Challenge> challenges =  Domain.Challenge.GetAllChallenges();
+            List<ChallengeResponse> result = new List<ChallengeResponse>();
+            challenges.ForEach(challenge =>
+            {
+                result.Add(new ChallengeResponse()
+                {
+                    Description = challenge.Description,
+                    Name = challenge.Name
+                });
+            });
+            return Ok(result);
         }
+
 
         [HttpGet]
         [Route("challenge/{challengeId}")]
-        public ActionResult GetChallenge(Guid challengeId)
+        public ActionResult<FindChallengeResponse> GetChallenge(Guid challengeId)
         {
-            return Ok();
+            var challenge = Domain.Challenge.FindChallengeById(challengeId);
+            var result = new FindChallengeResponse()
+            {
+                Description = challenge.Description,
+                Name = challenge.Name
+            };
+            return Ok(result);
         }
+
 
         [HttpPost]
         [Route("challenge")]
-        public ActionResult CreateChallenge()
+        public ActionResult<CreateChallengeResponse> CreateChallenge([FromBody] CreateChallengeRequest body)
         {
-            return Ok();
+            var resutlt = Domain.Challenge.Add(new Data.Entity.Challenge()
+            {
+                Description = body.Description,
+                Name = body.Name,
+            });
+
+            return Ok(resutlt);
 
         }
+
 
         [HttpPatch]
         [Route(("challenge/{challengeId}"))]
-        public ActionResult EditChallenge(Guid challengeId) {
-            return Ok();
-
-        
+        public ActionResult<UpdateChallengeResponse> EditChallenge(Guid challengeId, [FromBody] UpdateChallengeRequest body) {
+            var challenge = Domain.Challenge.FindChallengeById(challengeId);
+            challenge.Description =  body.Description;
+            challenge.Name = body.Name;
+            var updateChallenge = Domain.Challenge.UpdateChallenge(challenge);
+            var result = new UpdateChallengeResponse()
+            {
+                Description = updateChallenge.Description,
+                Name = updateChallenge.Name,
+            };
+            return Ok(result);
         }
+
 
         [HttpDelete]
         [Route("challenge/{challengeId}")]
-        public ActionResult DeleteChallenge(Guid challengeId)
+        public ActionResult<DeleteChallengeResponse> DeleteChallenge(Guid challengeId)
         {
+            var challenge = Domain.Challenge.DeleteChallengeById(challengeId);
+            var result = new DeleteChallengeResponse()
+            {
+                Name = challenge.Name,
+                Description = challenge.Description,
+            };
+
             return Ok();
         }
 

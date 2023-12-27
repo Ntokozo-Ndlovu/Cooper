@@ -1,4 +1,5 @@
 ﻿using Cooper.Data.Entity;
+using Cooper.Data.EntityConfiguration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -11,8 +12,11 @@ namespace Cooper.Data
 {
     public class CooperDbContext:DbContext
     {
+        public CooperDbContext() : base()
+        {
 
-        public CooperDbContext()
+        }
+        public CooperDbContext(DbContextOptions<CooperDbContext> options):base(options)
         {
 
         }
@@ -23,9 +27,25 @@ namespace Cooper.Data
             var configBuild= new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: false);
             IConfiguration config = configBuild.Build();
             //get the connection String;
+
             string connectionString = config.GetConnectionString("DefaultConnection");
             builder.UseNpgsql(connectionString);
             Console.Write(connectionString);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new AddressConfiguration());
+            modelBuilder.ApplyConfiguration(new ChallengeConfiguration());
+            modelBuilder.ApplyConfiguration(new CommentConfiguration());
+            modelBuilder.ApplyConfiguration(new Cooper.Data.EntityConfiguration.EntityConfiguration());
+            modelBuilder.ApplyConfiguration(new MediaConfiguration());
+            modelBuilder.ApplyConfiguration(new PersonConfiguration());
+            modelBuilder.ApplyConfiguration(new PostConfiguration());
+            modelBuilder.ApplyConfiguration(new UsernameConfiguration());
+
+            //Configuring relationships
+
         }
 
         public DbSet<Address> Address {  get; set; }
