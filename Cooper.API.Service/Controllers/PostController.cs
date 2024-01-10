@@ -21,7 +21,7 @@ namespace Cooper.API.Service.Controllers
             var response = new FindPostResponse()
             {
                 Description = post.Description,
-                Likes = post.Likes,
+                Like = post.Likes,
             };
             return Ok(response);
         }
@@ -35,7 +35,7 @@ namespace Cooper.API.Service.Controllers
             var postList = Domain.Post.FindAllPost();
             postList.ForEach(x =>
             {
-                list.Add(new FindPostResponse() { Description = x.Description, Likes = x.Likes});
+                list.Add(new FindPostResponse() { Description = x.Description, Like = x.Likes});
             });
             return Ok(list);
         }
@@ -61,7 +61,7 @@ namespace Cooper.API.Service.Controllers
             var response = new FindPostResponse()
             {
                 Description = post.Description,
-                Likes = post.Likes
+                Like = post.Likes
             };
 
             return Ok(response);

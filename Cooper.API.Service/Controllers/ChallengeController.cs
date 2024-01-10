@@ -41,7 +41,7 @@ namespace Cooper.API.Service.Controllers
             var result = new FindChallengeResponse()
             {
                 Description = challenge.Description,
-                Name = challenge.Name
+                Title = challenge.Name
             };
             return Ok(result);
         }

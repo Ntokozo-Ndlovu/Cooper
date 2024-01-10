@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Cooper.Data\Cooper.Data.csproj" />
+  </ItemGroup>
+
 </Project>
