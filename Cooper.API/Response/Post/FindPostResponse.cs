@@ -9,6 +9,7 @@ namespace Cooper.API.Response.Post
         public string Description { get; set; }
         public int Like { get; set; }
         public IList<Comment> Comments {  get; set; }
+        public Guid ChallengeId { get; set; }
 
 }
 }

@@ -3,6 +3,7 @@ using System;
 using Cooper.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Cooper.Data.Migrations
 {
     [DbContext(typeof(CooperDbContext))]
-    partial class CooperDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240128191622_AddChallengeIdOnPostTable")]
+    partial class AddChallengeIdOnPostTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,7 +99,7 @@ namespace Cooper.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ChallengeGuid = new Guid("162ff745-7807-4b06-8660-5c7cc89a392f"),
+                            ChallengeGuid = new Guid("5922fe70-a2a2-4a9e-8e11-62b667f47bd4"),
                             Description = "Please take a good soccer photo",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EntityId = 9,
@@ -108,7 +110,7 @@ namespace Cooper.Data.Migrations
                         new
                         {
                             Id = 2,
-                            ChallengeGuid = new Guid("520a4d3a-e6ce-458c-8c72-360a5ffc92eb"),
+                            ChallengeGuid = new Guid("d5c7d318-5c86-46b9-83f9-c1024333b35c"),
                             Description = "Please take a nice picture eating out",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EntityId = 10,
@@ -119,7 +121,7 @@ namespace Cooper.Data.Migrations
                         new
                         {
                             Id = 3,
-                            ChallengeGuid = new Guid("a3bb21c7-9ea2-4c9b-9811-e3526856d05b"),
+                            ChallengeGuid = new Guid("6b53be13-baaf-4910-9862-f38ed4363e0f"),
                             Description = "Please take a nice picture eating out",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EntityId = 11,
@@ -189,97 +191,57 @@ namespace Cooper.Data.Migrations
                         new
                         {
                             Id = 1,
-                            UUID = new Guid("be3b0698-e7c4-4b37-b5bb-f9bb426d8c65")
-                        },
-                        new
-                        {
-                            Id = 12,
-                            UUID = new Guid("4a592a61-c501-449d-9619-b6798626b512")
-                        },
-                        new
-                        {
-                            Id = 13,
-                            UUID = new Guid("af918806-5179-452c-a6a1-883714438484")
-                        },
-                        new
-                        {
-                            Id = 14,
-                            UUID = new Guid("311c70f3-301c-4f9a-a8ef-32f53a91f237")
-                        },
-                        new
-                        {
-                            Id = 15,
-                            UUID = new Guid("d4f21bbd-3ee8-494e-ab9c-651ea4eefa8d")
+                            UUID = new Guid("219a4b5b-d75c-4046-b3dd-250708067a5c")
                         },
                         new
                         {
                             Id = 2,
-                            UUID = new Guid("5adbcac3-99a5-431c-a0b3-1170ea9432c7")
+                            UUID = new Guid("765666f9-8758-49bd-9b59-160c582b4351")
                         },
                         new
                         {
                             Id = 3,
-                            UUID = new Guid("7ab8ba08-c13a-4784-ac7a-01a933cd6884")
+                            UUID = new Guid("28d7dabb-84d2-4220-a6fa-4577bab5fadb")
                         },
                         new
                         {
                             Id = 4,
-                            UUID = new Guid("6b17ea11-04bc-4775-b1ef-06d4daa0c2b4")
+                            UUID = new Guid("3770bf8b-98f8-4eb9-b27c-0a3578e54b22")
                         },
                         new
                         {
                             Id = 5,
-                            UUID = new Guid("9b801c74-cf1f-4269-bb97-5b3218790f43")
+                            UUID = new Guid("24e9e74e-9855-4355-a6ea-2fc817fe6645")
                         },
                         new
                         {
                             Id = 6,
-                            UUID = new Guid("fed86877-678f-4e2f-a1e8-d6852f27e03b")
-                        },
-                        new
-                        {
-                            Id = 16,
-                            UUID = new Guid("360aabf3-0c5c-416a-a5d7-e28c22fa769f")
-                        },
-                        new
-                        {
-                            Id = 17,
-                            UUID = new Guid("1eb75e1e-b377-449a-81b2-fbf7d5aff3d4")
-                        },
-                        new
-                        {
-                            Id = 18,
-                            UUID = new Guid("977b5a83-6419-4067-8a2f-0c2c0cf423e2")
-                        },
-                        new
-                        {
-                            Id = 19,
-                            UUID = new Guid("897549ff-a2fa-4601-a4f8-bfae10913d03")
+                            UUID = new Guid("60728cab-44fc-4af8-9699-5008d539a0c3")
                         },
                         new
                         {
                             Id = 7,
-                            UUID = new Guid("e8180b3a-a4bd-4103-a485-d819cc720997")
+                            UUID = new Guid("06a187d1-f9f8-472f-910c-76e6cbed504b")
                         },
                         new
                         {
                             Id = 8,
-                            UUID = new Guid("a6658653-c68f-447f-9888-9a0eb715d30a")
+                            UUID = new Guid("5d56f91a-f5a1-438d-af6f-c63298733d85")
                         },
                         new
                         {
                             Id = 9,
-                            UUID = new Guid("9799fce3-6fe5-493f-9b6e-3f6f1d2f6222")
+                            UUID = new Guid("ca93a189-053b-4126-90f1-841325f769e0")
                         },
                         new
                         {
                             Id = 10,
-                            UUID = new Guid("406bb9a8-a0b2-4e57-868a-9a5e0c69e2aa")
+                            UUID = new Guid("96c4929b-56dc-44c6-b9dc-2a569d76147b")
                         },
                         new
                         {
                             Id = 11,
-                            UUID = new Guid("dd956e5d-955b-423c-8840-8ec5623bc70e")
+                            UUID = new Guid("d0de398c-92aa-428e-9aea-cd2154a92d01")
                         });
                 });
 
@@ -317,91 +279,37 @@ namespace Cooper.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Entity = 12,
+                            Entity = 1,
                             EntityId = 2,
                             Link = "https://imageio.forbes.com/specials-images/imageserve/5d35eacaf1176b0008974b54/2020-Chevrolet-Corvette-Stingray/0x0.jpg?format=jpg&crop=4560,2565,x790,y784,safe&width=960",
-                            MediaGuid = new Guid("8fc313a2-5557-4fc3-943d-b18f1b1cbf08"),
+                            MediaGuid = new Guid("cfdf0669-da10-4566-8d29-e8751363ba5c"),
                             MediaType = 0
                         },
                         new
                         {
                             Id = 2,
-                            Entity = 12,
+                            Entity = 1,
                             EntityId = 3,
                             Link = "https://carwow-uk-wp-3.imgix.net/18015-MC20BluInfinito-scaled-e1666008987698.jpg",
-                            MediaGuid = new Guid("cc019fed-b314-433f-8460-79b331b4d6d4"),
+                            MediaGuid = new Guid("fa35be62-d405-4f47-a791-81a64173214f"),
                             MediaType = 0
                         },
                         new
                         {
                             Id = 3,
-                            Entity = 12,
+                            Entity = 1,
                             EntityId = 4,
                             Link = "https://cdn.motor1.com/images/mgl/JO94P6/s1/most-expensive-cars-in-the-world.jpg",
-                            MediaGuid = new Guid("e1adcdfb-003d-4c27-b61b-a792aef25b77"),
+                            MediaGuid = new Guid("5383c383-a48b-4aa6-8b83-2fc83259a40b"),
                             MediaType = 0
                         },
                         new
                         {
                             Id = 4,
-                            Entity = 12,
+                            Entity = 1,
                             EntityId = 5,
                             Link = "https://carwow-uk-wp-3.imgix.net/18015-MC20BluInfinito-scaled-e1666008987698.jpg",
-                            MediaGuid = new Guid("ea777ec6-cf30-4e7a-937f-1fb3a56d4cca"),
-                            MediaType = 0
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Entity = 14,
-                            EntityId = 6,
-                            Link = "https://i.abcnewsfe.com/a/aae2e440-73a2-4252-a4c9-c7d27f0efda7/mcdonalds-gty-thg-230728_1690559943139_hpMain.jpg",
-                            MediaGuid = new Guid("bdd4010a-5e4f-4da2-905a-41c914dc29bd"),
-                            MediaType = 0
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Entity = 14,
-                            EntityId = 7,
-                            Link = "https://www.allrecipes.com/thmb/3YpMeC2Za5PkXZFnlNFaBOCtC3c=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/mcdonalds-store-front-4x3-0a58d7e370ce48f7b050203fd478c407.png",
-                            MediaGuid = new Guid("2488c6a5-7fe7-4e6f-9f93-50471d841017"),
-                            MediaType = 0
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Entity = 15,
-                            EntityId = 8,
-                            Link = "https://www.foodandwine.com/thmb/K_t1B_xBKIKYm_ZoNIEqaBvuXcQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Burger-King-Everything-Seasoned-Bun-FT-BLOG0922-c8c7859b9c794c42af7700b5b957a874.jpg",
-                            MediaGuid = new Guid("5bf4abe6-b9ef-41b6-96e2-7f316c47a966"),
-                            MediaType = 0
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Entity = 15,
-                            EntityId = 9,
-                            Link = "https://www.thestreet.com/.image/ar_16:9%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTg3NTA5NzAzMTQ2NzQzMzU2/burger-king-yeti-super-one-pound-beef-burger.jpg",
-                            MediaGuid = new Guid("08ba3864-4a3e-44cf-9d15-50f82fda6872"),
-                            MediaType = 0
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Entity = 1,
-                            EntityId = 16,
-                            Link = "https://media-cdn.tripadvisor.com/media/photo-s/11/70/80/ac/chciken.jpg",
-                            MediaGuid = new Guid("fbe4cb68-b650-4775-a1a7-2bc91e68ed42"),
-                            MediaType = 0
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Entity = 1,
-                            EntityId = 17,
-                            Link = "https://www.kimberley.co.za/wp-content/uploads/2022/01/38784_STEERS-AsPhande_Sharing_Meal_Promotion-20220113-KCP-SP-v1_00a.jpg",
-                            MediaGuid = new Guid("aab110bd-6b45-44a1-b508-bc2e18e402d3"),
+                            MediaGuid = new Guid("5cacbebd-110b-4d25-941f-bdaf13872a20"),
                             MediaType = 0
                         });
                 });
@@ -474,47 +382,11 @@ namespace Cooper.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ChallengeId = new Guid("a3bb21c7-9ea2-4c9b-9811-e3526856d05b"),
+                            ChallengeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Description = "School Post",
                             EntityId = 1,
                             Likes = 12,
-                            Title = "Steer Burger"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ChallengeId = new Guid("520a4d3a-e6ce-458c-8c72-360a5ffc92eb"),
-                            Description = "Sport Cars",
-                            EntityId = 12,
-                            Likes = 20,
-                            Title = "Ball for Soccer Peeps"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ChallengeId = new Guid("162ff745-7807-4b06-8660-5c7cc89a392f"),
-                            Description = "Everything we care about",
-                            EntityId = 13,
-                            Likes = 25,
                             Title = "Hello Wold"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ChallengeId = new Guid("a3bb21c7-9ea2-4c9b-9811-e3526856d05b"),
-                            Description = "Best McDonald picture",
-                            EntityId = 14,
-                            Likes = 12,
-                            Title = "Mc Donalds"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ChallengeId = new Guid("a3bb21c7-9ea2-4c9b-9811-e3526856d05b"),
-                            Description = "King Burger Tastes really good",
-                            EntityId = 15,
-                            Likes = 150,
-                            Title = "King Burger"
                         });
                 });
 

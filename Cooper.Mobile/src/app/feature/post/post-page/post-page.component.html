@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ng-container *ngFor="let item of post | async">
+  <ng-container *ngFor="let item of post$ | async">
     <app-post-card [post]="item"></app-post-card>
   </ng-container>
 

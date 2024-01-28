@@ -6,3 +6,4 @@ export const reqChallenges = createAction("[Challenge Page] Req challenges from 
 
 export const reqChallengesSuccess = createAction("[Challenge Page] Req challenges successfull", props<{challenges:Challenge[]}>());
 
+export const reqViewChallenge = createAction("[Challenge Page] view challenge details", props<{challengeId:string}>())

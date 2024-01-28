@@ -31,10 +31,20 @@ namespace Cooper.API.Service.Controllers
 
         [HttpGet]
         [Route("post")]
-        public ActionResult<List<FindPostResponse>> GetPosts()
+        public ActionResult<List<FindPostResponse>> GetPosts([FromQuery] string challengeId)
         {
             List<FindPostResponse> list = new List<FindPostResponse>();
 
+            if (challengeId != null)
+            {
+                var postsByChallengeList = Domain.Post.FindPostByChallengeById(Guid.Parse(challengeId));
+                postsByChallengeList.ForEach(post =>
+                {
+                    list.Add(post.ToApiModel());
+                });
+                return Ok(list);
+            }
+      
             var postList = Domain.Post.FindAllPost();
             postList.ForEach(post =>
             {

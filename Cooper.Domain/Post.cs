@@ -13,8 +13,9 @@ namespace Cooper.Domain
             this.EntityId = post.EntityId;
             this.Likes = post.Likes;   
             this.Title = post.Title;
+            this.ChallengeId = post.ChallengeId;
             this.Media = Domain.Media.FindAllMediaForEntityById(postEntityUUID);
-            this.Comments = Domain.Comment.FindAllCommentForEntity(postEntityUUID);      
+            this.Comments = Domain.Comment.FindAllCommentForEntity(postEntityUUID);    
         }
 
         private Post(Data.Entity.Post post)
@@ -24,6 +25,7 @@ namespace Cooper.Domain
             this.EntityId = post.EntityId;
             this.Likes = post.Likes;
             this.Title= post.Title;
+            this.ChallengeId = post.ChallengeId;
 
             var postEntity = new Entity(post.EntityId);
             this.Media = Domain.Media.FindAllMediaForEntityById(postEntity.UUID);
@@ -45,6 +47,12 @@ namespace Cooper.Domain
             return list;
         }
         
+        public static List<Post> FindPostByChallengeById(Guid challengeId)
+        {
+            List<Post> list = _db.Post.Where((post)=>post.ChallengeId== challengeId).Select(post => new Post(post)).ToList();
+            return list;
+        }
+
         public static Post DeletePost(Guid guid)
         {
             var entity = _db.Entities.FirstOrDefault(x => x.UUID == guid) ?? throw new Exception("Entity not found");
@@ -61,6 +69,7 @@ namespace Cooper.Domain
             var tempPost = _db.Post.FirstOrDefault(p => p.Id == post.Id)?? throw new Exception("Post not found");
             tempPost.Description = post.Description;
             tempPost.Likes = post.Likes;
+            tempPost.ChallengeId = post.ChallengeId;
             _db.Post.Update(tempPost);
             _db.SaveChanges();
             return tempPost;
@@ -80,6 +89,7 @@ namespace Cooper.Domain
         public int Likes { get;  }
         public int EntityId { get;  }
         public string Title { get; }
+        public Guid ChallengeId { get; }    
 
         public IList<Media> Media;
         public IList<Comment> Comments;

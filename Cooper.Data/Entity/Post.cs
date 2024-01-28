@@ -13,5 +13,6 @@ namespace Cooper.Data.Entity
         public string Title { get; set; }
         public int Likes {get; set; }
         public int EntityId {  get; set; }
+        public Guid ChallengeId { get; set; }
     }
 }

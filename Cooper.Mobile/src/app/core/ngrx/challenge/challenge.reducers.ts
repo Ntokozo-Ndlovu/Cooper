@@ -1,24 +1,32 @@
 import { createReducer, on, Action } from "@ngrx/store"
 import { Challenge } from "src/app/core/models"
-import { reqChallenges, reqChallengesSuccess } from "./challenge.actions";
+import * as fromActions from "./challenge.actions";
 
 
 export const challengeFeatureKey = 'Challenge';
 
 export interface State {
-  challenges: Challenge[]
+  challenges: Challenge[],
+  activeChallenge: Challenge | null
 }
 
 export const initialState:State = {
-  challenges:[]
+  challenges:[],
+  activeChallenge: null
 }
 
 const challengeReducer = createReducer(initialState,
-  on(reqChallenges,(state)=>{
+  on(fromActions.reqChallenges,(state)=>{
   return state;
   }),
-  on(reqChallengesSuccess,(state,action)=>{
+  on(fromActions.reqChallengesSuccess,(state,action)=>{
     return {...state, challenges: action.challenges}
+  }),
+  on(fromActions.reqViewChallenge,(state,action)=>{
+    const activeChallenge = state.challenges.find(challenge => challenge.id == action.challengeId);
+    if(activeChallenge)
+    return {...state, activeChallenge}
+    return state;
   }));
 
 

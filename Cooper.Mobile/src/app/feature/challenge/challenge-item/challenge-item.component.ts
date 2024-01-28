@@ -14,6 +14,6 @@ export class ChallengeItemComponent  implements OnInit {
   ngOnInit() {}
 
   handleViewPosts(challenge:Challenge| undefined){
-    this.router.navigateByUrl('tabs/challenges/challenge-posts')
+    this.router.navigateByUrl('tabs/challenges/challenge-posts',{state:{challengeId:challenge?.id}})
   }
 }

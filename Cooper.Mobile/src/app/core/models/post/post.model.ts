@@ -8,6 +8,7 @@ type Post = {
     title:string,
     description:string
     like:number
-    comments:string[]
+    comments:string[],
+    challengeId:string
   }
 export {Post};

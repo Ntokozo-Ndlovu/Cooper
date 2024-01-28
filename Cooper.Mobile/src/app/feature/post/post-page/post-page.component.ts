@@ -10,11 +10,11 @@ import * as fromPost from 'src/app/core/ngrx/post'
   styleUrls: ['./post-page.component.scss'],
 })
 export class PostPageComponent  implements OnInit {
-  post?:Observable<Post[]>;
+  post$?:Observable<Post[]>;
   constructor(private store:Store) { }
 
   ngOnInit() {
-    this.post = this.store.select(fromPost.fromSelectors.selectPost);
+    this.post$ = this.store.select(fromPost.fromSelectors.selectPost);
     this.store.dispatch(fromPost.fromActions.reqPosts());
   }
 

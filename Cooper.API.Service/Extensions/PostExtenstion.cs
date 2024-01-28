@@ -13,7 +13,8 @@ namespace Cooper.API.Service.Extensions
                 Comments = post.Comments.Select(comment => new Comment(){Body = comment.Body}).ToList(),
                 Description = post.Description,
                 Like  = post.Likes,
-                Media = post.Media.Select(media => new Media() { Type = media.MediaType, Url = media.Link}).ToList() 
+                Media = post.Media.Select(media => new Media() { Type = media.MediaType, Url = media.Link}).ToList() ,
+                ChallengeId = post.ChallengeId,
             };
         }
     }
