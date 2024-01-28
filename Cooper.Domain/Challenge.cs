@@ -61,6 +61,9 @@ namespace Cooper.Domain
             var tempChallenge = _db.Challenge.FirstOrDefault(x=> x.Id == challenge.Id) ?? throw new Exception("Challenge Not Found");
             tempChallenge.Description = challenge.Description;
             tempChallenge.Name = challenge.Name;
+            tempChallenge.StartDate = challenge.StartDate;
+            tempChallenge.EndDate = challenge.EndDate;
+            tempChallenge.Price = challenge.Price;  
             _db.Challenge.Update(tempChallenge);
             _db.SaveChanges();
 

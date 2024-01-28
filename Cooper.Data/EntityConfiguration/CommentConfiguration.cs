@@ -18,6 +18,19 @@ namespace Cooper.Data.EntityConfiguration
 
             commentBuilder.Property(x => x.EntityId).IsRequired();
             commentBuilder.HasAlternateKey(x => x.EntityId);
+
+            createSeedData(commentBuilder);
+        }
+
+        private void createSeedData(EntityTypeBuilder<Comment> commentBuilder)
+        {
+
+            commentBuilder.HasData(new Comment() { Id = 1 ,Entity= 1,EntityId = 7, Body="You are the best"},
+                new Comment() { Id = 2, Entity = 1, EntityId = 8, Body = "You are the best" }
+                );
+
+
+
         }
     }
 }

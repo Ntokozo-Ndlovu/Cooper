@@ -1,5 +1,6 @@
 ﻿using Cooper.Data;
 using Cooper.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,38 +9,55 @@ using System.Threading.Tasks;
 
 namespace Cooper.Domain
 {
-    public class Entity
+    public class Entity:DomainBase
     {
-        public static CooperDbContext _db;
-        public Entity(CooperDbContext context)
-        {
-            _db = context;
+        static CooperDbContext db = new CooperDbContext();
+        public Entity(Guid id) {
+            
+            var entity = FindEntityById(id);
+            Id = entity.Id;
+            UUID = entity.UUID;
         }
 
-
-        public static  Data.Entity.Entity CreateEntity()
+        public Entity(int id)
         {
-            var changeTrack = _db.Entities.Add(new Data.Entity.Entity()
+            var entity = FindEntityById(id);
+            Id = entity.Id;
+            UUID = entity.UUID;
+        }
+
+        public static Data.Entity.Entity CreateEntity()
+        {
+            var changeTrack = db.Entities.Add(new Data.Entity.Entity()
             {
                 UUID = Guid.NewGuid()
             });
-            _db.SaveChanges();
+            db.SaveChanges();
 
             return changeTrack.Entity;
         }
 
         public static Data.Entity.Entity DeleteEntity(Data.Entity.Entity entity)
         {
-            _db.Entities.Remove(entity);
-            _db.SaveChanges();
+            db.Entities.Remove(entity);
+            db.SaveChanges();
             return entity;
         }
 
 
         public static Data.Entity.Entity FindEntityById(Guid id)
         {
-            var entity = _db.Entities.FirstOrDefault(x =>  x.UUID == id)?? throw new Exception("Entity not found");
+            var entity = db.Entities.FirstOrDefault(x =>  x.UUID == id)?? throw new Exception("Entity not found");
             return entity;
         }
+
+        public static Data.Entity.Entity FindEntityById(int id)
+        {
+            var entity =  db.Entities.FirstOrDefault(x => x.Id == id) ?? throw new Exception("Entity not found");
+            return entity;
+        }
+
+        public int Id { get; }
+        public Guid UUID { get; }
     }
 }

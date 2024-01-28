@@ -1,5 +1,6 @@
 ﻿using Cooper.API.Request.Challenge;
 using Cooper.API.Response.Challenge;
+using Cooper.API.Service.Extensions;
 using Cooper.Data;
 using Cooper.Data.Entity;
 using Cooper.Domain;
@@ -17,18 +18,11 @@ namespace Cooper.API.Service.Controllers
         }
         [HttpGet]
         [Route("challenge")]
-        public ActionResult<List<ChallengeResponse>> GetAllChallenge()
+        public ActionResult<List<FindChallengeResponse>> GetAllChallenge()
         {
             List<Data.Entity.Challenge> challenges =  Domain.Challenge.GetAllChallenges();
-            List<ChallengeResponse> result = new List<ChallengeResponse>();
-            challenges.ForEach(challenge =>
-            {
-                result.Add(new ChallengeResponse()
-                {
-                    Description = challenge.Description,
-                    Name = challenge.Name
-                });
-            });
+            List<FindChallengeResponse> result = new List<FindChallengeResponse>();
+            challenges.ForEach(challenge => result.Add(challenge.ToApiModel()));
             return Ok(result);
         }
 

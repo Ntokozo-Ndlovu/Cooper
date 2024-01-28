@@ -2,24 +2,35 @@
 
 namespace Cooper.Domain
 {
-    public class Post
+    public class Post: DomainBase
     {
-        public static CooperDbContext _db;
-        public Post(CooperDbContext context)
+       
+        public Post(Guid postEntityUUID)
         {
-            _db = context;
-            new Entity(context);
+            var post = FindById(postEntityUUID);
+            this.Id = post.Id;
+            this.Description = post.Description;
+            this.EntityId = post.EntityId;
+            this.Likes = post.Likes;   
+            this.Title = post.Title;
+            this.Media = Domain.Media.FindAllMediaForEntityById(postEntityUUID);
+            this.Comments = Domain.Comment.FindAllCommentForEntity(postEntityUUID);      
         }
 
-        public static Data.Entity.Post AddPost(Data.Entity.Post post) {
-            var entity = Entity.CreateEntity() ?? throw new Exception("Entity Not Created");
-            post.EntityId = entity.Id;
-            var createdPost = _db.Add(post);
-            _db.SaveChanges();
+        private Post(Data.Entity.Post post)
+        {
+            this.Id = post.Id;
+            this.Description = post.Description;
+            this.EntityId = post.EntityId;
+            this.Likes = post.Likes;
+            this.Title= post.Title;
 
-            return createdPost.Entity;
+            var postEntity = new Entity(post.EntityId);
+            this.Media = Domain.Media.FindAllMediaForEntityById(postEntity.UUID);
+            this.Comments = Domain.Comment.FindAllCommentForEntity(postEntity.UUID);
 
         }
+
     
         public static Data.Entity.Post FindById(Guid guid)
         {
@@ -28,13 +39,13 @@ namespace Cooper.Domain
             return post;
         }
 
-        public static List<Data.Entity.Post> FindAllPost()
+        public static List<Post> FindAllPost()
         {
-            List<Data.Entity.Post> list = _db.Post.ToList(); 
+            List<Post> list = _db.Post.Select(post => new Post(post)).ToList(); 
             return list;
         }
         
-        public static Data.Entity.Post DeletePost(Guid guid)
+        public static Post DeletePost(Guid guid)
         {
             var entity = _db.Entities.FirstOrDefault(x => x.UUID == guid) ?? throw new Exception("Entity not found");
             var post = _db.Post.FirstOrDefault(x => x.EntityId == entity.Id) ?? throw new Exception("Post not found");            
@@ -42,7 +53,7 @@ namespace Cooper.Domain
             Entity.DeleteEntity(entity);
             _db.Post.Remove(post);
             _db.SaveChanges();
-            return post;
+            return new Post(post);
         }
 
         public static Data.Entity.Post UpdatePost(Data.Entity.Post post)
@@ -54,5 +65,23 @@ namespace Cooper.Domain
             _db.SaveChanges();
             return tempPost;
         }
+
+        public static Post Create(Data.Entity.Post post)
+        {
+            var entity = Entity.CreateEntity() ?? throw new Exception("Entity Not Created");
+            post.EntityId = entity.Id;
+            var createdPost = _db.Add(post);
+            _db.SaveChanges();
+
+            return new Post(createdPost.Entity);
+        }
+        public int Id { get;  }
+        public string Description { get;  }
+        public int Likes { get;  }
+        public int EntityId { get;  }
+        public string Title { get; }
+
+        public IList<Media> Media;
+        public IList<Comment> Comments;
     }
 }

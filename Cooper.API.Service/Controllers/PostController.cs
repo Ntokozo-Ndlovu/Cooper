@@ -2,6 +2,8 @@
 using Cooper.API.Response.Post;
 using Cooper.Data;
 using Cooper.Data.Entity;
+using Cooper.Domain;
+using Cooper.API.Service.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cooper.API.Service.Controllers
@@ -11,13 +13,14 @@ namespace Cooper.API.Service.Controllers
     {
 
         public PostController(CooperDbContext context) {
-            _ = new Cooper.Domain.Post(context);
+            new DomainBase(context);
         }
+
         [HttpGet]
         [Route("post/{postId}")]
         public ActionResult<FindPostResponse> GetPostById(Guid postId)
         {
-            var post = Domain.Post.FindById(postId);
+            var post = new Domain.Post(postId);
             var response = new FindPostResponse()
             {
                 Description = post.Description,
@@ -33,23 +36,23 @@ namespace Cooper.API.Service.Controllers
             List<FindPostResponse> list = new List<FindPostResponse>();
 
             var postList = Domain.Post.FindAllPost();
-            postList.ForEach(x =>
+            postList.ForEach(post =>
             {
-                list.Add(new FindPostResponse() { Description = x.Description, Like = x.Likes});
+                list.Add(post.ToApiModel());
             });
             return Ok(list);
         }
 
         [HttpPost]
         [Route("post")]
-        public ActionResult<Post> CreatePost([FromBody] Request.Post.CreatePostRequest post)
+        public ActionResult<Domain.Post> CreatePost([FromBody] Request.Post.CreatePostRequest post)
         {
-            var newPost = new Post()
+            var newPost = new Data.Entity.Post()
             {
                 Description = post.Description,
                 Likes = post.Likes
             };
-            var createdPost = Cooper.Domain.Post.AddPost(newPost);
+            var createdPost = Domain.Post.Create(newPost);
             return Ok(createdPost);
         }
 

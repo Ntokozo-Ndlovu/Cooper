@@ -14,7 +14,7 @@ namespace Cooper.API.Response.Challenge
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime StartDate { get; set; }
-        public DataType EndDate {  get; set; }
-        public string Price { get; set; }
+        public DateTime EndDate {  get; set; }
+        public float Price { get; set; }
     }
 }

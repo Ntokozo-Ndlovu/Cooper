@@ -18,6 +18,9 @@ namespace Cooper.Data.EntityConfiguration
 
             postBuilder.Property(x => x.EntityId).IsRequired();
             postBuilder.HasAlternateKey(x => x.EntityId);
+
+            postBuilder.HasData(new Post { Id = 1 ,Title="Hello Wold", Description = "School Post", Likes = 12, EntityId= 1 });
+
         }
     }
 }

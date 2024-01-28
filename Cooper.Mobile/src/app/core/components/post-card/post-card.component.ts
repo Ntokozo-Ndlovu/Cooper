@@ -12,4 +12,16 @@ export class PostCardComponent  implements OnInit {
 
   ngOnInit() {}
 
+  likePost() {
+    console.log('Liked the Post')
+  }
+
+
+  commentOnPost() {
+    console.log('Commented on Post')
+  }
+
+  sharePost() {
+    console.log("Share the post")
+  }
 }

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cooper.Data\Cooper.Data.csproj" />
+    <ProjectReference Include="..\Cooper.Domain\Cooper.Domain.csproj" />
   </ItemGroup>
 
 </Project>

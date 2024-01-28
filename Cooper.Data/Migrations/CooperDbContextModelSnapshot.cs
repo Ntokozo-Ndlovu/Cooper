@@ -71,6 +71,9 @@ namespace Cooper.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("EntityId")
                         .HasColumnType("integer");
 
@@ -78,11 +81,52 @@ namespace Cooper.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("Id");
 
                     b.HasAlternateKey("EntityId");
 
                     b.ToTable("Challenge");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ChallengeGuid = new Guid("3d7e87a2-a92b-435c-b624-5e8f6cf3f8d8"),
+                            Description = "Please take a good soccer photo",
+                            EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EntityId = 9,
+                            Name = "Best Soccer Picture",
+                            Price = 11f,
+                            StartDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ChallengeGuid = new Guid("f9ea64d6-8ab4-4968-83d2-5e95d5b6a6de"),
+                            Description = "Please take a nice picture eating out",
+                            EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EntityId = 10,
+                            Name = "Best Steers Picture",
+                            Price = 12f,
+                            StartDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ChallengeGuid = new Guid("641d1a06-728c-4703-81b4-02028964665c"),
+                            Description = "Please take a nice picture eating out",
+                            EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EntityId = 11,
+                            Name = "Best Sunday Chill Picture",
+                            Price = 13f,
+                            StartDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Cooper.Data.Entity.Comment", b =>
@@ -97,6 +141,9 @@ namespace Cooper.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("Entity")
+                        .HasColumnType("integer");
+
                     b.Property<int>("EntityId")
                         .HasColumnType("integer");
 
@@ -105,6 +152,22 @@ namespace Cooper.Data.Migrations
                     b.HasAlternateKey("EntityId");
 
                     b.ToTable("Comment");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Body = "You are the best",
+                            Entity = 1,
+                            EntityId = 7
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Body = "You are the best",
+                            Entity = 1,
+                            EntityId = 8
+                        });
                 });
 
             modelBuilder.Entity("Cooper.Data.Entity.Entity", b =>
@@ -121,6 +184,63 @@ namespace Cooper.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Entities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            UUID = new Guid("b04f4e79-616d-4ed4-9d57-5b17a7dfbce7")
+                        },
+                        new
+                        {
+                            Id = 2,
+                            UUID = new Guid("d1d2b9ef-ae69-4812-8d9c-cd6d72bbf8c7")
+                        },
+                        new
+                        {
+                            Id = 3,
+                            UUID = new Guid("8ac86909-e3de-4b85-9625-ac0865935e31")
+                        },
+                        new
+                        {
+                            Id = 4,
+                            UUID = new Guid("021d201a-351d-4b6d-a93a-3e81cd4ae091")
+                        },
+                        new
+                        {
+                            Id = 5,
+                            UUID = new Guid("8cf66b38-cce1-4490-9104-e4fd95805583")
+                        },
+                        new
+                        {
+                            Id = 6,
+                            UUID = new Guid("71217ece-6739-4054-8662-0db3a02accd3")
+                        },
+                        new
+                        {
+                            Id = 7,
+                            UUID = new Guid("083613e3-1e38-4ae1-8f6e-4b38ec186189")
+                        },
+                        new
+                        {
+                            Id = 8,
+                            UUID = new Guid("2554e0c3-5f7c-4d36-95d9-add69567b788")
+                        },
+                        new
+                        {
+                            Id = 9,
+                            UUID = new Guid("002ff885-d2fd-4050-952d-ac018738f2ee")
+                        },
+                        new
+                        {
+                            Id = 10,
+                            UUID = new Guid("d1344d9b-1644-4cdf-871d-26e3ff23f577")
+                        },
+                        new
+                        {
+                            Id = 11,
+                            UUID = new Guid("1311ded0-a92e-4c58-bf6d-539e64119a96")
+                        });
                 });
 
             modelBuilder.Entity("Cooper.Data.Entity.Media", b =>
@@ -130,6 +250,9 @@ namespace Cooper.Data.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Entity")
+                        .HasColumnType("integer");
 
                     b.Property<int>("EntityId")
                         .HasColumnType("integer");
@@ -149,6 +272,44 @@ namespace Cooper.Data.Migrations
                     b.HasAlternateKey("EntityId");
 
                     b.ToTable("Media");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Entity = 1,
+                            EntityId = 2,
+                            Link = "https://imageio.forbes.com/specials-images/imageserve/5d35eacaf1176b0008974b54/2020-Chevrolet-Corvette-Stingray/0x0.jpg?format=jpg&crop=4560,2565,x790,y784,safe&width=960",
+                            MediaGuid = new Guid("ba56b848-c6d3-4aa6-97b1-f26a5ef0b761"),
+                            MediaType = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Entity = 1,
+                            EntityId = 3,
+                            Link = "https://carwow-uk-wp-3.imgix.net/18015-MC20BluInfinito-scaled-e1666008987698.jpg",
+                            MediaGuid = new Guid("953f1b42-9546-4e5b-9b35-6749e9c16382"),
+                            MediaType = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Entity = 1,
+                            EntityId = 4,
+                            Link = "https://cdn.motor1.com/images/mgl/JO94P6/s1/most-expensive-cars-in-the-world.jpg",
+                            MediaGuid = new Guid("292aef0d-6c99-4df9-ae62-34de9fe6d324"),
+                            MediaType = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Entity = 1,
+                            EntityId = 5,
+                            Link = "https://carwow-uk-wp-3.imgix.net/18015-MC20BluInfinito-scaled-e1666008987698.jpg",
+                            MediaGuid = new Guid("c11e2a91-ee47-45bf-9f31-656581202f02"),
+                            MediaType = 0
+                        });
                 });
 
             modelBuilder.Entity("Cooper.Data.Entity.Person", b =>
@@ -202,11 +363,25 @@ namespace Cooper.Data.Migrations
                     b.Property<int>("Likes")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasAlternateKey("EntityId");
 
                     b.ToTable("Post");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "School Post",
+                            EntityId = 1,
+                            Likes = 12,
+                            Title = "Hello Wold"
+                        });
                 });
 
             modelBuilder.Entity("Cooper.Data.Entity.Username", b =>
