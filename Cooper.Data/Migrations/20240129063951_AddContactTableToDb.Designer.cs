@@ -3,6 +3,7 @@ using System;
 using Cooper.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Cooper.Data.Migrations
 {
     [DbContext(typeof(CooperDbContext))]
-    partial class CooperDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240129063951_AddContactTableToDb")]
+    partial class AddContactTableToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -182,9 +184,6 @@ namespace Cooper.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("EntityId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("text");
@@ -213,97 +212,97 @@ namespace Cooper.Data.Migrations
                         new
                         {
                             Id = 1,
-                            UUID = new Guid("4a6c3d56-1dd3-46f4-bc32-c0989abd37ad")
+                            UUID = new Guid("37e20c2b-e8c9-4876-b846-c79cdc38f9c6")
                         },
                         new
                         {
                             Id = 12,
-                            UUID = new Guid("c2743596-76d2-4761-ae9e-1187268da476")
+                            UUID = new Guid("5d1767ad-3245-4125-aaa0-d2c6114d9f07")
                         },
                         new
                         {
                             Id = 13,
-                            UUID = new Guid("3a4d2fa2-f5d9-43eb-9f4c-704d6e2d7522")
+                            UUID = new Guid("39232259-d315-45f9-936c-6c91da1294a4")
                         },
                         new
                         {
                             Id = 14,
-                            UUID = new Guid("bf9360df-2f51-4786-aaaa-2e16dd3d4b54")
+                            UUID = new Guid("a66b8017-edaa-48c4-a185-8cb05b8857f3")
                         },
                         new
                         {
                             Id = 15,
-                            UUID = new Guid("e9f1e3bf-485e-4be7-9736-d42b2e62375a")
+                            UUID = new Guid("c7f664be-5e1a-4154-9c14-f58f3dd6ae49")
                         },
                         new
                         {
                             Id = 2,
-                            UUID = new Guid("f3f6828b-ee7d-4a36-ad66-2107aac3421a")
+                            UUID = new Guid("d496fe83-abd9-4e17-baff-53da16d0fb6f")
                         },
                         new
                         {
                             Id = 3,
-                            UUID = new Guid("8c67c58c-50b5-4882-ac19-0d4bf034b8ad")
+                            UUID = new Guid("93ef4a87-41c3-4f9a-b0bb-8815d7a6a64b")
                         },
                         new
                         {
                             Id = 4,
-                            UUID = new Guid("f2e9d792-7df9-4af2-99f9-0062c2bd037a")
+                            UUID = new Guid("de3dca09-50ae-4220-ba89-2263430c43d2")
                         },
                         new
                         {
                             Id = 5,
-                            UUID = new Guid("06c006bb-1dae-4a36-9f57-f6f0fc83f685")
+                            UUID = new Guid("e34eef3e-48d9-494c-99c8-390f47cb38a1")
                         },
                         new
                         {
                             Id = 6,
-                            UUID = new Guid("77e9d4c5-dae4-4acc-82ba-04f5e6372dde")
+                            UUID = new Guid("ec2e7b3e-f7c4-49c5-b84c-2cba38918f88")
                         },
                         new
                         {
                             Id = 16,
-                            UUID = new Guid("ae09db8e-2c2b-4b71-84e5-55d436638b31")
+                            UUID = new Guid("f03ba457-bdce-4d48-86b6-7141e083a756")
                         },
                         new
                         {
                             Id = 17,
-                            UUID = new Guid("2588ffe0-fc48-417f-a5a4-835a8ec4adcd")
+                            UUID = new Guid("63b73088-a9c0-4845-81d4-b13535b1888a")
                         },
                         new
                         {
                             Id = 18,
-                            UUID = new Guid("098a9339-88ef-4631-a3a4-5de65e9869be")
+                            UUID = new Guid("42e5ad0d-865c-4c05-8a39-5569689e767a")
                         },
                         new
                         {
                             Id = 19,
-                            UUID = new Guid("c4ab4e6c-b1fb-4fe9-8f9c-be14f57551a1")
+                            UUID = new Guid("a4234f8c-569c-43c6-9d9a-bf48b42450e0")
                         },
                         new
                         {
                             Id = 7,
-                            UUID = new Guid("1769bffa-ecff-4d4d-9df1-57e020aae5aa")
+                            UUID = new Guid("8d573e16-db45-4750-954c-3c4146457eff")
                         },
                         new
                         {
                             Id = 8,
-                            UUID = new Guid("d6d205f0-8ad9-4d45-8258-089eb6371175")
+                            UUID = new Guid("d9ac9bda-d772-48d3-8e5b-e051aec8c48b")
                         },
                         new
                         {
                             Id = 9,
-                            UUID = new Guid("41174498-7afe-4ff6-ad9c-d056ae618e49")
+                            UUID = new Guid("1e7cfb9d-f985-4e58-aa54-fb8605dc25a3")
                         },
                         new
                         {
                             Id = 10,
-                            UUID = new Guid("431802af-9df1-465b-a240-7b277088ab2c")
+                            UUID = new Guid("e14705dc-198c-4b73-aecd-04d91865d951")
                         },
                         new
                         {
                             Id = 11,
-                            UUID = new Guid("2a93ae7f-f0b8-4226-929c-a3c6775f4b51")
+                            UUID = new Guid("07b08d2e-2ce8-44ff-9c74-15bf8ac0a7f3")
                         });
                 });
 
@@ -344,7 +343,7 @@ namespace Cooper.Data.Migrations
                             Entity = 12,
                             EntityId = 2,
                             Link = "https://imageio.forbes.com/specials-images/imageserve/5d35eacaf1176b0008974b54/2020-Chevrolet-Corvette-Stingray/0x0.jpg?format=jpg&crop=4560,2565,x790,y784,safe&width=960",
-                            MediaGuid = new Guid("e68bac28-3d61-4bf5-9624-28a11e39751c"),
+                            MediaGuid = new Guid("c9c9e611-dd23-4df6-90e0-992727ec3378"),
                             MediaType = 0
                         },
                         new
@@ -353,7 +352,7 @@ namespace Cooper.Data.Migrations
                             Entity = 12,
                             EntityId = 3,
                             Link = "https://carwow-uk-wp-3.imgix.net/18015-MC20BluInfinito-scaled-e1666008987698.jpg",
-                            MediaGuid = new Guid("7b800aa6-a349-413e-be8d-8aab827614eb"),
+                            MediaGuid = new Guid("69ca9243-c290-44ba-beb2-7863ad50407a"),
                             MediaType = 0
                         },
                         new
@@ -362,7 +361,7 @@ namespace Cooper.Data.Migrations
                             Entity = 12,
                             EntityId = 4,
                             Link = "https://cdn.motor1.com/images/mgl/JO94P6/s1/most-expensive-cars-in-the-world.jpg",
-                            MediaGuid = new Guid("5678e46c-8313-48b9-9467-71458782aee0"),
+                            MediaGuid = new Guid("01d07660-2dbe-40b3-93f9-7e9c3c23ba17"),
                             MediaType = 0
                         },
                         new
@@ -371,7 +370,7 @@ namespace Cooper.Data.Migrations
                             Entity = 12,
                             EntityId = 5,
                             Link = "https://carwow-uk-wp-3.imgix.net/18015-MC20BluInfinito-scaled-e1666008987698.jpg",
-                            MediaGuid = new Guid("f45348ed-43da-461e-b760-7c9a470a27bb"),
+                            MediaGuid = new Guid("01e24ffb-1197-457d-9ff9-9328dec6001f"),
                             MediaType = 0
                         },
                         new
@@ -380,7 +379,7 @@ namespace Cooper.Data.Migrations
                             Entity = 14,
                             EntityId = 6,
                             Link = "https://i.abcnewsfe.com/a/aae2e440-73a2-4252-a4c9-c7d27f0efda7/mcdonalds-gty-thg-230728_1690559943139_hpMain.jpg",
-                            MediaGuid = new Guid("78cd9b66-bd0b-4df5-8f2c-371c20ff90bd"),
+                            MediaGuid = new Guid("603c8bc4-74a5-448f-95e8-b375c25d9526"),
                             MediaType = 0
                         },
                         new
@@ -389,7 +388,7 @@ namespace Cooper.Data.Migrations
                             Entity = 14,
                             EntityId = 7,
                             Link = "https://www.allrecipes.com/thmb/3YpMeC2Za5PkXZFnlNFaBOCtC3c=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/mcdonalds-store-front-4x3-0a58d7e370ce48f7b050203fd478c407.png",
-                            MediaGuid = new Guid("88fee955-f781-4b1d-ac98-7e0f31ff207d"),
+                            MediaGuid = new Guid("9d9015c5-325f-4c12-a0e5-e34c5119cef2"),
                             MediaType = 0
                         },
                         new
@@ -398,7 +397,7 @@ namespace Cooper.Data.Migrations
                             Entity = 15,
                             EntityId = 8,
                             Link = "https://www.foodandwine.com/thmb/K_t1B_xBKIKYm_ZoNIEqaBvuXcQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Burger-King-Everything-Seasoned-Bun-FT-BLOG0922-c8c7859b9c794c42af7700b5b957a874.jpg",
-                            MediaGuid = new Guid("f5ee9568-43fe-47d8-bef9-97caf2df3650"),
+                            MediaGuid = new Guid("4ef9b2b0-56c3-43fd-86ff-49265fc8a3e4"),
                             MediaType = 0
                         },
                         new
@@ -407,7 +406,7 @@ namespace Cooper.Data.Migrations
                             Entity = 15,
                             EntityId = 9,
                             Link = "https://www.thestreet.com/.image/ar_16:9%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTg3NTA5NzAzMTQ2NzQzMzU2/burger-king-yeti-super-one-pound-beef-burger.jpg",
-                            MediaGuid = new Guid("64812249-3c1d-42f0-9d47-91733a20c5c9"),
+                            MediaGuid = new Guid("edb265b8-f5ed-41d8-800b-417341dcaa3e"),
                             MediaType = 0
                         },
                         new
@@ -416,7 +415,7 @@ namespace Cooper.Data.Migrations
                             Entity = 1,
                             EntityId = 16,
                             Link = "https://media-cdn.tripadvisor.com/media/photo-s/11/70/80/ac/chciken.jpg",
-                            MediaGuid = new Guid("7bcb74bf-8fcd-4d73-a45a-74bc4ca0858c"),
+                            MediaGuid = new Guid("91a0b79e-4972-4811-91ca-92d870b4cb9b"),
                             MediaType = 0
                         },
                         new
@@ -425,7 +424,7 @@ namespace Cooper.Data.Migrations
                             Entity = 1,
                             EntityId = 17,
                             Link = "https://www.kimberley.co.za/wp-content/uploads/2022/01/38784_STEERS-AsPhande_Sharing_Meal_Promotion-20220113-KCP-SP-v1_00a.jpg",
-                            MediaGuid = new Guid("2e48ce70-18a0-4816-85d0-f51938391339"),
+                            MediaGuid = new Guid("bfdb92eb-e11b-4b96-a356-a8c835d8c4d9"),
                             MediaType = 0
                         });
                 });
@@ -570,7 +569,7 @@ namespace Cooper.Data.Migrations
 
                     b.HasAlternateKey("EntityId");
 
-                    b.ToTable("User");
+                    b.ToTable("Username");
                 });
 #pragma warning restore 612, 618
         }

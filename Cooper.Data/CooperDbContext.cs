@@ -42,8 +42,8 @@ namespace Cooper.Data
             modelBuilder.ApplyConfiguration(new MediaConfiguration());
             modelBuilder.ApplyConfiguration(new PersonConfiguration());
             modelBuilder.ApplyConfiguration(new PostConfiguration());
-            modelBuilder.ApplyConfiguration(new UsernameConfiguration());
-
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new ContactConfiguration());
             //Configuring relationships
 
         }
@@ -54,7 +54,8 @@ namespace Cooper.Data
         public DbSet<Media> Media { get; set; }
         public DbSet<Person> Person { get; set; }
         public DbSet<Post> Post { get; set; }
-        public DbSet<Username> Username { get; set; }
+        public DbSet<Contact> Contact { get; set; }
+        public DbSet<User> User { get; set; }
         public DbSet<Comment> Comment { get; set; }
 
     }

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cooper.Domain
+namespace Cooper.API.Response.User
 {
-    internal class Username
+    public class CreateUserResponse
     {
+        public Guid UserID { get; set; }
     }
 }

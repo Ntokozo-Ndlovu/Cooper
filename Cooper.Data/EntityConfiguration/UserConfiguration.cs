@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Cooper.Data.EntityConfiguration
 {
-    public class UsernameConfiguration: IEntityTypeConfiguration<Username>
+    public class UserConfiguration: IEntityTypeConfiguration<User>
     {
-        public void Configure(EntityTypeBuilder<Username> usernameBuilder)
+        public void Configure(EntityTypeBuilder<User> usernameBuilder)
         {
             usernameBuilder.HasKey(x => x.Id);
             usernameBuilder.Property(x => x.Id).IsRequired();
