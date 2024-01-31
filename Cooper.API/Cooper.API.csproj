@@ -11,4 +11,9 @@
     <ProjectReference Include="..\Cooper.Domain\Cooper.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Request\User\" />
+    <Folder Include="Response\User\" />
+  </ItemGroup>
+
 </Project>

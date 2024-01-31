@@ -44,6 +44,7 @@ namespace Cooper.Data
             modelBuilder.ApplyConfiguration(new PostConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new ContactConfiguration());
+            modelBuilder.ApplyConfiguration(new PasswordConfiguration());   
             //Configuring relationships
 
         }
@@ -57,6 +58,7 @@ namespace Cooper.Data
         public DbSet<Contact> Contact { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Comment> Comment { get; set; }
+        public DbSet<Password> Password { get; set; }
 
     }
 }

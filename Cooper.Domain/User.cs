@@ -15,6 +15,7 @@ namespace Cooper.Domain
             this.PersonId = user.PersonId;
             this.ContactId = user.ContactId;
             this.EntityId = user.EntityId;  
+            
         }
 
         private User(Data.Entity.User user, Guid userUUID)
@@ -28,12 +29,19 @@ namespace Cooper.Domain
             this.UserUUID = userUUID;
         }
 
+        public static User FindUserName(string username)
+        {
+            
+            var user = _db.User.FirstOrDefault(user => user.UserName == username) ?? throw new Exception("User does not exists");
+            var entity = Entity.FindEntityById(user.EntityId);
+            return new User(user, entity.UUID);
+        }
 
         public static User FindByUserUUID(Guid uuid)
         {
             var entity = Entity.FindEntityById(uuid);
-            var user = _db.User.FirstOrDefault(user => user.EntityId == entity.Id);
-            return user == null ? throw new Exception("User not Found") : new User(user, entity.UUID);
+            var user = _db.User.FirstOrDefault(user => user.EntityId == entity.Id) ?? throw new Exception("User not found");
+            return new User(user, entity.UUID);
         }
 
 

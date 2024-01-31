@@ -1,7 +1,7 @@
 
 using System.Runtime.CompilerServices;
-using Cooper.API.Request.User;
-using Cooper.API.Response.User;
+using Cooper.API.Request.Auth;
+using Cooper.API.Response.Auth;
 
 namespace Cooper.API.Service.Extensions
 {
@@ -39,12 +39,29 @@ namespace Cooper.API.Service.Extensions
             };
         }
 
+        public static Data.Entity.Password ToPasswordEntity(this UserPassword userPassword)
+        {
+            return new Data.Entity.Password()
+            {
+                PasswordKey = userPassword.Password
+            };
+        }
+        public static LoginResponse ToApiModel(this LoginResponse response)
+        {
+            return response;
+        }
+
         public static CreateUserResponse ToApiModel(this Domain.User user)
         {
             return new CreateUserResponse()
             {
                 UserID = user.UserUUID
             };
+        }
+
+        public static CreateUserResponse ToApiModel(this CreateUserResponse response)
+        {
+            return response;
         }
 
     }

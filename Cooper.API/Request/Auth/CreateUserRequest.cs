@@ -1,5 +1,4 @@
-﻿
-namespace Cooper.API.Request.User
+﻿namespace Cooper.API.Request.Auth
 {
     public class CreateUserRequest
     {
@@ -7,10 +6,17 @@ namespace Cooper.API.Request.User
         public Address Address { get; set; }
         public Contact Contact { get; set; }
         public Person Person { get; set; }
+        public UserPassword Password { get; set; }
 
     }
 
-    public class Address {
+    public class UserPassword
+    {
+        public string Password { get; set; }
+    }
+
+    public class Address
+    {
         public string StreetName { get; set; }
         public string Suburb { get; set; }
         public string City { get; set; }

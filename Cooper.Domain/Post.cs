@@ -4,7 +4,7 @@ namespace Cooper.Domain
 {
     public class Post: DomainBase
     {
-       
+       public static CooperDbContext _db = new CooperDbContext();
         public Post(Guid postEntityUUID)
         {
             var post = FindById(postEntityUUID);

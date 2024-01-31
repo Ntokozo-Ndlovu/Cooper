@@ -8,8 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cooper.API.Service.Controllers
 {
-    [Route("/api/v1")]
-    public class ChallengeController: ControllerBase
+    public class ChallengeController: BaseController
     {
 
 

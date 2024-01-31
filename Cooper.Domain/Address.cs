@@ -24,8 +24,8 @@ namespace Cooper.Domain
 
 
         public static Address FindByEntityId(int entityId) {
-        var address = _db.Address.FirstOrDefault(a => a.EntityId == entityId);
-        return address == null ? throw new Exception("Not Found"): new Address(address);
+        var address = _db.Address.FirstOrDefault(a => a.EntityId == entityId) ?? throw new Exception("Address Not Found");
+        return new Address(address);
         }
 
 

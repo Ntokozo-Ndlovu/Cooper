@@ -33,8 +33,8 @@ namespace Cooper.Domain
         
         public static Contact FindEntityById(int entityId)
         {
-            var contact = _db.Contact.FirstOrDefault(contact => contact.EntityId == entityId);
-            return contact == null ? throw new Exception("Not Found") : new Contact(contact);
+            var contact = _db.Contact.FirstOrDefault(contact => contact.EntityId == entityId) ?? throw new Exception("Contact Not Found") ;
+            return new Contact(contact);
         }
 
         public int Id { get;  }

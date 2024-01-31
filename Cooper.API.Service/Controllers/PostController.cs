@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cooper.API.Service.Controllers
 {
-    [Route("api/v1")]
-    public class PostController : ControllerBase
+
+    public class PostController : BaseController
     {
 
         public PostController(CooperDbContext context) {

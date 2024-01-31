@@ -23,12 +23,7 @@ namespace Cooper.Domain
         }
         public static Data.Entity.Media GetById(int id)
         {
-            var media = _context.Media.FirstOrDefault(media => media.Id == id);
-
-            if (media == null)
-            {
-                throw new Exception("Media not found");
-            }
+            var media = _context.Media.FirstOrDefault(media => media.Id == id) ?? throw new Exception("Media not found"); 
             return media;
         }
 
