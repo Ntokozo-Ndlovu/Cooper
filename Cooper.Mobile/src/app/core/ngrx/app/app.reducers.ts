@@ -15,13 +15,11 @@ const initialState:State = {
 
 
 const appReducer = createReducer(initialState,
-  on(fromActions.reqAppAuthenticatedSuccessful, (state,action)=>{
-    const newState = {...state, authenticated:true, userId:action.userId}
-    return newState
-  }));
-
-
-
+ // on(fromActions.reqAppAuthenticatedSuccessful, (state,action)=>{
+  //  const newState = {...state, authenticated:true, userId:action.userId}
+  //  return newState
+  //})
+  );
 
 
 export const reducer = (state= initialState,action:Action)=>{

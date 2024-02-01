@@ -1,9 +1,10 @@
 <ion-content>
+  <form [formGroup]="addressForm">
   <ion-item>
     <ion-label>
       StreetName
     </ion-label>
-    <ion-input>
+    <ion-input formControlName="streetName" name="streetname">
     </ion-input>
   </ion-item>
 
@@ -11,7 +12,7 @@
     <ion-label>
       Suburb
     </ion-label>
-    <ion-input>
+    <ion-input formControlName="suburb" name="suburb">
     </ion-input>
   </ion-item>
 
@@ -19,7 +20,7 @@
     <ion-label>
       City
     </ion-label>
-    <ion-input>
+    <ion-input formControlName="city" name="suburb">
     </ion-input>
   </ion-item>
 
@@ -27,9 +28,9 @@
     <ion-label>
       Postal Code
     </ion-label>
-    <ion-input>
+    <ion-input formControlName="postalCode" name="postalCode">
     </ion-input>
   </ion-item>
 
-
+</form>
 </ion-content>

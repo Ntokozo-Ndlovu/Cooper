@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SignUpBioPageComponent } from '../sign-up-bio-page/sign-up-bio-page.component';
+import { SignUpPersonPageComponent } from '../sign-up-person-page/sign-up-person-page.component';
+import * as fromAuth from 'src/app/core/ngrx/auth';
+import { Store } from '@ngrx/store';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -9,10 +12,13 @@ import { SignUpBioPageComponent } from '../sign-up-bio-page/sign-up-bio-page.com
 })
 export class SignUpPageComponent  implements OnInit {
 
- rootComponent = SignUpBioPageComponent;
-  constructor(private router:Router) { }
+  rootComponent = SignUpPersonPageComponent;
+  constructor(private router:Router, private store:Store) { }
 
   ngOnInit() {
+    this.store.select(fromAuth.fromSelectors.registerFormSelector).subscribe(value=>{
+      console.log('Value changes: ', value);
+    })
   }
 
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
-import { SignUpBioPageComponent } from './sign-up-bio-page/sign-up-bio-page.component';
+import { SignUpPersonPageComponent } from './sign-up-person-page/sign-up-person-page.component';
 import { SignUpAddressPageComponent } from './sign-up-address-page/sign-up-address-page.component';
 import { SignUpContactPageComponent } from './sign-up-contact-page/sign-up-contact-page.component';
 
@@ -11,7 +11,7 @@ const routes:Routes = [{
   children:[
     {
       path:'sign-up-bio',
-      component:SignUpBioPageComponent
+      component:SignUpPersonPageComponent
     },
     {
       path:'sign-up-address',
