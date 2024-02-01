@@ -4,6 +4,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
 import { ChallengeEffects } from './challenge/challenge.effects';
 import { PostEffects } from './post/post.effects';
+import { AuthEffects } from './auth/auth.effects';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { PostEffects } from './post/post.effects';
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([
       ChallengeEffects,
-      PostEffects
+      PostEffects,
+      AuthEffects
   ])
   ]
 })
