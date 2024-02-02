@@ -9,7 +9,26 @@ export interface State {
 }
 
 const initialState:State = {
-  registerForm:{}
+  registerForm:{
+    userName:'',
+    address:{
+      streetName:'',
+      suburb:'',
+      city:'',
+      postalCode:''
+    },
+    contact:{
+      email:'',
+      phoneNumber:''
+    },
+    password:{password:''},
+    person:{
+      name:'',
+      surname:'',
+      age:0,
+      gender:'male'
+    },
+  }
 }
 
 const authReducer = createReducer(initialState,
@@ -19,6 +38,7 @@ const authReducer = createReducer(initialState,
     return newState
   }),
   on(fromActions.completeContactForm,(state,action)=>{
+    console.log('Contact: ', action.contacts)
     const registerForm = {...state.registerForm, contacts:action.contacts};
     const newState = {...state,registerForm};
     return newState;

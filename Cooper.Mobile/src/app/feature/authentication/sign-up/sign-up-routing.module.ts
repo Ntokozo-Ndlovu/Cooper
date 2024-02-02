@@ -10,7 +10,7 @@ const routes:Routes = [{
   component:SignUpPageComponent,
   children:[
     {
-      path:'sign-up-bio',
+      path:'sign-up-person',
       component:SignUpPersonPageComponent
     },
     {
