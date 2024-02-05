@@ -10,3 +10,7 @@ export const personFormSelector = createSelector(authFeatureState,(state)=>{retu
 export const contactFormSelector = createSelector(authFeatureState,state => state.registerForm.contact);
 
 export const addressFormSelector = createSelector(authFeatureState,state=> state.registerForm.address);
+
+export const signUpPagesUrls = createSelector(authFeatureState,(state)=>{return state.signUpPages.map(page => page.url)});
+
+export const signUpPagesValid = createSelector(authFeatureState,(state)=> state.signUpPages);

@@ -11,6 +11,8 @@ export const reqRegisterUser = createAction('[From Sign Up Page] Register a new 
 
 export const completePersonForm = createAction('[From SignUp Person Page] Person form complete',props<Partial<{username:string,person:Person,password:Password}>>());
 
+export const validateFormPage = createAction('[From SignUp] Person form valid', props<{url:string,valid:boolean}>())
+
 export const completeContactForm = createAction('[From SignUp Contact Page] Contact form complete',props<{contacts:Contact}>());
 
 export const completeAddressForm = createAction('[From SignUp Address Page] Address form complete',props<{address:Address}>());

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { Address } from 'src/app/core/interface/http/auth/sign-up.interface';
@@ -15,17 +16,22 @@ export class SignUpAddressPageComponent  implements OnInit,OnDestroy {
   addressForm:FormGroup;
   destroy$:EventEmitter<unknown> = new  EventEmitter();
 
-  constructor(formBuilder:FormBuilder, private store:Store) {
+  constructor(formBuilder:FormBuilder,private router:Router, private store:Store) {
     this.addressForm = formBuilder.group({
       streetName:[''],
       suburb:[''],
-      city:[''],
-      postalCode:['']
+      city:['',Validators.required],
+      postalCode:['',Validators.required]
     })
    }
 
   ngOnInit() {
-    this.addressForm.valueChanges.pipe(debounceTime(500),takeUntil(this.destroy$)).subscribe((form)=>{
+    this.addressForm.valueChanges.pipe(
+      debounceTime(500),
+      distinctUntilChanged((a,b)=>JSON.stringify(a) == JSON.stringify(b)),
+      takeUntil(this.destroy$)).subscribe((form)=>{
+      this.addressForm.updateValueAndValidity();
+      this.store.dispatch(fromAuth.fromActions.validateFormPage({url:this.router.url, valid:this.addressForm.valid}));
       const address:Address = {
         streetName:form.streetName,
         suburb:form.suburb,
