@@ -1,14 +1,12 @@
 ﻿using Cooper.API.Common;
 
-namespace Cooper.API.Request.Auth
+namespace Cooper.API.Response.User
 {
-    public class CreateUserRequest
+    public class GetUserResponse
     {
         public string UserName { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
         public Person Person { get; set; }
-        public UserPassword Password { get; set; }
-
     }
 }

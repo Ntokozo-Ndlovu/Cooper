@@ -1,24 +1,28 @@
 import { Action, createReducer, on } from "@ngrx/store"
-import { fromActions } from ".";
+import * as  fromActions  from "./app.actions";
+import { User } from "../../models/user/user.model";
 
 export const appFeatureKey = 'AppState'
 
 export interface State {
   authenticated:boolean
-  userId:string
+  userId:string,
+  user:Partial<User>
+
 }
 
 const initialState:State = {
   authenticated: false,
-  userId:''
+  userId:'',
+  user:{}
 }
 
 
 const appReducer = createReducer(initialState,
- // on(fromActions.reqAppAuthenticatedSuccessful, (state,action)=>{
-  //  const newState = {...state, authenticated:true, userId:action.userId}
-  //  return newState
-  //})
+  on(fromActions.reqUserInformationSuccesful,(state,action)=>{
+    const newState = {...state, user:action.user}
+    return newState;
+  })
   );
 
 

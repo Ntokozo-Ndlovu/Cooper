@@ -1,7 +1,10 @@
 
 using System.Runtime.CompilerServices;
+using Cooper.API.Common;
 using Cooper.API.Request.Auth;
 using Cooper.API.Response.Auth;
+using Cooper.API.Response.User;
+using Cooper.Domain;
 
 namespace Cooper.API.Service.Extensions
 {
@@ -9,7 +12,7 @@ namespace Cooper.API.Service.Extensions
     public static class UserExtenstions
     {
 
-        public static Data.Entity.Address ToAddressEntity(this Address address)
+        public static Data.Entity.Address ToAddressEntity(this Common.Address address)
         {
             return new Data.Entity.Address()
             {
@@ -20,7 +23,7 @@ namespace Cooper.API.Service.Extensions
             };
         }
 
-        public static Data.Entity.Contact ToContactEntity(this Contact contact)
+        public static Data.Entity.Contact ToContactEntity(this Common.Contact contact)
         {
             return new Data.Entity.Contact()
             {
@@ -29,7 +32,7 @@ namespace Cooper.API.Service.Extensions
             };
         }
 
-        public static Data.Entity.Person ToPersonEntity(this Person person) {
+        public static Data.Entity.Person ToPersonEntity(this Common.Person person) {
             return new Data.Entity.Person()
             {
                 Name = person.Name,
@@ -62,6 +65,34 @@ namespace Cooper.API.Service.Extensions
         public static CreateUserResponse ToApiModel(this CreateUserResponse response)
         {
             return response;
+        }
+
+        public static GetUserResponse ToApiModel(this Domain.User user,Domain.Address address, Domain.Contact contact, Domain.Person person)
+        {
+            return new GetUserResponse(){
+                UserName = user.UserName,
+                Address = new Common.Address()
+                {
+                    StreetName = address.StreetName,
+                    Suburb = address.Suburb,
+                    City = address.City,
+                    PostalCode = address.PostalCode,
+
+                },
+             
+                Contact = new Common.Contact()
+                {
+                    Email = contact.Email,
+                    PhoneNumber = contact.PhoneNumber,
+                },
+                Person = new Common.Person()
+                {
+                    Age = person.Age,
+                    Name= person.Name,
+                    Gender = person.Gender,
+                    Surname = person.Surname,
+                }
+            };
         }
 
     }

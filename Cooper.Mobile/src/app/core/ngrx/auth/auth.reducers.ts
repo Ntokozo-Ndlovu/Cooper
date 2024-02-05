@@ -6,7 +6,9 @@ export const authFeatureKey = 'AuthState';
 
 export interface State {
   registerForm:Partial<SignUpRequest>,
-  signUpPages:{url:Readonly<string>,valid:boolean}[]
+  signUpPages:{url:Readonly<string>,valid:boolean}[],
+  registeringLoading:boolean,
+  userId:string,
 }
 
 const initialState:State = {
@@ -30,6 +32,8 @@ const initialState:State = {
       gender:'male'
     },
   },
+  userId:'',
+  registeringLoading:false,
   signUpPages: [
     {url:'/auth/signup/sign-up-person',valid:false},
     {url:'/auth/signup/sign-up-address', valid:false},
@@ -70,6 +74,19 @@ const authReducer = createReducer(initialState,
     const newState = {...state, signUpPages}
     return newState;
 
+  }),
+  on(fromActions.reqRegisterUser,(state)=>{
+    const newState = {...state,  registeringLoading:true}
+    return newState;
+  }),
+  on(fromActions.reqRegisterUserSuccessful,(state,action)=>{
+    const userId = action.userId;
+    const newState = {...state, registeringLoading:false, userId};
+    return newState;
+  }),
+  on(fromActions.reqRegisterUserFail,(state)=>{
+    const newState = {...state, registeringLoading:false};
+    return newState;
   })
 );
 

@@ -8,57 +8,102 @@
 <ion-card>
   <img alt="Silhouette of mountains" [src]="" />
 </ion-card>
-<ion-grid>
-  <ion-row>
-    <ion-col>
-      <ion-item>
-        <ion-label>Name: </ion-label>
-        <ion-input type="name" [value]="profile?.name"></ion-input>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <ion-item>
-        <ion-label>Surname: </ion-label>
-        <ion-input type="text" [value]="profile?.surname"></ion-input>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <ion-item>
-        <ion-label>Age: </ion-label>
-        <ion-input type="date" [value]="profile?.dateOfBirth"></ion-input>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <ion-item>
-        <ion-label>Bio: </ion-label>
-        <ion-input type="text" [value]="profile?.bio"></ion-input>
-      </ion-item>
-    </ion-col>
-  </ion-row>
+
+  <form [formGroup]="personForm">
+    <ion-item>
+      <ion-label>
+        Username
+      </ion-label>
+      <ion-input formControlName="username" name="username">
+      </ion-input>
+    </ion-item>
+    <ion-item>
+    <ion-label>
+      Name
+    </ion-label>
+    <ion-input formControlName="name" name="name">
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      Surname
+    </ion-label>
+    <ion-input formControlName="surname" name="surname">
+
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      age
+    </ion-label>
+    <ion-input formControlName="age" name="age">
+
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>
+      Gender
+    </ion-label>
+    <ion-input formControlName="gender" name="gender">
+
+    </ion-input>
+  </ion-item>
+  </form>
+
+  <ion-item-divider></ion-item-divider>
+  <form [formGroup]="contactForm">
+    <ion-item>
+      <ion-label>
+        Email
+      </ion-label>
+      <ion-input formControlName="email" name="email">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        Phone Number
+      </ion-label>
+      <ion-input formControlName="phonenumber" name="phonenumber">
+
+      </ion-input>
+    </ion-item>
+  </form>
   <ion-item-divider></ion-item-divider>
 
-  <ion-row>
-    <ion-col>
+    <form [formGroup]="addressForm">
       <ion-item>
-        <ion-label>Address: </ion-label>
-        <ion-input type="name"></ion-input>
+        <ion-label>
+          StreetName
+        </ion-label>
+        <ion-input formControlName="streetName" name="streetname">
+        </ion-input>
       </ion-item>
-    </ion-col>
-  </ion-row>
-</ion-grid>
 
-<!--
-      name:string,
-    surname:string,
-    profilePicture?:string,
-    age:Date,
-    address:Address,
-    bio:string
--->
+      <ion-item>
+        <ion-label>
+          Suburb
+        </ion-label>
+        <ion-input formControlName="suburb" name="suburb">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          City
+        </ion-label>
+        <ion-input formControlName="city" name="suburb">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          Postal Code
+        </ion-label>
+        <ion-input formControlName="postalCode" name="postalCode">
+        </ion-input>
+      </ion-item>
+
+    </form>
 </ion-content>

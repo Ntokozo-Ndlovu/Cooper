@@ -1,19 +1,21 @@
 <ion-content>
-<ion-item>
-<ion-label>
-UserName:
-</ion-label>
-<ion-input>
-</ion-input>
-</ion-item>
-<ion-item>
-  <ion-label>
-Password:
-  </ion-label>
-  <ion-input>
+  <form [formGroup]="loginForm">
+    <ion-item>
+      <ion-label>
+      UserName:
+      </ion-label>
+      <ion-input formControlName="username" name="username">
+      </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+      Password:
+        </ion-label>
+        <ion-input formControlName="password" name="password">
+        </ion-input>
+        </ion-item>
+      <ion-button (click)="handleLogin()">Login</ion-button>
+      <ion-button (click)="handleSignUp()">SignUP</ion-button>
+  </form>
 
-  </ion-input>
-  </ion-item>
-<ion-button>Login</ion-button>
-<ion-button (click)="handleSignUp()">SignUP</ion-button>
 </ion-content>

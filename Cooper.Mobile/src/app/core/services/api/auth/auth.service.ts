@@ -13,10 +13,10 @@ export class AuthService {
   constructor(private http:HttpGatewayService) { }
 
   register(registerRequest:SignUpRequest):Observable<SignUpResponse>{
-    return this.http.post<SignUpResponse>('/register',registerRequest)
+    return this.http.post<SignUpResponse>('register',registerRequest)
   }
 
   login(loginRequest:LoginRequest):Observable<LoginResponse>{
-    return this.http.post<LoginResponse>('/login',loginRequest)
+    return this.http.post<LoginResponse>('login',loginRequest)
   }
 }

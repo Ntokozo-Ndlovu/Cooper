@@ -33,6 +33,11 @@ namespace Cooper.Domain
             return new Person(person);
         }
 
+        public static Person FindPersonById(int id) { 
+            var entity = _db.Person.FirstOrDefault(x => x.Id == id) ?? throw new Exception("Person Not Found");
+            return new Person(entity);
+        }
+
         public static Person RemovePersonById(Guid guid)
         {
             var entity = Entity.FindEntityById(guid);

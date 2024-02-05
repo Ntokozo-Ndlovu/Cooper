@@ -16,7 +16,7 @@
       </ion-col>
       <ion-col size="6">
         <ion-button expand="full" *ngIf="(activeRoute|async)! < routes.length -1" [disabled]="!(pageValid | async)" (click)="handleNextPage()">Next</ion-button>
-        <ion-button expand="full" [disabled]="!(formValid()| async)" *ngIf="(activeRoute|async) == routes.length -1">Submit</ion-button>
+        <ion-button expand="full" [disabled]="!(formValid()| async)" *ngIf="(activeRoute|async) == routes.length -1" (click)="handleRegister()"><ion-loading *ngIf="registeringLoading | async" trigger="open-loading" spinner="circles"></ion-loading>Submit</ion-button>
       </ion-col>
     </ion-row>
     </ion-content>

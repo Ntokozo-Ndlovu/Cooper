@@ -14,3 +14,7 @@ export const addressFormSelector = createSelector(authFeatureState,state=> state
 export const signUpPagesUrls = createSelector(authFeatureState,(state)=>{return state.signUpPages.map(page => page.url)});
 
 export const signUpPagesValid = createSelector(authFeatureState,(state)=> state.signUpPages);
+
+export const registeringLoadingSelector = createSelector(authFeatureState,(state)=> state.registeringLoading);
+
+export const userIdSelector = createSelector(authFeatureState,state=> state.userId);

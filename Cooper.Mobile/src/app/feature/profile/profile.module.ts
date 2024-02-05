@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { ProfilePageRoutingModule } from './profile-page-routing.module';
 import { CommonModule } from '@angular/common';
 import { CoreModule } from '../../core/core.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -13,6 +14,7 @@ import { CoreModule } from '../../core/core.module';
     CommonModule,
     IonicModule,
     ProfilePageRoutingModule,
+    ReactiveFormsModule,
     CoreModule
   ],
   exports:[ProfilePageComponent]
