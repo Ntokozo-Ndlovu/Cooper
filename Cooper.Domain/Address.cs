@@ -28,6 +28,11 @@ namespace Cooper.Domain
         return new Address(address);
         }
 
+        public static Address FindById(int id)
+        {
+            var address = _db.Address.FirstOrDefault(x => x.Id == id) ?? throw new Exception("Address Not Found");
+            return new Address(address);
+        }
 
         public static Address Create(Data.Entity.Address address)
         {

@@ -23,11 +23,11 @@ namespace Cooper.Data.EntityConfiguration
 
             postBuilder.HasAlternateKey(x => x.EntityId);
 
-            postBuilder.HasData(new Post { Id = 1 ,Title="Steer Burger", Description = "School Post", Likes = 12, EntityId= 1, ChallengeId= Guid.Parse("a3bb21c7-9ea2-4c9b-9811-e3526856d05b") },
-                new Post { Id = 2, Title = "Ball for Soccer Peeps", Description = "Sport Cars", Likes = 20, EntityId = 12, ChallengeId = Guid.Parse("520a4d3a-e6ce-458c-8c72-360a5ffc92eb") },
-                new Post { Id = 3, Title = "Hello Wold", Description = "Everything we care about", Likes = 25, EntityId = 13, ChallengeId = Guid.Parse("162ff745-7807-4b06-8660-5c7cc89a392f") },
-                new Post { Id = 4, Title = "Mc Donalds", Description = "Best McDonald picture", Likes = 12, EntityId = 14, ChallengeId = Guid.Parse("a3bb21c7-9ea2-4c9b-9811-e3526856d05b") },
-                new Post { Id = 5, Title = "King Burger", Description = "King Burger Tastes really good", Likes = 150, EntityId = 15, ChallengeId = Guid.Parse("a3bb21c7-9ea2-4c9b-9811-e3526856d05b") });
+            postBuilder.HasData(new Post { Id = 1 ,Title="Steer Burger", Description = "School Post",  EntityId= 1, ChallengeId= Guid.Parse("a3bb21c7-9ea2-4c9b-9811-e3526856d05b") },
+                new Post { Id = 2, Title = "Ball for Soccer Peeps", Description = "Sport Cars",  EntityId = 12, ChallengeId = Guid.Parse("520a4d3a-e6ce-458c-8c72-360a5ffc92eb") },
+                new Post { Id = 3, Title = "Hello Wold", Description = "Everything we care about", EntityId = 13, ChallengeId = Guid.Parse("162ff745-7807-4b06-8660-5c7cc89a392f") },
+                new Post { Id = 4, Title = "Mc Donalds", Description = "Best McDonald picture",  EntityId = 14, ChallengeId = Guid.Parse("a3bb21c7-9ea2-4c9b-9811-e3526856d05b") },
+                new Post { Id = 5, Title = "King Burger", Description = "King Burger Tastes really good", EntityId = 15, ChallengeId = Guid.Parse("a3bb21c7-9ea2-4c9b-9811-e3526856d05b") });
 
         }
     }

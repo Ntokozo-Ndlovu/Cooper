@@ -1,4 +1,5 @@
 ﻿
+using Cooper.API.Response.User;
 using Cooper.API.Service.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,11 +10,11 @@ namespace Cooper.API.Service.Controllers
     {
         [HttpGet]
         [Route("user/{userId}")]
-        public ActionResult GetUser(Guid userId)
+        public ActionResult<GetUserResponse> GetUser(Guid userId)
         {
             var user = Domain.User.FindByUserUUID(userId);
-            var address = Domain.Address.FindByEntityId(user.AddressId);
-            var contact = Domain.Contact.FindEntityById(user.ContactId);
+            var address = Domain.Address.FindById(user.AddressId);
+            var contact = Domain.Contact.FindById(user.ContactId);
             var person = Domain.Person.FindPersonById(user.PersonId);
 
             return Ok(user.ToApiModel(address,contact,person));

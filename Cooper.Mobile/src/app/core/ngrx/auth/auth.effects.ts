@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { AuthService } from "../../services/api/auth";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { fromActions } from ".";
-import {  catchError, map, mergeMap, of, switchMap } from "rxjs";
+import * as fromActions from "./auth.actions";
+import {  catchError, map, mergeMap, of, switchMap, tap } from "rxjs";
 
 @Injectable()
 export class AuthEffects {
@@ -27,16 +27,20 @@ export class AuthEffects {
   })
 
   reqLogin$ = createEffect(()=>{
+
     return this.actions$.pipe(
       ofType(fromActions.reqLoginUser),
       switchMap((action)=>{
         return this.auth.login(action.loginRequest).pipe(
-          map((response)=>{
-            return fromActions.reqLoginUserSuccessful({userId:response.userId})
+          mergeMap((response)=>{
+            if(response.userId == ''){
+              throw {...response}
+            }
+            return [fromActions.reqLoginUserSuccessful({userId:response.userId})]
           }),
           catchError(err=>{
             return of(err).pipe(
-              map(()=> fromActions.reqLoginUserFail({message:err})))
+              mergeMap(()=> [fromActions.reqLoginUserFail({message:err.message})]))
           })
         )
       })

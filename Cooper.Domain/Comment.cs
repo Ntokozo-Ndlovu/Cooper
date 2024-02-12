@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cooper.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
 namespace Cooper.Domain
 {
@@ -23,6 +25,16 @@ namespace Cooper.Domain
         {
             var entity = Domain.Entity.FindEntityById(entityId);
             return db.Comment.Where(comment => comment.Entity == entity.Id).Select(comment => new Comment(comment)).ToList();
+        }
+
+        public static Comment Delete(Comment comment)
+        {
+            var commentItem = db.Comment.FirstOrDefault(x => x.Id == comment.Id) ?? throw new Exception("comment not found");
+            db.Comment.Remove(commentItem);
+            db.SaveChanges();
+
+            return new Comment(commentItem);
+
         }
 
         public int Id { get; }

@@ -1,4 +1,6 @@
-﻿using Cooper.Data;
+﻿using System.Runtime.Intrinsics.Arm;
+using Cooper.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cooper.Domain
 {
@@ -44,6 +46,13 @@ namespace Cooper.Domain
             return new User(user, entity.UUID);
         }
 
+        public static User FindById(int id)
+        {
+            var user = _db.User.FirstOrDefault(user => user.Id == id) ?? throw new Exception("User not found");
+            var entity = Domain.Entity.FindEntityById(user.EntityId);
+            Console.WriteLine($"User and Entity {user.Id} {entity.UUID}");
+            return new User(user,entity.UUID);
+        }
 
         public static User Create(Data.Entity.User user)
         {

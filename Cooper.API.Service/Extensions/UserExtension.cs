@@ -70,7 +70,7 @@ namespace Cooper.API.Service.Extensions
         public static GetUserResponse ToApiModel(this Domain.User user,Domain.Address address, Domain.Contact contact, Domain.Person person)
         {
             return new GetUserResponse(){
-                UserName = user.UserName,
+                Username = user.UserName,
                 Address = new Common.Address()
                 {
                     StreetName = address.StreetName,

@@ -34,7 +34,7 @@ export class LoginPageComponent  implements OnInit, OnDestroy {
 
   handleLogin(){
     console.log('Login In')
-    this.store.dispatch(fromAuth.fromActions.reqLoginUser(this.loginForm.value));
+    this.store.dispatch(fromAuth.fromActions.reqLoginUser({loginRequest:this.loginForm.value} ));
     this.store.select(fromAuth.fromSelectors.userIdSelector)
     .pipe(
       filter(userId => userId != ''),

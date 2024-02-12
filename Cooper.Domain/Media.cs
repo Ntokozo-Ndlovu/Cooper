@@ -34,6 +34,14 @@ namespace Cooper.Domain
             return _context.Media.Where(media => media.Entity == entity.Id).Select(media => new Media(media)).ToList();
         }
 
+        public static Media Delete(Media media)
+        {
+            var mediaItem = _context.Media.FirstOrDefault(x => x.Id == media.Id) ?? throw new Exception("Media does not exists");
+            _context.Media.Remove(mediaItem);
+            _context.SaveChanges();
+            return new Media(mediaItem);
+        }
+
 
         public int Id { get; }
         public Guid MediaGuid { get; }

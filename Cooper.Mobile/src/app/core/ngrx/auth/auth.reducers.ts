@@ -87,6 +87,10 @@ const authReducer = createReducer(initialState,
   on(fromActions.reqRegisterUserFail,(state)=>{
     const newState = {...state, registeringLoading:false};
     return newState;
+  }),
+  on(fromActions.reqLoginUserSuccessful,(state,action)=>{
+    const newState = {...state, userId:action.userId};
+    return newState;
   })
 );
 

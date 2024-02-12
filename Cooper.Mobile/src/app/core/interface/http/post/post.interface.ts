@@ -1,17 +1,20 @@
-import { Like } from '../../interface/http/post/post.interface';
-
-type Post = {
-  media:   {
+export interface PostResponse {
+  media:{
     type: 0,
     url: string
   } [],
   title: string,
   description: string,
   like: Like[],
-  comments:  {
+  comments:   {
     body: string
   }[],
   challengeId:string,
   postId: string
-  }
-export {Post};
+}
+
+export interface Like{
+  postId: string,
+  userId: string,
+  username: string
+}

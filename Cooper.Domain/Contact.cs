@@ -37,6 +37,12 @@ namespace Cooper.Domain
             return new Contact(contact);
         }
 
+        public static Contact FindById(int id)
+        {
+            var contact = _db.Contact.FirstOrDefault(contact => contact.Id == id) ?? throw new Exception("Contact Not Found");
+            return new Contact(contact);
+        }
+
         public int Id { get;  }
         public string Email { get;  }
         public string PhoneNumber { get; }
