@@ -2,20 +2,28 @@ using System.Net;
 using Cooper.API.Request.Auth;
 using Cooper.API.Response.Auth;
 using Cooper.API.Service.Extensions;
+using Cooper.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cooper.API.Service
 {
     public class AuthController:BaseController
     {
+        private readonly CooperDbContext _db;
+
+        public AuthController(CooperDbContext db)
+        {
+            _db = db;
+        }
+
         [HttpPost]
         [Route("login")]
         public ActionResult<LoginResponse> Login([FromBody] LoginRequest request)
         {
             try
             {
-                var user = Domain.User.FindUserName(request.Username);
-                var password = Domain.Password.Find(user);
+                var user = Domain.User.FindUserName(request.Username,_db);
+                var password = Domain.Password.Find(user, _db);
                 var response = new LoginResponse();
 
                 if (!password.PasswordKey.Equals(request.Password))
@@ -46,11 +54,11 @@ namespace Cooper.API.Service
         [Route("register")]
         public ActionResult<CreateUserResponse> CreateUser([FromBody] CreateUserRequest request)
         {
-            var address = Domain.Address.Create(request.Address.ToAddressEntity());
-            var contact = Domain.Contact.Create(request.Contact.ToContactEntity());
-            var person = Domain.Person.Create(request.Person.ToPersonEntity());
-            var user = Domain.User.Create(request.UserName, person, address, contact);
-            Domain.Password.Create(request.Password.ToPasswordEntity(),user);
+            var address = Domain.Address.Create(request.Address.ToAddressEntity(), _db);
+            var contact = Domain.Contact.Create(request.Contact.ToContactEntity(), _db);
+            var person = Domain.Person.Create(request.Person.ToPersonEntity(), _db);
+            var user = Domain.User.Create(request.UserName, person, address, contact,_db);
+            Domain.Password.Create(request.Password.ToPasswordEntity(),user, _db);
             var response = new CreateUserResponse()
             {
                 UserID = user.UserUUID,

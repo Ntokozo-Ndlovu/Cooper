@@ -13,9 +13,9 @@ namespace Cooper.API.Service.Controllers
 
     public class PostController : BaseController
     {
-
+        private readonly CooperDbContext _db;
         public PostController(CooperDbContext context) {
-            new DomainBase(context);
+           this._db = context;
         }
 
         [HttpGet]
@@ -24,7 +24,7 @@ namespace Cooper.API.Service.Controllers
         {
 
 
-            var post = Domain.Post.Create(new Data.Entity.Post() { Description="Hello World"});
+            var post = Domain.Post.Create(new Data.Entity.Post() { Description="Hello World"}, _db);
             var response = new FindPostResponse()
             {
                 Description = post.Description,
@@ -41,7 +41,7 @@ namespace Cooper.API.Service.Controllers
 
             if (challengeId != null)
             {
-                var postsByChallengeList = Domain.Post.FindPostByChallengeById(Guid.Parse(challengeId));
+                var postsByChallengeList = Domain.Post.FindPostByChallengeById(Guid.Parse(challengeId), _db);
                 postsByChallengeList.ForEach(post =>
                 {
                     list.Add(post.ToApiModel());
@@ -49,7 +49,7 @@ namespace Cooper.API.Service.Controllers
                 return Ok(list);
             }
 
-            var postList = Domain.Post.FindAllPost();
+            var postList = Domain.Post.FindAllPost(_db);
          
             postList.ForEach(post =>
             {     
@@ -66,7 +66,7 @@ namespace Cooper.API.Service.Controllers
             {
                 Description = post.Description,
             };
-            var createdPost = Domain.Post.Create(newPost);
+            var createdPost = Domain.Post.Create(newPost, _db);
             return Ok(createdPost);
         }
 
@@ -74,7 +74,7 @@ namespace Cooper.API.Service.Controllers
         [Route("post/{postId}")]
         public ActionResult<FindPostResponse> DeletePost(Guid postId,Guid userId)
         {
-            var post = Domain.Post.DeletePost(userId,postId);
+            var post = Domain.Post.DeletePost(userId,postId,_db);
             var response = new FindPostResponse()
             {
                 Description = post.Description,
@@ -88,7 +88,7 @@ namespace Cooper.API.Service.Controllers
         [Route("post/{postId}")]
         public ActionResult<UpdatePostResponse> UpdatePost(Guid postId, [FromBody]UpdatePostRequest postData)
         {
-            var domainPost = Domain.Post.FindById(postId);
+            var domainPost = Domain.Post.FindById(postId, _db);
             var post = new Data.Entity.Post()
             {
                 Description = domainPost.Description,
@@ -98,7 +98,7 @@ namespace Cooper.API.Service.Controllers
             };
             
             post.Description = postData.Description;
-            var tempPost = Domain.Post.UpdatePost(post);
+            var tempPost = Domain.Post.UpdatePost(post, _db);
 
             var response = new UpdatePostResponse()
             {
@@ -111,9 +111,10 @@ namespace Cooper.API.Service.Controllers
         [Route("post/like")]
         public ActionResult<LikePostResponse> LikePost([FromBody] LikePostRequest body)
         {
-            var post = Domain.Post.FindById(body.PostId);
-            var user = Domain.User.FindByUserUUID(body.UserId);
-            var like = Domain.Like.Create(user.Id, post.Id);        
+            Console.WriteLine($"Like: {body.PostId} {body.UserId}", _db);
+            var post = Domain.Post.FindById(body.PostId, _db);
+            var user = Domain.User.FindByUserUUID(body.UserId, _db);
+            var like = Domain.Like.Create(user.Id, post.Id, _db);        
             return Ok(like.ToApiModel());
         }
 
@@ -121,9 +122,9 @@ namespace Cooper.API.Service.Controllers
         [Route("post/like")]
         public ActionResult<LikePostResponse> DeleteLikePost([FromBody] LikePostRequest body)
         {
-            var post = Domain.Post.FindById(body.PostId);
-            var user = Domain.User.FindByUserUUID(body.UserId);
-            var like = Domain.Like.Delete(user.Id, post.Id);
+            var post = Domain.Post.FindById(body.PostId, _db);
+            var user = Domain.User.FindByUserUUID(body.UserId, _db);
+            var like = Domain.Like.Delete(user.Id, post.Id, _db);
             return Ok(like.ToApiModel());
         }
     }

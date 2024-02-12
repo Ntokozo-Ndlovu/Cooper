@@ -11,7 +11,6 @@ namespace Cooper.Domain
 {
     public class Comment:DomainBase
     {
-        private static CooperDbContext db = new CooperDbContext();
         private Comment(Data.Entity.Comment comment)
         {
             this.Id = comment.Id;
@@ -21,17 +20,17 @@ namespace Cooper.Domain
 
         }
 
-        public static List<Comment> FindAllCommentForEntity(Guid entityId)
+        public static List<Comment> FindAllCommentForEntity(Guid entityId, CooperDbContext _db)
         {
-            var entity = Domain.Entity.FindEntityById(entityId);
-            return db.Comment.Where(comment => comment.Entity == entity.Id).Select(comment => new Comment(comment)).ToList();
+            var entity = Domain.Entity.FindEntityById(entityId,_db);
+            return _db.Comment.Where(comment => comment.Entity == entity.Id).Select(comment => new Comment(comment)).ToList();
         }
 
-        public static Comment Delete(Comment comment)
+        public static Comment Delete(Comment comment, CooperDbContext _db)
         {
-            var commentItem = db.Comment.FirstOrDefault(x => x.Id == comment.Id) ?? throw new Exception("comment not found");
-            db.Comment.Remove(commentItem);
-            db.SaveChanges();
+            var commentItem = _db.Comment.FirstOrDefault(x => x.Id == comment.Id) ?? throw new Exception("comment not found");
+            _db.Comment.Remove(commentItem);
+            _db.SaveChanges();
 
             return new Comment(commentItem);
 

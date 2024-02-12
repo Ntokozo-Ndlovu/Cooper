@@ -4,9 +4,7 @@ namespace Cooper.Domain
 {
     public class Person
     {
-        private static CooperDbContext _db = new CooperDbContext();
-      
-
+     
         private Person(Data.Entity.Person person)
         {
             this.Id = person.Id;
@@ -17,30 +15,30 @@ namespace Cooper.Domain
             this.EntityId = person.EntityId;
         }
 
-        public static Person Create(Data.Entity.Person person)
+        public static Person Create(Data.Entity.Person person, CooperDbContext _db)
         {
-            var entity = Entity.CreateEntity();
+            var entity = Entity.CreateEntity(_db);
             person.EntityId = entity.Id;
             _db.Person.Add(person);
             _db.SaveChanges();
             return new Person(person);
         }
 
-        public static Person FindPersonById(Guid guid)
+        public static Person FindPersonById(Guid guid, CooperDbContext _db)
         {
-            var entity = Entity.FindEntityById(guid);
+            var entity = Entity.FindEntityById(guid,_db);
             var person = _db.Person.FirstOrDefault(x => x.EntityId == entity.Id) ?? throw new Exception("Person Not Found");
             return new Person(person);
         }
 
-        public static Person FindPersonById(int id) { 
+        public static Person FindPersonById(int id, CooperDbContext _db) { 
             var entity = _db.Person.FirstOrDefault(x => x.Id == id) ?? throw new Exception("Person Not Found");
             return new Person(entity);
         }
 
-        public static Person RemovePersonById(Guid guid)
+        public static Person RemovePersonById(Guid guid, CooperDbContext _db)
         {
-            var entity = Entity.FindEntityById(guid);
+            var entity = Entity.FindEntityById(guid,_db);
             var person = _db.Person.FirstOrDefault(x => x.EntityId == entity.Id) ?? throw new Exception("Person Not Found");
             _db.Person.Remove(person);
             _db.SaveChanges();
@@ -48,14 +46,14 @@ namespace Cooper.Domain
             return new Person(person);
         }
 
-        public static Person RemovePerson(Data.Entity.Person person)
+        public static Person RemovePerson(Data.Entity.Person person, CooperDbContext _db)
         {
             var result = _db.Person.Remove(person);
             _db.SaveChanges();
             return new Person(result.Entity);
         }
 
-        public static Person UpdatePerson(Data.Entity.Person person)
+        public static Person UpdatePerson(Data.Entity.Person person, CooperDbContext _db)
         {
             var result = _db.Person.Update(person);
             _db.SaveChanges();

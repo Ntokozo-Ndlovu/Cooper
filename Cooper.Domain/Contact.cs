@@ -9,9 +9,6 @@ namespace Cooper.Domain
 {
     public class Contact
     {
-
-        static CooperDbContext _db = new CooperDbContext();
-
         private Contact(Data.Entity.Contact contact)
         {
             this.Id = contact.Id;
@@ -21,9 +18,9 @@ namespace Cooper.Domain
         }
 
 
-        public static Contact Create(Data.Entity.Contact contact)
+        public static Contact Create(Data.Entity.Contact contact, CooperDbContext _db)
         {
-            var entity = Entity.CreateEntity();
+            var entity = Entity.CreateEntity(_db);
             contact.EntityId = entity.Id; 
             var newContact =  _db.Contact.Add(contact);
             _db.SaveChanges();
@@ -31,13 +28,13 @@ namespace Cooper.Domain
             return new Contact(newContact.Entity);
         }
         
-        public static Contact FindEntityById(int entityId)
+        public static Contact FindEntityById(int entityId, CooperDbContext _db)
         {
             var contact = _db.Contact.FirstOrDefault(contact => contact.EntityId == entityId) ?? throw new Exception("Contact Not Found") ;
             return new Contact(contact);
         }
 
-        public static Contact FindById(int id)
+        public static Contact FindById(int id, CooperDbContext _db)
         {
             var contact = _db.Contact.FirstOrDefault(contact => contact.Id == id) ?? throw new Exception("Contact Not Found");
             return new Contact(contact);

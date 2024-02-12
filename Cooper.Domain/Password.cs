@@ -6,8 +6,6 @@ namespace Cooper.Domain
 {
     public class Password
     {
-
-        private static CooperDbContext _db = new CooperDbContext();
         private Password(Data.Entity.Password password)
         {
             this.Id = password.Id;
@@ -17,15 +15,15 @@ namespace Cooper.Domain
         }
 
 
-        public static Password Find(User user)
+        public static Password Find(User user, CooperDbContext _db)
         {
             var password = _db.Password.FirstOrDefault(password =>  password.UserId == user.Id) ?? throw new Exception("Password Not Found");
             return new Password(password);
         }
 
-        public static Password Create(Data.Entity.Password password, User user)
+        public static Password Create(Data.Entity.Password password, User user, CooperDbContext _db)
         {
-            var entity = Entity.CreateEntity();
+            var entity = Entity.CreateEntity(_db);
             password.EntityId = entity.Id;
             password.UserId = user.Id;
             var results = _db.Password.Add(password);

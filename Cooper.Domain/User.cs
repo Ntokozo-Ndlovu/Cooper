@@ -6,9 +6,6 @@ namespace Cooper.Domain
 {
     public class User
     {
-
-        static CooperDbContext _db = new CooperDbContext();
-
         private User(Data.Entity.User user)
         {
             this.Id = user.Id;
@@ -31,41 +28,41 @@ namespace Cooper.Domain
             this.UserUUID = userUUID;
         }
 
-        public static User FindUserName(string username)
+        public static User FindUserName(string username, CooperDbContext _db)
         {
             
             var user = _db.User.FirstOrDefault(user => user.UserName == username) ?? throw new Exception("User does not exists");
-            var entity = Entity.FindEntityById(user.EntityId);
+            var entity = Entity.FindEntityById(user.EntityId, _db);
             return new User(user, entity.UUID);
         }
 
-        public static User FindByUserUUID(Guid uuid)
+        public static User FindByUserUUID(Guid uuid, CooperDbContext _db)
         {
-            var entity = Entity.FindEntityById(uuid);
+            var entity = Entity.FindEntityById(uuid, _db);
             var user = _db.User.FirstOrDefault(user => user.EntityId == entity.Id) ?? throw new Exception("User not found");
             return new User(user, entity.UUID);
         }
 
-        public static User FindById(int id)
+        public static User FindById(int id, CooperDbContext _db)
         {
             var user = _db.User.FirstOrDefault(user => user.Id == id) ?? throw new Exception("User not found");
-            var entity = Domain.Entity.FindEntityById(user.EntityId);
-            Console.WriteLine($"User and Entity {user.Id} {entity.UUID}");
+            var entity = Domain.Entity.FindEntityById(user.EntityId, _db);
+            Console.WriteLine($"User and Entity {user.Id} {entity.UUID}", _db);
             return new User(user,entity.UUID);
         }
 
-        public static User Create(Data.Entity.User user)
+        public static User Create(Data.Entity.User user, CooperDbContext _db)
         {
-            var entity = Entity.CreateEntity();
+            var entity = Entity.CreateEntity(_db);
             user.EntityId = entity.Id;
             var newUser = _db.User.Add(user);
             _db.SaveChanges();
             return new User(newUser.Entity,entity.UUID);
         }
 
-        public static User Create(Data.Entity.User user, Person person, Address address, Contact contact)
+        public static User Create(Data.Entity.User user, Person person, Address address, Contact contact,CooperDbContext _db)
         {
-            var entity = Entity.CreateEntity();
+            var entity = Entity.CreateEntity(_db);
             user.AddressId = address.Id;
             user.ContactId = contact.Id;
             user.EntityId= entity.Id;
@@ -75,10 +72,10 @@ namespace Cooper.Domain
             return new User(newUserChanges.Entity,entity.UUID);
         }
 
-        public static User Create(string userName, Person person, Address address, Contact contact)
+        public static User Create(string userName, Person person, Address address, Contact contact, CooperDbContext _db)
         {
             var user = new Data.Entity.User();
-            var entity = Entity.CreateEntity();
+            var entity = Entity.CreateEntity(_db);
             user.UserName = userName;
             user.AddressId = address.Id;
             user.ContactId = contact.Id;

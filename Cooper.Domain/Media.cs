@@ -11,7 +11,6 @@ namespace Cooper.Domain
 {
     public class Media:DomainBase
     {
-        private static CooperDbContext _context = new CooperDbContext();
         private Media(Data.Entity.Media media)
         {
             this.Id = media.Id;
@@ -21,20 +20,20 @@ namespace Cooper.Domain
             this.EntityId   = media.EntityId;
             this.Entity = media.Entity;
         }
-        public static Data.Entity.Media GetById(int id)
+        public static Data.Entity.Media GetById(int id, CooperDbContext _context)
         {
             var media = _context.Media.FirstOrDefault(media => media.Id == id) ?? throw new Exception("Media not found"); 
             return media;
         }
 
         
-        public static List<Media> FindAllMediaForEntityById(Guid entityId)
+        public static List<Media> FindAllMediaForEntityById(Guid entityId, CooperDbContext _context)
         {
-            var entity = Domain.Entity.FindEntityById(entityId);
+            var entity = Domain.Entity.FindEntityById(entityId,_context);
             return _context.Media.Where(media => media.Entity == entity.Id).Select(media => new Media(media)).ToList();
         }
 
-        public static Media Delete(Media media)
+        public static Media Delete(Media media, CooperDbContext _context)
         {
             var mediaItem = _context.Media.FirstOrDefault(x => x.Id == media.Id) ?? throw new Exception("Media does not exists");
             _context.Media.Remove(mediaItem);
