@@ -12,6 +12,6 @@ namespace Cooper.Data.Entity
         public string Body { get; set; } 
         public int EntityId {  get; set; }
 
-
+        public int Entity {  get; set; }
     }
 }

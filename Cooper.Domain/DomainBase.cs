@@ -9,10 +9,10 @@ namespace Cooper.Domain
 {
     public class DomainBase
     {
-        private CooperDbContext _db;
         public DomainBase(CooperDbContext cooperDbContext) { 
-            this._db = cooperDbContext;
         }
+
+        protected DomainBase() { }
 
     }
 }

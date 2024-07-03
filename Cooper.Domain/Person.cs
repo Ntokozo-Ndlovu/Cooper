@@ -1,59 +1,70 @@
 ﻿using Cooper.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cooper.Domain
 {
     public class Person
     {
-        private static CooperDbContext _db;
-        public Person(CooperDbContext context) {
-            _db = context;
+     
+        private Person(Data.Entity.Person person)
+        {
+            this.Id = person.Id;
+            this.Name = person.Name;
+            this.Surname = person.Surname;
+            this.Age = person.Age;
+            this.Gender = person.Gender;
+            this.EntityId = person.EntityId;
         }
 
-
-        public Data.Entity.Person Add(Data.Entity.Person person)
+        public static Person Create(Data.Entity.Person person, CooperDbContext _db)
         {
-            var entity = Entity.CreateEntity();
+            var entity = Entity.CreateEntity(_db);
             person.EntityId = entity.Id;
             _db.Person.Add(person);
             _db.SaveChanges();
-            return person;
+            return new Person(person);
         }
 
-        public Data.Entity.Person FindPersonById(Guid guid)
+        public static Person FindPersonById(Guid guid, CooperDbContext _db)
         {
-            var entity = Entity.FindEntityById(guid);
+            var entity = Entity.FindEntityById(guid,_db);
             var person = _db.Person.FirstOrDefault(x => x.EntityId == entity.Id) ?? throw new Exception("Person Not Found");
-            return person;
+            return new Person(person);
         }
 
-        public Data.Entity.Person RemovePersonById(Guid guid)
+        public static Person FindPersonById(int id, CooperDbContext _db) { 
+            var entity = _db.Person.FirstOrDefault(x => x.Id == id) ?? throw new Exception("Person Not Found");
+            return new Person(entity);
+        }
+
+        public static Person RemovePersonById(Guid guid, CooperDbContext _db)
         {
-            var entity = Entity.FindEntityById(guid);
+            var entity = Entity.FindEntityById(guid,_db);
             var person = _db.Person.FirstOrDefault(x => x.EntityId == entity.Id) ?? throw new Exception("Person Not Found");
             _db.Person.Remove(person);
             _db.SaveChanges();
 
-            return person;
+            return new Person(person);
         }
 
-        public Data.Entity.Person RemovePerson(Data.Entity.Person person)
+        public static Person RemovePerson(Data.Entity.Person person, CooperDbContext _db)
         {
             var result = _db.Person.Remove(person);
             _db.SaveChanges();
-            return result.Entity;
+            return new Person(result.Entity);
         }
 
-        public Data.Entity.Person UpdatePerson(Data.Entity.Person person)
+        public static Person UpdatePerson(Data.Entity.Person person, CooperDbContext _db)
         {
             var result = _db.Person.Update(person);
             _db.SaveChanges();
-            return result.Entity;
+            return new Person(result.Entity);
         }
 
+        public int Id { get;  }
+        public string Name { get; }
+        public string Surname { get; }
+        public int Age { get; }
+        public string Gender { get; }
+        public int EntityId { get; }
     }
 }

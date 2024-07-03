@@ -22,16 +22,5 @@
 "title":"My Favorite Car",
 "description":"It is a beautiful car",
 "like":15,
-"comments":[]},{ "media":[{
-  "type":1,
-  "url":"https://img.autotrader.co.za/27268641/Crop640x480"
-},
-{
-  "type":1,
-  "url":"https://www.motortrend.com/uploads/2022/08/2022-Bugatti-Chiron-Super-Sport-2-1.jpg"
-}],
-"title":"My Favorite Car",
-"description":"It is a beautiful car",
-"like":15,
 "comments":[]}
   ]}

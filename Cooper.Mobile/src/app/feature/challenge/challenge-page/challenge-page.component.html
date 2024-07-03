@@ -1,0 +1,10 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Challenge</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+<ng-container *ngFor="let challenge of challenges | async">
+  <app-challenge-item [challenge]="challenge"></app-challenge-item>
+</ng-container>
+</ion-content>

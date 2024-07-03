@@ -2,66 +2,83 @@
 using Cooper.API.Response.Post;
 using Cooper.Data;
 using Cooper.Data.Entity;
+using Cooper.Domain;
+using Cooper.API.Service.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Runtime.Intrinsics.Arm;
 
 namespace Cooper.API.Service.Controllers
 {
-    [Route("api/v1")]
-    public class PostController : ControllerBase
-    {
 
+    public class PostController : BaseController
+    {
+        private readonly CooperDbContext _db;
         public PostController(CooperDbContext context) {
-            _ = new Cooper.Domain.Post(context);
+           this._db = context;
         }
+
         [HttpGet]
         [Route("post/{postId}")]
         public ActionResult<FindPostResponse> GetPostById(Guid postId)
         {
-            var post = Domain.Post.FindById(postId);
+
+
+            var post = Domain.Post.Create(new Data.Entity.Post() { Description="Hello World"}, _db);
             var response = new FindPostResponse()
             {
                 Description = post.Description,
-                Likes = post.Likes,
+                Like = post.Likes.Select(like => new Common.Like() {UserId = like.UserId, Username = like.Username }).ToList(),
             };
             return Ok(response);
         }
 
         [HttpGet]
         [Route("post")]
-        public ActionResult<List<FindPostResponse>> GetPosts()
+        public ActionResult<List<FindPostResponse>> GetPosts([FromQuery] string challengeId)
         {
             List<FindPostResponse> list = new List<FindPostResponse>();
 
-            var postList = Domain.Post.FindAllPost();
-            postList.ForEach(x =>
+            if (challengeId != null)
             {
-                list.Add(new FindPostResponse() { Description = x.Description, Likes = x.Likes});
+                var postsByChallengeList = Domain.Post.FindPostByChallengeById(Guid.Parse(challengeId), _db);
+                postsByChallengeList.ForEach(post =>
+                {
+                    list.Add(post.ToApiModel());
+                });
+                return Ok(list);
+            }
+
+            var postList = Domain.Post.FindAllPost(_db);
+         
+            postList.ForEach(post =>
+            {     
+                list.Add(post.ToApiModel());
             });
             return Ok(list);
         }
 
         [HttpPost]
         [Route("post")]
-        public ActionResult<Post> CreatePost([FromBody] Request.Post.CreatePostRequest post)
+        public ActionResult<CreatePostResponse> CreatePost([FromBody] Request.Post.CreatePostRequest post)
         {
-            var newPost = new Post()
+            var newPost = new Data.Entity.Post()
             {
                 Description = post.Description,
-                Likes = post.Likes
             };
-            var createdPost = Cooper.Domain.Post.AddPost(newPost);
+            var createdPost = Domain.Post.Create(newPost, _db);
             return Ok(createdPost);
         }
 
         [HttpDelete]
         [Route("post/{postId}")]
-        public ActionResult<FindPostResponse> DeletePost(Guid postId)
+        public ActionResult<FindPostResponse> DeletePost(Guid postId,Guid userId)
         {
-            var post = Domain.Post.DeletePost(postId);
+            var post = Domain.Post.DeletePost(userId,postId,_db);
             var response = new FindPostResponse()
             {
                 Description = post.Description,
-                Likes = post.Likes
+                Like = post.Likes.Select(like => new Common.Like() { Username = like.Username, UserId = like.UserId}).ToList(),
             };
 
             return Ok(response);
@@ -71,18 +88,44 @@ namespace Cooper.API.Service.Controllers
         [Route("post/{postId}")]
         public ActionResult<UpdatePostResponse> UpdatePost(Guid postId, [FromBody]UpdatePostRequest postData)
         {
-            var post = Domain.Post.FindById(postId);
+            var domainPost = Domain.Post.FindById(postId, _db);
+            var post = new Data.Entity.Post()
+            {
+                Description = domainPost.Description,
+                Title = domainPost.Title,
+                ChallengeId = domainPost.ChallengeId,
+                
+            };
+            
             post.Description = postData.Description;
-            post.Likes = postData.Likes;
-            var tempPost = Domain.Post.UpdatePost(post);
+            var tempPost = Domain.Post.UpdatePost(post, _db);
 
             var response = new UpdatePostResponse()
             {
                 Description = tempPost.Description,
-                Likes = tempPost.Likes
             };
             return Ok(response);
         }
 
+        [HttpPost]
+        [Route("post/like")]
+        public ActionResult<LikePostResponse> LikePost([FromBody] LikePostRequest body)
+        {
+            Console.WriteLine($"Like: {body.PostId} {body.UserId}", _db);
+            var post = Domain.Post.FindById(body.PostId, _db);
+            var user = Domain.User.FindByUserUUID(body.UserId, _db);
+            var like = Domain.Like.Create(user.Id, post.Id, _db);        
+            return Ok(like.ToApiModel());
+        }
+
+        [HttpDelete]
+        [Route("post/like")]
+        public ActionResult<LikePostResponse> DeleteLikePost([FromBody] LikePostRequest body)
+        {
+            var post = Domain.Post.FindById(body.PostId, _db);
+            var user = Domain.User.FindByUserUUID(body.UserId, _db);
+            var like = Domain.Like.Delete(user.Id, post.Id, _db);
+            return Ok(like.ToApiModel());
+        }
     }
 }

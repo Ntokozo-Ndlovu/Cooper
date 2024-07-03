@@ -13,5 +13,6 @@ namespace Cooper.Data.Entity
         public int MediaType {  get; set; }
         public string Link {  get; set; }
         public int EntityId { get; set; }
+        public int Entity {  get; set; }
     }
 }
