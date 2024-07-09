@@ -23,7 +23,7 @@ namespace Cooper.API.Service
             try
             {
                 var user = Domain.User.FindUserName(request.Username,_db);
-                var password = Domain.Password.Find(user, _db);
+                var password = Domain.Password.FindByUserId(user.Id, _db);
                 var response = new LoginResponse();
 
                 if (!password.PasswordKey.Equals(request.Password))
@@ -32,7 +32,7 @@ namespace Cooper.API.Service
                     response.Message = "Password Does Not Match";
                     return Ok(response.ToApiModel());
                 }
-                response.UserId = user.UserUUID;
+                response.UserId = user.Id.ToString();
                 response.StatusCode = HttpStatusCode.Found;
 
                 return Ok(response.ToApiModel());              
@@ -54,14 +54,14 @@ namespace Cooper.API.Service
         [Route("register")]
         public ActionResult<CreateUserResponse> CreateUser([FromBody] CreateUserRequest request)
         {
-            var address = Domain.Address.Create(request.Address.ToAddressEntity(), _db);
-            var contact = Domain.Contact.Create(request.Contact.ToContactEntity(), _db);
-            var person = Domain.Person.Create(request.Person.ToPersonEntity(), _db);
-            var user = Domain.User.Create(request.UserName, person, address, contact,_db);
-            Domain.Password.Create(request.Password.ToPasswordEntity(),user, _db);
+            var address = Domain.Address.Create(request.Address.StreetName,request.Address.Suburb,request.Address.City, request.Address.PostalCode, _db);
+            var contact = Domain.Contact.Create(request.Contact.Email,request.Contact.PhoneNumber, _db);          
+            var person = Domain.Person.Create(request.Person.Name,request.Person.Surname,request.Person.Age, request.Person.Gender,_db);
+            var user = Domain.User.Create(request.UserName, person.Id, address.Id, contact.Id,_db);
+            Domain.Password.Create(request.Password.Password,user.Id, _db);
             var response = new CreateUserResponse()
             {
-                UserID = user.UserUUID,
+                UserID = user.Id.ToString(),
                 StatusCode = HttpStatusCode.Created,
             };
 

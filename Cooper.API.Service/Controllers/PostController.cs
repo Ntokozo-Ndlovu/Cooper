@@ -1,12 +1,8 @@
 ﻿using Cooper.API.Request.Post;
 using Cooper.API.Response.Post;
 using Cooper.Data;
-using Cooper.Data.Entity;
-using Cooper.Domain;
 using Cooper.API.Service.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using System.Runtime.Intrinsics.Arm;
 
 namespace Cooper.API.Service.Controllers
 {

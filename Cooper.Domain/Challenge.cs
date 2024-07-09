@@ -1,65 +1,86 @@
 ﻿using Cooper.Data;
-using Cooper.Data.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cooper.Domain
 {
     public class Challenge
     {
-        public static Data.Entity.Challenge Add(Data.Entity.Challenge challenge, CooperDbContext _db)
+        private Challenge(Data.Entity.Challenge challenge)
         {
-            var entity = Entity.CreateEntity(_db) ?? throw new Exception("Entity Not Created");
-            challenge.EntityId = entity.Id;
-            var createdChallenge = _db.Add(challenge);
+            this.Name = challenge.Name;
+            this.Price = challenge.Price;
+            this.StartDate = challenge.StartDate;
+            this.EndDate = challenge.EndDate;
+            this.Description = challenge.Description;
+            this.ChallengeGUID = challenge.ChallengeGuid;
+        }
+
+        public static Challenge Create(string name, string description, DateTime startDate, DateTime endDate, float price, CooperDbContext _db)
+        {
+            var newChallengeEntity = new Data.Entity.Challenge()
+            {
+                Name = name,
+                Description = description,
+                StartDate = startDate,
+                EndDate = endDate,
+                Price = price,
+                ChallengeGuid = Guid.NewGuid()
+            };
+
+            _db.Challenge.Add(newChallengeEntity);
             _db.SaveChanges();
-            return createdChallenge.Entity;
-
+            return new Challenge(newChallengeEntity);
         }
 
-        public static Data.Entity.Challenge FindChallengeById(Guid challengeId, CooperDbContext _db)
+        public static Challenge FindById(Guid challengeId, CooperDbContext _db)
         {
-            var entity = Entity.FindEntityById(challengeId, _db);
-            var tempChallenge = _db.Challenge.FirstOrDefault(x => x.EntityId == entity.Id) ?? throw new Exception("Challenge Not Found");
-            return tempChallenge;
+            var challenge = _db.Challenge.FirstOrDefault(challenge => challenge.ChallengeGuid.Equals(challengeId));
+            if(challenge == null) 
+                throw new Exception("Challenge no found");
+            return new Challenge(challenge);
         }
 
-        public static List<Data.Entity.Challenge> GetAllChallenges(CooperDbContext _db)
+        public static List<Challenge> FindAll(CooperDbContext _db)
         {
-            return _db.Challenge.ToList();
-        }
-        public static Data.Entity.Challenge DeleteChallengeById(Guid challengeId, CooperDbContext _db)
-        {
-            var entity = Entity.FindEntityById(challengeId, _db);
-            var tempChallenge = _db.Challenge.FirstOrDefault(x => x.EntityId == entity.Id) ?? throw new Exception ("Challenge Not Found");
-            Entity.DeleteEntity(entity,_db);
-            _db.Challenge.Remove(tempChallenge);
-            _db.SaveChanges();
-            return tempChallenge;
+            var challenges = _db.Challenge.Select(challenge => new Challenge(challenge)).ToList();
+            return challenges;
         }
 
-        public static Data.Entity.Challenge DeleteChallenge(Data.Entity.Challenge challenge, CooperDbContext _db)
+        public static Challenge RemoveChallengeById(Guid challengeId, CooperDbContext _db)
         {
+            var challenge = _db.Challenge.FirstOrDefault(challenge => challenge.ChallengeGuid == challengeId);
+            if(challenge == null)
+                throw new Exception("Challenge not found");
             _db.Challenge.Remove(challenge);
             _db.SaveChanges();
-            return challenge;
+             return new Challenge(challenge);
         }
 
-        public static Data.Entity.Challenge UpdateChallenge(Data.Entity.Challenge challenge, CooperDbContext _db)
+        public static Challenge UpdateChallenge(Guid challengeId,CooperDbContext _db,string name = "", string description="",
+                DateTime? startDate = null, DateTime? endDate = null ,float price = 0)
         {
-            var tempChallenge = _db.Challenge.FirstOrDefault(x=> x.Id == challenge.Id) ?? throw new Exception("Challenge Not Found");
-            tempChallenge.Description = challenge.Description;
-            tempChallenge.Name = challenge.Name;
-            tempChallenge.StartDate = challenge.StartDate;
-            tempChallenge.EndDate = challenge.EndDate;
-            tempChallenge.Price = challenge.Price;  
-            _db.Challenge.Update(tempChallenge);
-            _db.SaveChanges();
 
-            return tempChallenge;
+            var challenge = _db.Challenge.FirstOrDefault(challenge => challenge.ChallengeGuid == challengeId) ?? throw new Exception("Challenge Not Found");
+            if(description != "")
+            challenge.Description = challenge.Description;
+            if(name != "")
+            challenge.Name = challenge.Name;
+            if(startDate != null)
+            challenge.StartDate = challenge.StartDate;
+            if(endDate != null)
+            challenge.EndDate = challenge.EndDate;
+            if(price > 0)
+            challenge.Price = challenge.Price;
+            _db.Challenge.Update(challenge);
+            _db.SaveChanges();
+                    
+            return new Challenge(challenge);
         }
+
+        public string Description { get; }
+        public string Name { get; }
+        public DateTime StartDate { get; }
+        public DateTime EndDate { get; }
+        public float Price { get; }
+        public Guid ChallengeGUID {get;}
     }
 }

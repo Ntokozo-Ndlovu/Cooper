@@ -9,7 +9,7 @@ namespace Cooper.API.Response.Auth
 {
     public class LoginResponse
     {
-        public Guid UserId {  get; set; }
+        public string UserId {  get; set; }
         public HttpStatusCode StatusCode { get; set; }
         public string Message { get; set; }
     }
