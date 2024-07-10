@@ -61,7 +61,7 @@ namespace Cooper.API.Service
             Domain.Password.Create(request.Password.Password,user.Id, _db);
             var response = new CreateUserResponse()
             {
-                UserID = user.Id.ToString(),
+                UserID = user.Id,
                 StatusCode = HttpStatusCode.Created,
             };
 

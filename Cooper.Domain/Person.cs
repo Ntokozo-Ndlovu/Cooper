@@ -28,7 +28,7 @@ namespace Cooper.Domain
             return new Person(person);
         }
 
-        public static Person FindById(int id, CooperDbContext _db)
+        public static Person FindById(long id, CooperDbContext _db)
         {
             var person = _db.Person.FirstOrDefault(person => person.Id == id) ?? throw new Exception("Person Not Found");
             return new Person(person);

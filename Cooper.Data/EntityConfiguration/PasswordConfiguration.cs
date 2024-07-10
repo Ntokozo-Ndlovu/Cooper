@@ -10,7 +10,6 @@ namespace Cooper.Data.EntityConfiguration
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).IsRequired();
 
-            builder.Property(x => x.EntityId).IsRequired();
             builder.Property(x => x.UserId).IsRequired();
             builder.Property(x => x.PasswordKey).IsRequired();
 

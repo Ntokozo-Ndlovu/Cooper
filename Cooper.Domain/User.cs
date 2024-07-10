@@ -19,7 +19,7 @@ namespace Cooper.Domain
             var user = _db.User.FirstOrDefault(user => user.UserName == username) ?? throw new Exception("User not found");
             return new User(user);
         }
-        public static User FindById(int id, CooperDbContext _db)
+        public static User FindById(long id, CooperDbContext _db)
         {
             var user = _db.User.FirstOrDefault(user => user.Id == id) ?? throw new Exception("User not found");
             return new User(user);

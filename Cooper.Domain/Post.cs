@@ -14,20 +14,24 @@ namespace Cooper.Domain
         }
 
 
-        public static Post FindById(int id, CooperDbContext _db)
+        public static Post FindById(long id, CooperDbContext _db)
         {
             var post = _db.Post.FirstOrDefault(x => x.Id == id) ?? throw new Exception("Post not found");
             return new Post(post);
         }
 
+        public static List<Post> FindAll(CooperDbContext _db){
+            var posts = _db.Post.Select(post => new Post(post)).ToList();
+            return posts;
+        }
 
-        public static List<Post> FindByChallengeById(int challengeId, CooperDbContext _db)
+        public static List<Post> FindByChallengeById(Guid challengeId, CooperDbContext _db)
         {
             var posts = _db.Post.Where(post => post.ChallengeId == challengeId).Select(post => new Post(post)).ToList();
             return posts;
         }
 
-        public static Post DeleteById(int postId, CooperDbContext _db)
+        public static Post DeleteById(long postId, CooperDbContext _db)
         {
             var post = _db.Post.FirstOrDefault(post => post.Id == postId) ?? throw new Exception("Post not found");
 
@@ -36,7 +40,7 @@ namespace Cooper.Domain
             return new Post(post);
         }
 
-        public static Post UpdatePost(int id,CooperDbContext _db, string title= "", string description = "")
+        public static Post Update(long id,CooperDbContext _db, string title= "", string description = "")
         {
             var tempPost = _db.Post.FirstOrDefault(post => post.Id == id) ?? throw new Exception("Post not found");
             if(description != "")
@@ -48,7 +52,7 @@ namespace Cooper.Domain
             return new Post(tempPost);
         }
 
-        public static Post Create(string title, string description, int challengeId, CooperDbContext _db)
+        public static Post Create(string title, string description, Guid challengeId, CooperDbContext _db)
         {
             var post = new Data.Entity.Post(){
                 Title = title,
@@ -65,7 +69,7 @@ namespace Cooper.Domain
         public long Id { get; }
         public string Description { get; }
         public string Title { get; }
-        public int ChallengeId { get; }
+        public Guid ChallengeId { get; }
 
     }
 

@@ -25,7 +25,7 @@ namespace Cooper.Domain
             return new Contact(contact);
         }
 
-        public static Contact FindById(int id, CooperDbContext _db)
+        public static Contact FindById(long id, CooperDbContext _db)
         {
             var contact = _db.Contact.FirstOrDefault(contact => contact.Id == id) ?? throw new Exception("Contact Not Found");
             return new Contact(contact);
