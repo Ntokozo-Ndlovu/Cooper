@@ -8,33 +8,35 @@ namespace Cooper.Domain
     {
         private Password(Data.Entity.Password password)
         {
-            this.Id = password.Id;
             this.PasswordKey = password.PasswordKey;
-            this.EntityId = password.EntityId;
             this.UserId = password.UserId;
         }
 
 
-        public static Password Find(User user, CooperDbContext _db)
+        public static Password FindById(long id, CooperDbContext _db)
         {
-            var password = _db.Password.FirstOrDefault(password =>  password.UserId == user.Id) ?? throw new Exception("Password Not Found");
+            var password = _db.Password.FirstOrDefault(password => password.Id == id) ?? throw new Exception("Password Not Found");
+            return new Password(password);
+        }
+        
+        public static Password FindByUserId(long userId,CooperDbContext _db){
+            var password = _db.Password.FirstOrDefault(password => password.UserId == userId) ?? throw new Exception("Password Not Found");
             return new Password(password);
         }
 
-        public static Password Create(Data.Entity.Password password, User user, CooperDbContext _db)
+        public static Password Create(string passwordKey, long userId, CooperDbContext _db)
         {
-            var entity = Entity.CreateEntity(_db);
-            password.EntityId = entity.Id;
-            password.UserId = user.Id;
+            var password = new Data.Entity.Password()
+            {
+                PasswordKey = passwordKey,
+                UserId = userId
+            };
             var results = _db.Password.Add(password);
             _db.SaveChanges();
-            return new Password(results.Entity);
+            return new Password(password);
         }
 
-
-        public int Id { get; }
         public string PasswordKey { get; }
-        public int EntityId { get; }
-        public int UserId { get; }
+        private long UserId { get; }
     }
 }

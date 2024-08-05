@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Cooper.API.Request.Post
+﻿namespace Cooper.API.Request.Post
 {
     public class CreatePostRequest
     {
+            public string Title { get; set; }
             public string Description { get; set; }
             public int Likes { get; set; }
-        
+            public Guid ChallengeId { get; set;} 
     }
 }

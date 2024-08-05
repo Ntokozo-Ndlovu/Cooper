@@ -2,8 +2,6 @@
 using Cooper.API.Response.Challenge;
 using Cooper.API.Service.Extensions;
 using Cooper.Data;
-using Cooper.Data.Entity;
-using Cooper.Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cooper.API.Service.Controllers
@@ -19,7 +17,7 @@ namespace Cooper.API.Service.Controllers
         [Route("challenge")]
         public ActionResult<List<FindChallengeResponse>> GetAllChallenge()
         {
-            List<Data.Entity.Challenge> challenges =  Domain.Challenge.GetAllChallenges(_db);
+            List<Domain.Challenge> challenges =  Domain.Challenge.FindAll(_db);
             List<FindChallengeResponse> result = new List<FindChallengeResponse>();
             challenges.ForEach(challenge => result.Add(challenge.ToApiModel()));
             return Ok(result);
@@ -30,7 +28,7 @@ namespace Cooper.API.Service.Controllers
         [Route("challenge/{challengeId}")]
         public ActionResult<FindChallengeResponse> GetChallenge(Guid challengeId)
         {
-            var challenge = Domain.Challenge.FindChallengeById(challengeId, _db);
+            var challenge = Domain.Challenge.FindById(challengeId, _db);
             var result = new FindChallengeResponse()
             {
                 Description = challenge.Description,
@@ -44,11 +42,7 @@ namespace Cooper.API.Service.Controllers
         [Route("challenge")]
         public ActionResult<CreateChallengeResponse> CreateChallenge([FromBody] CreateChallengeRequest body)
         {
-            var resutlt = Domain.Challenge.Add(new Data.Entity.Challenge()
-            {
-                Description = body.Description,
-                Name = body.Name,
-            },_db);
+            var resutlt = Domain.Challenge.Create(body.Name,body.Description,body.StartDate, body.EndDate ,body.Price,_db);
 
             return Ok(resutlt);
 
@@ -58,14 +52,15 @@ namespace Cooper.API.Service.Controllers
         [HttpPatch]
         [Route(("challenge/{challengeId}"))]
         public ActionResult<UpdateChallengeResponse> EditChallenge(Guid challengeId, [FromBody] UpdateChallengeRequest body) {
-            var challenge = Domain.Challenge.FindChallengeById(challengeId, _db);
-            challenge.Description =  body.Description;
-            challenge.Name = body.Name;
-            var updateChallenge = Domain.Challenge.UpdateChallenge(challenge, _db);
+            var challenge = Domain.Challenge.UpdateChallenge(challengeId, _db, name: body.Name, description: body.Description,
+                    startDate: body.StartDate, endDate: body.EndDate, price:body.Price );
             var result = new UpdateChallengeResponse()
             {
-                Description = updateChallenge.Description,
-                Name = updateChallenge.Name,
+                Description = challenge.Description,
+                Name = challenge.Name,
+                StartDate = challenge.StartDate,
+                EndDate = challenge.EndDate,
+                Price = challenge.Price
             };
             return Ok(result);
         }
@@ -75,11 +70,14 @@ namespace Cooper.API.Service.Controllers
         [Route("challenge/{challengeId}")]
         public ActionResult<DeleteChallengeResponse> DeleteChallenge(Guid challengeId)
         {
-            var challenge = Domain.Challenge.DeleteChallengeById(challengeId, _db);
+            var challenge = Domain.Challenge.RemoveChallengeById(challengeId, _db);
             var result = new DeleteChallengeResponse()
             {
                 Name = challenge.Name,
                 Description = challenge.Description,
+                StartDate = challenge.StartDate,
+                EndDate = challenge.EndDate,
+                Price = challenge.Price
             };
 
             return Ok();

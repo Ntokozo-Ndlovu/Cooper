@@ -1,7 +1,4 @@
-
-using System.Runtime.CompilerServices;
 using Cooper.API.Common;
-using Cooper.API.Request.Auth;
 using Cooper.API.Response.Auth;
 using Cooper.API.Response.User;
 using Cooper.Domain;
@@ -58,7 +55,7 @@ namespace Cooper.API.Service.Extensions
         {
             return new CreateUserResponse()
             {
-                UserID = user.UserUUID
+                UserID = user.Id
             };
         }
 

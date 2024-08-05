@@ -17,12 +17,12 @@ namespace Cooper.API.Service.Controllers
 
         [HttpGet]
         [Route("user/{userId}")]
-        public ActionResult<GetUserResponse> GetUser(Guid userId)
+        public ActionResult<GetUserResponse> GetUser(long userId)
         {
-            var user = Domain.User.FindByUserUUID(userId,_db);
+            var user = Domain.User.FindById(userId,_db);
             var address = Domain.Address.FindById(user.AddressId,_db);
             var contact = Domain.Contact.FindById(user.ContactId, _db);
-            var person = Domain.Person.FindPersonById(user.PersonId, _db);
+            var person = Domain.Person.FindById(user.PersonId, _db);
 
             return Ok(user.ToApiModel(address,contact,person));
         }
