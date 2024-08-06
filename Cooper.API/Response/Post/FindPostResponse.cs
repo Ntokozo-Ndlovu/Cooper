@@ -8,5 +8,6 @@ namespace Cooper.API.Response.Post
         public string Description { get; set; }
         public long PostId { get; set; }
         public Guid ChallengeId {get; set;}
+        public List<Media> Media { get; set;} 
 }
 }
