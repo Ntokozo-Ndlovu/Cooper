@@ -39,7 +39,8 @@ namespace Cooper.API.Service.Controllers
                 var postsByChallengeList = Domain.Post.FindByChallengeById(Guid.Parse(challengeId), _db);
                 postsByChallengeList.ForEach(post =>
                 {
-                    list.Add(post.ToApiModel());
+                    List<Media> mediaItemsForPost = Domain.MediaPost.FindAllMediaByPostId(post.Id,_db).ToApi(); 
+                    list.Add(post.ToApiModel(mediaItemsForPost));
                 });
                 return Ok(list);
             }
@@ -48,7 +49,8 @@ namespace Cooper.API.Service.Controllers
          
             postList.ForEach(post =>
             {     
-                list.Add(post.ToApiModel());
+                List<Media> mediaItemsForPost = Domain.MediaPost.FindAllMediaByPostId(post.Id,_db).ToApi();
+                list.Add(post.ToApiModel(mediaItemsForPost));
             });
             return Ok(list);
         }

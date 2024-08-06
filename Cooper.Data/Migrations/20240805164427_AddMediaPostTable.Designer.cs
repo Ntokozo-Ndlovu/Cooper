@@ -3,6 +3,7 @@ using System;
 using Cooper.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Cooper.Data.Migrations
 {
     [DbContext(typeof(CooperDbContext))]
-    partial class CooperDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240805164427_AddMediaPostTable")]
+    partial class AddMediaPostTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -294,68 +296,6 @@ namespace Cooper.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MediaPost");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            MediaId = 1L,
-                            PostId = 1L
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            MediaId = 2L,
-                            PostId = 1L
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            MediaId = 3L,
-                            PostId = 2L
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            MediaId = 4L,
-                            PostId = 4L
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            MediaId = 5L,
-                            PostId = 5L
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            MediaId = 6L,
-                            PostId = 3L
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            MediaId = 7L,
-                            PostId = 2L
-                        },
-                        new
-                        {
-                            Id = 8L,
-                            MediaId = 8L,
-                            PostId = 3L
-                        },
-                        new
-                        {
-                            Id = 9L,
-                            MediaId = 9L,
-                            PostId = 1L
-                        },
-                        new
-                        {
-                            Id = 10L,
-                            MediaId = 10L,
-                            PostId = 5L
-                        });
                 });
 
             modelBuilder.Entity("Cooper.Data.Entity.Password", b =>
