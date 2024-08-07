@@ -10,8 +10,9 @@ namespace Cooper.API.Service.Controllers
     public class PostController : BaseController
     {
         private readonly CooperDbContext _db;
-        public PostController(CooperDbContext context) {
-           this._db = context;
+        public PostController(CooperDbContext context)
+        {
+            this._db = context;
         }
 
         [HttpGet]
@@ -23,7 +24,7 @@ namespace Cooper.API.Service.Controllers
             var response = new FindPostResponse()
             {
                 Description = post.Description,
-           
+
             };
             return Ok(response);
         }
@@ -39,17 +40,17 @@ namespace Cooper.API.Service.Controllers
                 var postsByChallengeList = Domain.Post.FindByChallengeById(Guid.Parse(challengeId), _db);
                 postsByChallengeList.ForEach(post =>
                 {
-                    List<Media> mediaItemsForPost = Domain.MediaPost.FindAllMediaByPostId(post.Id,_db).ToApi(); 
+                    List<Media> mediaItemsForPost = Domain.MediaPost.FindAllMediaByPostId(post.Id, _db).ToApi();
                     list.Add(post.ToApiModel(mediaItemsForPost));
                 });
                 return Ok(list);
             }
 
             var postList = Domain.Post.FindAll(_db);
-         
+
             postList.ForEach(post =>
-            {     
-                List<Media> mediaItemsForPost = Domain.MediaPost.FindAllMediaByPostId(post.Id,_db).ToApi();
+            {
+                List<Media> mediaItemsForPost = Domain.MediaPost.FindAllMediaByPostId(post.Id, _db).ToApi();
                 list.Add(post.ToApiModel(mediaItemsForPost));
             });
             return Ok(list);
@@ -67,7 +68,7 @@ namespace Cooper.API.Service.Controllers
         [Route("post/{postId}")]
         public ActionResult<FindPostResponse> DeletePost(long postId)
         {
-            var post = Domain.Post.DeleteById(postId,_db);
+            var post = Domain.Post.DeleteById(postId, _db);
             var response = new FindPostResponse()
             {
                 Description = post.Description,
@@ -78,14 +79,23 @@ namespace Cooper.API.Service.Controllers
 
         [HttpPatch]
         [Route("post/{postId}")]
-        public ActionResult<UpdatePostResponse> UpdatePost(long postId, [FromBody]UpdatePostRequest postData)
+        public ActionResult<UpdatePostResponse> UpdatePost(long postId, [FromBody] UpdatePostRequest postData)
         {
-            var post = Domain.Post.Update(postId,_db,title:postData.Title,description:postData.Description );
-           var response = new UpdatePostResponse()
+            var post = Domain.Post.Update(postId, _db, title: postData.Title, description: postData.Description);
+            var response = new UpdatePostResponse()
             {
                 Description = post.Description,
             };
             return Ok(response);
+        }
+
+
+        [HttpGet]
+        [Route("post/like/{postId}")]
+        public ActionResult FetchLikesForPost(long postId)
+        {
+            List<Domain.Like> likes = Domain.Like.FindByPostId(postId, _db);
+            return Ok(likes.ToApiModel(postId));
         }
 
         [HttpPost]
@@ -95,7 +105,7 @@ namespace Cooper.API.Service.Controllers
             Console.WriteLine($"Like: {body.PostId} {body.UserId}", _db);
             var post = Domain.Post.FindById(body.PostId, _db);
             var user = Domain.User.FindById(body.UserId, _db);
-            var like = Domain.Like.Create(user.Id, post.Id, _db);        
+            var like = Domain.Like.Create(user.Id, post.Id, _db);
             return Ok(like.ToApiModel());
         }
 

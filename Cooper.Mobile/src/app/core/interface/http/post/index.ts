@@ -1,4 +1,3 @@
-import { LikeRequest , LikeResponse } from "./like.interface";
+export { LikeRequest , LikeResponse } from "./like.interface";
 
-
-export {LikeRequest,LikeResponse}
+export { FetchNumberOfLikesResponse } from "./post.interface";
