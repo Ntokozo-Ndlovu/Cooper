@@ -9,7 +9,11 @@ namespace Cooper.API.Common
 {
     public class ResponseBase
     {
-        public HttpStatusCode StatusCode { get; set; }
-        public string Message { get; set; }
+        public ResponseBase(HttpStatusCode status, string description){
+                this.Status = status;
+                this.Description = description;
+        }
+        public HttpStatusCode Status{ get; set; }
+        public string Description { get; set; }
     }
 }
