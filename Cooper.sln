@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cooper.Data", "Cooper.Data.csproj", "{7DD3F889-3827-4F91-9802-5EB7E26AF45E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cooper.Data", "Cooper.Data\Cooper.Data.csproj", "{7DD3F889-3827-4F91-9802-5EB7E26AF45E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0AD6145E-AD9D-4BA3-BC8C-5D77D185BF77} = {0AD6145E-AD9D-4BA3-BC8C-5D77D185BF77}
 		{A7113DFB-7A95-43FD-9CA0-E9D1A87F9F61} = {A7113DFB-7A95-43FD-9CA0-E9D1A87F9F61}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cooper.Core", "..\Cooper.Core\Cooper.Core.csproj", "{A7113DFB-7A95-43FD-9CA0-E9D1A87F9F61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cooper.Core", "Cooper.Core\Cooper.Core.csproj", "{A7113DFB-7A95-43FD-9CA0-E9D1A87F9F61}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cooper.API.Service", "..\Cooper.API.Service\Cooper.API.Service.csproj", "{1583BD8C-6248-435B-B419-48EC41EAA0EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cooper.API.Service", "Cooper.API.Service\Cooper.API.Service.csproj", "{1583BD8C-6248-435B-B419-48EC41EAA0EA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cooper.Domain", "..\Cooper.Domain\Cooper.Domain.csproj", "{C0EB0596-DADB-4302-878A-E30E8ABC9F1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cooper.Domain", "Cooper.Domain\Cooper.Domain.csproj", "{C0EB0596-DADB-4302-878A-E30E8ABC9F1C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cooper.UnitTests", "..\Cooper.UnitTests\Cooper.UnitTests.csproj", "{0AD6145E-AD9D-4BA3-BC8C-5D77D185BF77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cooper.UnitTests", "Cooper.UnitTests\Cooper.UnitTests.csproj", "{0AD6145E-AD9D-4BA3-BC8C-5D77D185BF77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cooper.API", "..\Cooper.API\Cooper.API.csproj", "{7F315ACC-21C2-4292-A9A4-97319FB2FFEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cooper.API", "Cooper.API\Cooper.API.csproj", "{7F315ACC-21C2-4292-A9A4-97319FB2FFEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

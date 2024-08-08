@@ -2,6 +2,7 @@ using Cooper.API.Common;
 using Cooper.API.Response.Auth;
 using Cooper.API.Response.User;
 using Cooper.Domain;
+using System.Net;
 
 namespace Cooper.API.Service.Extensions
 {
@@ -46,14 +47,16 @@ namespace Cooper.API.Service.Extensions
                 PasswordKey = userPassword.Password
             };
         }
-        public static LoginResponse ToApiModel(this LoginResponse response)
+        public static LoginResponse ToLoginApiModel(this Domain.User user, HttpStatusCode statusCode, String description)
         {
-            return response;
+            return new LoginResponse(statusCode,description){
+                UserId = user.Id.ToString()
+            };
         }
 
-        public static CreateUserResponse ToApiModel(this Domain.User user)
+        public static CreateUserResponse ToCreateUserApiModel(this Domain.User user, HttpStatusCode statusCode, String description)
         {
-            return new CreateUserResponse()
+            return new CreateUserResponse(statusCode, description)
             {
                 UserID = user.Id
             };
