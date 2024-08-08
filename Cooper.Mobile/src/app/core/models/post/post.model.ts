@@ -1,4 +1,3 @@
-import { Like } from '../../interface/http/post/post.interface';
 
 type Post = {
   media:   {
@@ -7,7 +6,7 @@ type Post = {
   } [],
   title: string,
   description: string,
-  like: Like[],
+  like?:number,
   comments:  {
     body: string
   }[],

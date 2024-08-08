@@ -10,5 +10,8 @@ export const reqPostsForChallengeSuccessful = createAction('[Challenge Page]')
 export const reqLikePost = createAction('[Post Page] like a post', props<{userId:string,postId:string}>())
 export const reqLikePostSuccessful = createAction('[Post Page] like a post successful',props<{like:{userId:string,postId:string,username:string}}>())
 
+export const reqFetchNumberOfLikes = createAction('[POST_PAGE] fetch number of likes',props<{postId:string}>())
+export const reqFetchNumberOfLikesSuccesful = createAction('[POST_EFFECTS] fetch number of likes succesful',props<{postId:string, likes:number}>())
+
 export const reqRemoveLikeOnPost = createAction('[Post Page] remove like a post', props<{userId:string,postId:string}>())
 export const reqRemoveLikeOnPostSuccessful = createAction('[Post Page] remove like on post successful',props<{like:{userId:string,postId:string,username:string}}>())

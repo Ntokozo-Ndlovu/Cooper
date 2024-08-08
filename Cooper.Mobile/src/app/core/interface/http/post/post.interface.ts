@@ -5,7 +5,6 @@ export interface PostResponse {
   } [],
   title: string,
   description: string,
-  like: Like[],
   comments:   {
     body: string
   }[],
@@ -17,4 +16,9 @@ export interface Like{
   postId: string,
   userId: string,
   username: string
+}
+
+export interface FetchNumberOfLikesResponse {
+  postId: string,
+  likes: number
 }

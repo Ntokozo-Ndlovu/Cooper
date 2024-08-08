@@ -10,6 +10,15 @@ namespace Cooper.API.Service.Extensions
                 UserId = like.UserId,
             };
         }
+
+        public static LikeCountForPostResponse ToApiModel(this List<Cooper.Domain.Like> likes , long PostId) {
+            return new LikeCountForPostResponse(){
+                Likes = likes.Count(),
+                PostId = PostId 
+            };
+        }
+
+
         public static FindPostResponse ToApiModel(this Cooper.Domain.Post post, List<Media> media)
         {
             return new FindPostResponse()

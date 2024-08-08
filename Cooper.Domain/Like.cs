@@ -9,13 +9,13 @@ namespace Cooper.Domain
             
         }
 
-        public static List<Like> FindByPostId(int postId, CooperDbContext _db)
+        public static List<Like> FindByPostId(long postId, CooperDbContext _db)
         {
           var likes = _db.Like.Where(x => x.PostId == postId).Select(like => new Like(like)).ToList();
         
           return likes;
         }
-
+        
         public static Like RemoveByPostIdAndUserId(long postId, long userId, CooperDbContext _db)
         {
             var like = _db.Like.FirstOrDefault((x) => x.UserId == userId && x.PostId == postId)?? throw new Exception("Like Not Found");

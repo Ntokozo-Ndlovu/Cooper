@@ -22,7 +22,6 @@ export class PostCardComponent  implements OnInit,OnDestroy {
   }
 
   likePost() {
-    console.log('Liked the Post')
     this.store.select(fromApp.fromSelectors.selectAppUserId)
     .pipe(
       takeUntil(this.destroy$))

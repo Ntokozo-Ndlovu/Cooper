@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { fromActions } from ".";
-import { mergeMap, switchMap } from "rxjs";
+import { catchError, mergeMap, switchMap } from "rxjs";
 import { PostService } from "../../services/api/post";
 
 @Injectable()
@@ -20,6 +20,22 @@ export class PostEffects{
       })
     )
   })
+
+  reqFetchNumberOfLikes$ = createEffect(()=>this.actions$.pipe(
+    ofType(fromActions.reqFetchNumberOfLikes),
+    mergeMap(({postId})=>{
+      return this.post.getLikesForPost(postId).pipe(
+        mergeMap((response)=>{
+            return [fromActions.reqFetchNumberOfLikesSuccesful({postId:response.postId, likes: response.likes})]
+          }),
+        catchError((err)=>{
+            return []
+        })
+
+      )
+    })
+  ))
+
 
   reqLikePost$ = createEffect(()=>{
     return this.actions$
