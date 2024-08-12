@@ -1,11 +1,14 @@
-﻿namespace Cooper.API.Response.Challenge
+﻿using System.Net;
+using Cooper.API.Common;
+
+namespace Cooper.API.Response.Challenge
 {
-    public class UpdateChallengeResponse
+    public class UpdateChallengeResponse: ResponseBase
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public float Price { get; set; }
+        public UpdateChallengeResponse(HttpStatusCode httpStatus, string description) : base(httpStatus, description)
+        {
+        }
+
+        public Common.Challenge Challenge { get; set;}
     }
 }

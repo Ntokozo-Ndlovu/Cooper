@@ -1,20 +1,29 @@
-using Cooper.API.Response.Challenge;
+using Cooper.API.Common;
 
 namespace Cooper.API.Service.Extensions
 {
     public static class ChallengeExtenstion
     {
-        public static FindChallengeResponse ToApiModel(this Domain.Challenge challenge)
+        public static Common.Challenge DTO(this Domain.Challenge challenge)
         {
-            return new FindChallengeResponse()
+            return new Common.Challenge()
             {
-            Id = challenge.ChallengeGUID,
-            Title= challenge.Name,
-            Description = challenge.Description,
-            StartDate = challenge.StartDate,
-            EndDate = challenge.EndDate,
-            Price = challenge.Price
-    };
+                Name = challenge.Name,
+                Description = challenge.Description,
+                Title = challenge.Name,
+                StartDate = challenge.StartDate,
+                EndDate = challenge.EndDate,
+                Price = challenge.Price
+            };
+
         }
+
+        public static List<Common.Challenge> DTO(this List<Domain.Challenge> challengeList){
+
+            return challengeList.Select((challenge)=> challenge.DTO()).ToList();
+        }
+
+
+
     }
 }
