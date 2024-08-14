@@ -1,19 +1,18 @@
-using Cooper.API.Response.Post;
 
 namespace Cooper.API.Service.Extensions
 {
     public static class MediaExtensions
     {
-        public static Media ToApi(this Domain.Media media)
+        public static Common.Media DTO(this Domain.Media media)
         {
-            return new Media
+            return new Common.Media
             {
                 Type = media.MediaType,
                 Url = media.Link
             };
         }
-        public static List<Media> ToApi(this List<Domain.Media> media){
-            return media.Select(media => media.ToApi()).ToList();
+        public static List<Common.Media> DTO(this List<Domain.Media> media){
+            return media.Select(media => media.DTO()).ToList();
         }
     }
 }

@@ -1,13 +1,12 @@
-﻿using Cooper.Data.Entity;
+﻿using System.Net;
+using Cooper.API.Common;
 
 namespace Cooper.API.Response.Post
 {
-    public class FindPostResponse
+    public class FindPostResponse:ResponseBase
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public long PostId { get; set; }
-        public Guid ChallengeId {get; set;}
-        public List<Media> Media { get; set;} 
-}
+        public FindPostResponse(HttpStatusCode httpStatusCode, string description):base(httpStatusCode,description){
+        }
+        public Common.Post Post {get; set;}
+     }
 }

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
+using Cooper.API.Common;
 
 namespace Cooper.API.Response.Post
 {
-    public class CreatePostResponse
+    public class CreatePostResponse:ResponseBase
     {
+
+        public CreatePostResponse(HttpStatusCode httpStatusCode, string description):base(httpStatusCode,description){
+        }
     }
 }
