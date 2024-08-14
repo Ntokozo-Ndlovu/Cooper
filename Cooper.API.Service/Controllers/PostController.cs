@@ -1,8 +1,9 @@
-﻿using Cooper.API.Request.Post;
+﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using Cooper.API.Request.Post;
 using Cooper.API.Response.Post;
 using Cooper.Data;
 using Cooper.API.Service.Extensions;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Cooper.API.Service.Controllers
 {
@@ -17,43 +18,44 @@ namespace Cooper.API.Service.Controllers
 
         [HttpGet]
         [Route("post/{postId}")]
-        public ActionResult<FindPostResponse> GetPostById(long postId)
+        public FindPostResponse GetPostById(long postId)
         {
 
-            var post = Domain.Post.FindById(postId, _db);
-            var response = new FindPostResponse()
+            Domain.Post post = Domain.Post.FindById(postId, _db);
+            FindPostResponse response = new FindPostResponse(HttpStatusCode.OK, "")
             {
-                Description = post.Description,
-
+                Post = post.DTO()
             };
-            return Ok(response);
+            return response;
         }
 
         [HttpGet]
         [Route("post")]
-        public ActionResult<List<FindPostResponse>> GetPosts([FromQuery] string challengeId)
+        public FindPostsResponse GetPosts([FromQuery] string challengeId)
         {
-            List<FindPostResponse> list = new List<FindPostResponse>();
+            FindPostsResponse response = new FindPostsResponse(HttpStatusCode.OK,""){
+                Posts = new List<Common.Post>()
+            };
 
             if (challengeId != null)
             {
-                var postsByChallengeList = Domain.Post.FindByChallengeById(Guid.Parse(challengeId), _db);
+                List<Domain.Post> postsByChallengeList = Domain.Post.FindByChallengeById(Guid.Parse(challengeId), _db);
                 postsByChallengeList.ForEach(post =>
                 {
-                    List<Media> mediaItemsForPost = Domain.MediaPost.FindAllMediaByPostId(post.Id, _db).ToApi();
-                    list.Add(post.ToApiModel(mediaItemsForPost));
+                    List<Domain.Media> mediaItemsForPost = Domain.MediaPost.FindAllMediaByPostId(post.Id, _db);
+                    response.Posts.Add(post.DTO(mediaItemsForPost));
                 });
-                return Ok(list);
+                return response;
             }
 
-            var postList = Domain.Post.FindAll(_db);
+            List<Domain.Post> postList = Domain.Post.FindAll(_db);
 
             postList.ForEach(post =>
             {
-                List<Media> mediaItemsForPost = Domain.MediaPost.FindAllMediaByPostId(post.Id, _db).ToApi();
-                list.Add(post.ToApiModel(mediaItemsForPost));
+                List<Domain.Media> mediaItemsForPost = Domain.MediaPost.FindAllMediaByPostId(post.Id, _db);
+                response.Posts.Add(post.DTO(mediaItemsForPost));
             });
-            return Ok(list);
+            return response;
         }
 
         [HttpPost]
@@ -66,57 +68,66 @@ namespace Cooper.API.Service.Controllers
 
         [HttpDelete]
         [Route("post/{postId}")]
-        public ActionResult<FindPostResponse> DeletePost(long postId)
+        public DeletePostResponse DeletePost(long postId)
         {
-            var post = Domain.Post.DeleteById(postId, _db);
-            var response = new FindPostResponse()
+            Domain.Post post = Domain.Post.DeleteById(postId, _db);
+            DeletePostResponse response = new DeletePostResponse(HttpStatusCode.OK,"")
             {
-                Description = post.Description,
+             Post = post.DTO()
             };
 
-            return Ok(response);
+            return response;
         }
 
         [HttpPatch]
         [Route("post/{postId}")]
-        public ActionResult<UpdatePostResponse> UpdatePost(long postId, [FromBody] UpdatePostRequest postData)
+        public UpdatePostResponse  UpdatePost(long postId, [FromBody] UpdatePostRequest postData)
         {
-            var post = Domain.Post.Update(postId, _db, title: postData.Title, description: postData.Description);
-            var response = new UpdatePostResponse()
+            Domain.Post post = Domain.Post.Update(postId, _db, title: postData.Title, description: postData.Description);
+            UpdatePostResponse response = new UpdatePostResponse(HttpStatusCode.OK, "")
             {
-                Description = post.Description,
+            Post = post.DTO()
             };
-            return Ok(response);
+            return response;
         }
 
 
         [HttpGet]
         [Route("post/like/{postId}")]
-        public ActionResult FetchLikesForPost(long postId)
+        public LikeCountForPostResponse FetchLikesForPost(long postId)
         {
             List<Domain.Like> likes = Domain.Like.FindByPostId(postId, _db);
-            return Ok(likes.ToApiModel(postId));
+            LikeCountForPostResponse response = new LikeCountForPostResponse(HttpStatusCode.OK,""){
+                Likes = likes.DTO()
+            };
+            return response;
         }
 
         [HttpPost]
         [Route("post/like")]
-        public ActionResult<LikePostResponse> LikePost([FromBody] LikePostRequest body)
+        public LikePostResponse LikePost([FromBody] LikePostRequest body)
         {
-            Console.WriteLine($"Like: {body.PostId} {body.UserId}", _db);
-            var post = Domain.Post.FindById(body.PostId, _db);
-            var user = Domain.User.FindById(body.UserId, _db);
-            var like = Domain.Like.Create(user.Id, post.Id, _db);
-            return Ok(like.ToApiModel());
+
+            Domain.Post post = Domain.Post.FindById(body.PostId, _db);
+            Domain.User user = Domain.User.FindById(body.UserId, _db);
+            Domain.Like like = Domain.Like.Create(user.Id, post.Id, _db);
+            LikePostResponse response = new LikePostResponse(HttpStatusCode.OK, ""){
+                    Like = like.DTO(post.Id,user.UserName) 
+            };
+            return response;
         }
 
         [HttpDelete]
         [Route("post/like")]
-        public ActionResult<LikePostResponse> DeleteLikePost([FromBody] LikePostRequest body)
+        public DeleteLikePostResponse DeleteLikePost([FromBody] LikePostRequest body)
         {
-            var post = Domain.Post.FindById(body.PostId, _db);
-            var user = Domain.User.FindById(body.UserId, _db);
-            var like = Domain.Like.RemoveByPostIdAndUserId(user.Id, post.Id, _db);
-            return Ok(like.ToApiModel());
+            Domain.Post post = Domain.Post.FindById(body.PostId, _db);
+            Domain.User user = Domain.User.FindById(body.UserId, _db);
+            Domain.Like like = Domain.Like.RemoveByPostIdAndUserId(user.Id, post.Id, _db);
+            DeleteLikePostResponse response = new DeleteLikePostResponse(HttpStatusCode.OK, ""){
+                Like = like.DTO(post.Id, user.UserName)
+            };
+            return response;
         }
     }
 }
