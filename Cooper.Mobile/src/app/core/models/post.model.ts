@@ -1,4 +1,3 @@
-
 type Post = {
   media:   {
     type: 0,

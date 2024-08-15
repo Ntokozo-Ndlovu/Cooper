@@ -1,6 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { User } from "../../models/user/user.model";
-
+import { User } from "../../models/user.model";
 
 export const reqAppAuthenticatedSuccessful = createAction('[From Auth Effect] App authenticated',props<{userId:string}>())
 

@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
+using Cooper.API.Common;
 
 namespace Cooper.API.Response.Challenge
 {
-    public class DeleteChallengeResponse
+    public class DeleteChallengeResponse:ResponseBase
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public float Price {get; set; }
 
+        public DeleteChallengeResponse(HttpStatusCode httpStatusCode, string description):base(httpStatusCode, description){
+        }
+
+       public Common.Challenge Challenge{get; set;}
     }
 }

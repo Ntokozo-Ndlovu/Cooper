@@ -16,9 +16,9 @@ namespace Cooper.Domain
           return likes;
         }
         
-        public static Like RemoveByPostIdAndUserId(long postId, long userId, CooperDbContext _db)
+        public static Like RemoveByPostIdAndUserId(long userId, long postId, CooperDbContext _db)
         {
-            var like = _db.Like.FirstOrDefault((x) => x.UserId == userId && x.PostId == postId)?? throw new Exception("Like Not Found");
+            Data.Entity.Like like = _db.Like.FirstOrDefault(x => x.UserId == userId && x.PostId == postId)?? throw new Exception("Like Not Found");
 
             _db.Like.Remove(like);
             _db.SaveChanges();

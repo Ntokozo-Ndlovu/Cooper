@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
+using Cooper.API.Common;
 
 namespace Cooper.API.Response.Post
 {
-    public class UpdatePostResponse
+    public class UpdatePostResponse:ResponseBase
     {
-        public string Description { get; set; }
-        public int Likes { get; set; }
-
+        public UpdatePostResponse(HttpStatusCode httpStatusCode, string description):base(httpStatusCode,description){
+        }
+        
+        public Common.Post Post{get; set;}
     }
 }

@@ -7,6 +7,6 @@ namespace Cooper.API.Response.Auth
     {
         public CreateUserResponse(HttpStatusCode status, String description):base(status, description){ }
  
-        public long  UserID { get; set; }
+        public long  UserId { get; set; }
     }
 }

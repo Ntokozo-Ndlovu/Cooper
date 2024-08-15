@@ -1,38 +1,29 @@
 import { HttpStatusCode } from '@angular/common/http';
+import { ResponseBase } from '../common';
 
 export interface SignUpRequest {
   userName: string,
-  address: Address,
-  contact: Contact,
-  person: Person,
-  password:Password
+  address: {
+    streetName: string,
+    suburb: string,
+    city: string,
+    postalCode: string
+  },
+  contact: {
+    email: string,
+    phoneNumber: string
+  },
+  person: {
+    name: string,
+    surname: string,
+    age: number,
+    gender: string
+  },
+  password: {
+    password: string
+  }
 }
 
-export interface Address{
-  streetName: string,
-  suburb: string,
-  city: string,
-  postalCode: string
-}
-export interface Contact {
-  email: string,
-  phoneNumber: string
-}
-
-
-export interface Password  {
-  password: string
-}
-
-export interface Person{
-  name: string,
-  surname: string,
-  age: 0,
-  gender: string
-}
-
-export interface SignUpResponse {
-  userID: string,
-  message: string,
-  statusCode: HttpStatusCode
+export interface SignUpResponse extends ResponseBase {
+  userId:string
 }

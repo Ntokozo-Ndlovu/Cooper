@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from "@ngrx/store"
 import * as  fromActions  from "./app.actions";
 import * as fromAuth from "../auth";
-import { User } from "../../models/user/user.model";
+import { User } from "../../models/user.model";
 
 export const appFeatureKey = 'AppState'
 

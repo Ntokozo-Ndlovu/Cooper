@@ -1,89 +1,91 @@
-﻿using Cooper.API.Request.Challenge;
+﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using Cooper.API.Request.Challenge;
 using Cooper.API.Response.Challenge;
 using Cooper.API.Service.Extensions;
 using Cooper.Data;
-using Microsoft.AspNetCore.Mvc;
+
 
 namespace Cooper.API.Service.Controllers
 {
-    public class ChallengeController: BaseController
+    public class ChallengeController : BaseController
     {
         private readonly CooperDbContext _db;
 
-        public ChallengeController(CooperDbContext db) {
+        public ChallengeController(CooperDbContext db)
+        {
             _db = db;
         }
         [HttpGet]
         [Route("challenge")]
-        public ActionResult<List<FindChallengeResponse>> GetAllChallenge()
+        public FindChallengesResponse GetAllChallenge()
         {
-            List<Domain.Challenge> challenges =  Domain.Challenge.FindAll(_db);
-            List<FindChallengeResponse> result = new List<FindChallengeResponse>();
-            challenges.ForEach(challenge => result.Add(challenge.ToApiModel()));
-            return Ok(result);
+            List<Domain.Challenge> challenges = Domain.Challenge.FindAll(_db);
+            FindChallengesResponse response = new FindChallengesResponse(HttpStatusCode.OK, "")
+            {
+                Challenges = challenges.DTO()
+            };
+            return response;
         }
 
 
         [HttpGet]
         [Route("challenge/{challengeId}")]
-        public ActionResult<FindChallengeResponse> GetChallenge(Guid challengeId)
+        public FindChallengeResponse GetChallenge(Guid challengeId)
         {
-            var challenge = Domain.Challenge.FindById(challengeId, _db);
-            var result = new FindChallengeResponse()
+            Domain.Challenge challenge = Domain.Challenge.FindById(challengeId, _db);
+            FindChallengeResponse response = new FindChallengeResponse(HttpStatusCode.OK, "")
             {
-                Description = challenge.Description,
-                Title = challenge.Name
+                Challenge = challenge.DTO()
             };
-            return Ok(result);
+            return response;
         }
 
 
         [HttpPost]
         [Route("challenge")]
-        public ActionResult<CreateChallengeResponse> CreateChallenge([FromBody] CreateChallengeRequest body)
+        public CreateChallengeResponse CreateChallenge([FromBody] CreateChallengeRequest body)
         {
-            var resutlt = Domain.Challenge.Create(body.Name,body.Description,body.StartDate, body.EndDate ,body.Price,_db);
-
-            return Ok(resutlt);
+            Domain.Challenge challenge = Domain.Challenge.Create(body.Name, body.Description, body.StartDate, body.EndDate, body.Price, _db);
+            CreateChallengeResponse response = new CreateChallengeResponse(HttpStatusCode.OK, "")
+            {
+                Challenge = challenge.DTO()
+            };
+            return response;
 
         }
 
 
         [HttpPatch]
         [Route(("challenge/{challengeId}"))]
-        public ActionResult<UpdateChallengeResponse> EditChallenge(Guid challengeId, [FromBody] UpdateChallengeRequest body) {
-            var challenge = Domain.Challenge.UpdateChallenge(challengeId, _db, name: body.Name, description: body.Description,
-                    startDate: body.StartDate, endDate: body.EndDate, price:body.Price );
-            var result = new UpdateChallengeResponse()
+        public UpdateChallengeResponse EditChallenge(Guid challengeId, [FromBody] UpdateChallengeRequest body)
+        {
+
+            
+
+            Domain.Challenge challenge = Domain.Challenge.UpdateChallenge(challengeId, _db, name: body.Name, description: body.Description,
+                    startDate: body.StartDate, endDate: body.EndDate, price: body.Price);
+            UpdateChallengeResponse response = new UpdateChallengeResponse(HttpStatusCode.OK, "")
             {
-                Description = challenge.Description,
-                Name = challenge.Name,
-                StartDate = challenge.StartDate,
-                EndDate = challenge.EndDate,
-                Price = challenge.Price
+                Challenge = challenge.DTO()
             };
-            return Ok(result);
+            return response;
         }
 
 
         [HttpDelete]
         [Route("challenge/{challengeId}")]
-        public ActionResult<DeleteChallengeResponse> DeleteChallenge(Guid challengeId)
+        public DeleteChallengeResponse DeleteChallenge(Guid challengeId)
         {
-            var challenge = Domain.Challenge.RemoveChallengeById(challengeId, _db);
-            var result = new DeleteChallengeResponse()
+            Domain.Challenge challenge = Domain.Challenge.RemoveChallengeById(challengeId, _db);
+            DeleteChallengeResponse response = new DeleteChallengeResponse(HttpStatusCode.OK, "")
             {
-                Name = challenge.Name,
-                Description = challenge.Description,
-                StartDate = challenge.StartDate,
-                EndDate = challenge.EndDate,
-                Price = challenge.Price
+                Challenge = challenge.DTO()
             };
 
-            return Ok();
+            return response;
         }
 
-        
 
     }
 }

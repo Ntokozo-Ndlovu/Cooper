@@ -1,11 +1,17 @@
 import { createReducer , Action, on} from "@ngrx/store";
-import { SignUpRequest } from "../../interface/http/auth";
 import * as fromActions from './auth.actions';
+import { Person , Address, Contact} from "../../models";
 
 export const authFeatureKey = 'AuthState';
 
 export interface State {
-  registerForm:Partial<SignUpRequest>,
+  registerForm:{
+    userName:string,
+    address:Address,
+    contact:Contact,
+    person:Person,
+    password:string
+  },
   signUpPages:{url:Readonly<string>,valid:boolean}[],
   registeringLoading:boolean,
   userId:string,
@@ -24,7 +30,7 @@ const initialState:State = {
       email:'',
       phoneNumber:''
     },
-    password:{password:''},
+    password:"",
     person:{
       name:'',
       surname:'',
@@ -57,7 +63,7 @@ const authReducer = createReducer(initialState,
 
   }),
   on(fromActions.completePersonForm,(state,action)=>{
-    const registerForm = {...state.registerForm, userName:action.username ,person:action.person,password:action.password};
+    const registerForm = {...state.registerForm, userName:action.username, password:action.password ,person:action.person};
     const newState = {...state, registerForm};
 
     return newState;
