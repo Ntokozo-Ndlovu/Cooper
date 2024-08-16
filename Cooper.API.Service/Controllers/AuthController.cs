@@ -27,22 +27,24 @@ namespace Cooper.API.Service
 
                 if (!password.PasswordKey.Equals(request.Password))
                 {
-                    return Ok(new LoginResponse(HttpStatusCode.Unauthorized, "Passowrd incorrect"));
+                    return new LoginResponse(HttpStatusCode.Unauthorized, "Passowrd incorrect");
                 }
 
-                return Ok(user.ToLoginApiModel(HttpStatusCode.Found, ""));
+                return new LoginResponse(HttpStatusCode.Found, ""){
+                    UserId = user.Id
+                };
 
             }
             catch (Exception ex)
             {
-                return Ok(new LoginResponse(HttpStatusCode.NotFound, ex.Message));
+                return new LoginResponse(HttpStatusCode.NotFound, ex.Message);
 
             }
         }
 
         [HttpPost]
         [Route("register")]
-        public ActionResult<CreateUserResponse> CreateUser([FromBody] CreateUserRequest request)
+        public CreateUserResponse CreateUser([FromBody] CreateUserRequest request)
         {
             var address = Domain.Address.Create(request.Address.StreetName, request.Address.Suburb, request.Address.City, request.Address.PostalCode, _db);
             var contact = Domain.Contact.Create(request.Contact.Email, request.Contact.PhoneNumber, _db);
@@ -50,7 +52,10 @@ namespace Cooper.API.Service
             var user = Domain.User.Create(request.UserName, person.Id, address.Id, contact.Id, _db);
             Domain.Password.Create(request.Password.Password, user.Id, _db);
 
-            return Ok(user.ToCreateUserApiModel(HttpStatusCode.OK, ""));
+                    
+            return new CreateUserResponse(HttpStatusCode.OK,""){
+           UserId = user.Id
+            };
         }
 
 

@@ -13,7 +13,9 @@ namespace Cooper.API.Service.Extensions
                 Title = challenge.Name,
                 StartDate = challenge.StartDate,
                 EndDate = challenge.EndDate,
-                Price = challenge.Price
+                Price = challenge.Price,
+                ChallengeId = challenge.ChallengeGUID
+
             };
 
         }

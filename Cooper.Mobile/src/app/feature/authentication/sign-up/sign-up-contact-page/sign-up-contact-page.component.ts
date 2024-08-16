@@ -1,10 +1,10 @@
 import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as fromAuth from 'src/app/core/ngrx/auth';
-import { Contact } from 'src/app/core/interface/http/auth/sign-up.interface';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { Contact } from 'src/app/core/models';
 
 @Component({
   selector: 'app-sign-up-contact-page',

@@ -2,8 +2,7 @@ import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, map, takeUntil, tap, BehaviorSubject, filter, combineLatestWith } from 'rxjs';
-import { Address, Contact, Password, Person } from 'src/app/core/interface/http/auth/sign-up.interface';
-
+import { Address, Contact, Person } from '../../../../core/models'
 import * as fromAuth from 'src/app/core/ngrx/auth';
 import * as fromApp from 'src/app/core/ngrx/app';
 
@@ -84,12 +83,12 @@ export class SignUpPageComponent  implements OnInit,OnDestroy {
     ).subscribe((registerForm)=>{
 
       const address:Address = registerForm.address as Address;
-      const password = registerForm.password as Password;
+      const password:string = registerForm.password;
       const person = registerForm.person as Person;
       const userName = registerForm.userName as string ;
       const contact = registerForm.contact as Contact;
 
-      this.store.dispatch(fromAuth.fromActions.reqRegisterUser({userRequest:{address:address,password,person,userName,contact}}));
+      this.store.dispatch(fromAuth.fromActions.reqRegisterUser({address:address,password,person,userName,contact}));
     });
 
     this.store.select(fromAuth.fromSelectors.userIdSelector)

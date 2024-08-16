@@ -1,5 +1,6 @@
-import { Post } from "./post/post.model";
-import { Challenge} from "./challenge/challenge.model";
-import { Address, GPS } from "./profile/address.model";
-
-export { Post , Challenge , Address, GPS};
+export { Post } from "./post.model";
+export { Challenge } from "./challenge.model";
+export { Address } from "./address.model";
+export { Person } from "./person.model";
+export { Contact } from "./contact.model";
+export { User } from './user.model'

@@ -4,7 +4,7 @@ namespace Cooper.API.Common
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public Guid? Id { get; set; }
+        public Guid? ChallengeId { get; set; }
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

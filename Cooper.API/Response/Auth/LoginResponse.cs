@@ -9,6 +9,6 @@ namespace Cooper.API.Response.Auth
         public LoginResponse(HttpStatusCode statusCode, String description):base(statusCode, description){
 
         }
-        public string UserId {  get; set; }
+        public long UserId {  get; set; }
     }
 }

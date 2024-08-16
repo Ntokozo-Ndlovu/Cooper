@@ -1,4 +1,4 @@
-﻿
+﻿using System.Net;
 using Cooper.API.Response.User;
 using Cooper.API.Service.Extensions;
 using Cooper.Data;
@@ -17,14 +17,16 @@ namespace Cooper.API.Service.Controllers
 
         [HttpGet]
         [Route("user/{userId}")]
-        public ActionResult<GetUserResponse> GetUser(long userId)
+        public GetUserResponse GetUser(long userId)
         {
-            var user = Domain.User.FindById(userId,_db);
-            var address = Domain.Address.FindById(user.AddressId,_db);
-            var contact = Domain.Contact.FindById(user.ContactId, _db);
-            var person = Domain.Person.FindById(user.PersonId, _db);
-
-            return Ok(user.ToApiModel(address,contact,person));
+            Domain.User user = Domain.User.FindById(userId,_db);
+            Domain.Address address = Domain.Address.FindById(user.AddressId,_db);
+            Domain.Contact contact = Domain.Contact.FindById(user.ContactId, _db);
+            Domain.Person person = Domain.Person.FindById(user.PersonId, _db);
+            GetUserResponse response = new GetUserResponse(HttpStatusCode.OK, ""){
+                User = user.DTO(address,contact,person)
+            };
+            return response;
         }
 
         [HttpPatch]

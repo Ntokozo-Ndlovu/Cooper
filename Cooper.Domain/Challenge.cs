@@ -41,7 +41,7 @@ namespace Cooper.Domain
 
         public static List<Challenge> FindAll(CooperDbContext _db)
         {
-            var challenges = _db.Challenge.Select(challenge => new Challenge(challenge)).ToList();
+            List<Challenge> challenges = _db.Challenge.Select(challenge => new Challenge(challenge)).ToList();
             return challenges;
         }
 
@@ -55,20 +55,20 @@ namespace Cooper.Domain
              return new Challenge(challenge);
         }
 
-        public static Challenge UpdateChallenge(Guid challengeId,CooperDbContext _db,string name = "", string description="",
-                DateTime? startDate = null, DateTime? endDate = null ,float price = 0)
+        public static Challenge UpdateChallenge(Guid challengeId,CooperDbContext _db,string? name = "", string? description="",
+                DateTime? startDate = null, DateTime? endDate = null ,float? price = null)
         {
 
-            var challenge = _db.Challenge.FirstOrDefault(challenge => challenge.ChallengeGuid == challengeId) ?? throw new Exception("Challenge Not Found");
-            if(description != "")
+            Data.Entity.Challenge challenge = _db.Challenge.FirstOrDefault(challenge => challenge.ChallengeGuid == challengeId) ?? throw new Exception("Challenge Not Found");
+            if(description != null)
             challenge.Description = challenge.Description;
-            if(name != "")
+            if(name != null)
             challenge.Name = challenge.Name;
             if(startDate != null)
             challenge.StartDate = challenge.StartDate;
             if(endDate != null)
             challenge.EndDate = challenge.EndDate;
-            if(price > 0)
+            if(price != null)
             challenge.Price = challenge.Price;
             _db.Challenge.Update(challenge);
             _db.SaveChanges();

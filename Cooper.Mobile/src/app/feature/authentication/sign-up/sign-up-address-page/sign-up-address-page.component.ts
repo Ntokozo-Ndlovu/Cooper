@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
-import { Address } from 'src/app/core/interface/http/auth/sign-up.interface';
+import { Address } from 'src/app/core/models';
 import * as fromAuth from 'src/app/core/ngrx/auth';
 
 @Component({

@@ -1,12 +1,13 @@
 ﻿using Cooper.API.Common;
+using System.Net;
 
 namespace Cooper.API.Response.User
 {
-    public class GetUserResponse
+    public class GetUserResponse:ResponseBase
     {
-        public string Username { get; set; }
-        public Address Address { get; set; }
-        public Contact Contact { get; set; }
-        public Person Person { get; set; }
+        public GetUserResponse(HttpStatusCode httpStatusCode, string description):base(httpStatusCode, description){
+        }
+
+        public Common.User User{get; set;}
     }
 }
