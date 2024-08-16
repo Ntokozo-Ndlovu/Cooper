@@ -61,8 +61,6 @@ namespace Cooper.API.Service.Controllers
         public UpdateChallengeResponse EditChallenge(Guid challengeId, [FromBody] UpdateChallengeRequest body)
         {
 
-            
-
             Domain.Challenge challenge = Domain.Challenge.UpdateChallenge(challengeId, _db, name: body.Name, description: body.Description,
                     startDate: body.StartDate, endDate: body.EndDate, price: body.Price);
             UpdateChallengeResponse response = new UpdateChallengeResponse(HttpStatusCode.OK, "")
