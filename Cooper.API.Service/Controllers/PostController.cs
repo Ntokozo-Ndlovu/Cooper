@@ -98,7 +98,7 @@ namespace Cooper.API.Service.Controllers
         {
             List<Domain.Like> likes = Domain.Like.FindByPostId(postId, _db);
             LikeCountForPostResponse response = new LikeCountForPostResponse(HttpStatusCode.OK,""){
-                Likes = likes.DTO()
+                Likes = likes.DTO(postId)
             };
             return response;
         }

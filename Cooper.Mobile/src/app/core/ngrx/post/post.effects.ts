@@ -13,8 +13,9 @@ export class PostEffects{
       switchMap(()=>{
         return this.post.getAllPosts()
         .pipe(
-          mergeMap((posts)=>{
-            return [fromActions.reqPostsSuccessful({posts})]
+          mergeMap((response)=>{
+
+            return [fromActions.reqPostsSuccessful({posts:response.posts})]
           })
         )
       })
@@ -26,9 +27,11 @@ export class PostEffects{
     mergeMap(({postId})=>{
       return this.post.getLikesForPost(postId).pipe(
         mergeMap((response)=>{
-            return [fromActions.reqFetchNumberOfLikesSuccesful({postId:response.postId, likes: response.likes})]
+          console.log("Likes: ", response)
+            return [fromActions.reqFetchNumberOfLikesSuccesful({postId:response.likes.postId, likes: response.likes.likes})]
           }),
         catchError((err)=>{
+          console.log("error stus")
             return []
         })
 
@@ -44,7 +47,8 @@ export class PostEffects{
       switchMap((action)=>{
         return this.post.likePost({userId:action.userId,postId:action.postId})
         .pipe(mergeMap((response)=>{
-          return [fromActions.reqLikePostSuccessful({like:response})]
+          const like = response.likes;
+          return [fromActions.reqLikePostSuccessful({like:{userId:like.userId, username: like.username,postId:like.postId}})]
         }))
       })
       )
@@ -59,7 +63,8 @@ export class PostEffects{
         return this.post.removeOnLikePost({userId:action.userId, postId:action.postId})
         .pipe(
           mergeMap((response)=>{
-            return [fromActions.reqRemoveLikeOnPostSuccessful({like:response})]
+            const like = response.likes;
+            return [fromActions.reqRemoveLikeOnPostSuccessful({like:{userId:like.userId, username: like.username,postId:like.postId}})]
           }))
       }))
   })

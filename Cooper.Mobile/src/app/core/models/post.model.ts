@@ -1,12 +1,12 @@
 type Post = {
   media:   {
-    type: 0,
+    type: number,
     url: string
   } [],
   title: string,
   description: string,
   like?:number,
-  comments:  {
+  comments?:  {
     body: string
   }[],
   challengeId:string,

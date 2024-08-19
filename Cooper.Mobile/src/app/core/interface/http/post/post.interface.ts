@@ -1,24 +1,27 @@
-export interface PostResponse {
-  media:{
-    type: 0,
-    url: string
-  } [],
-  title: string,
-  description: string,
-  comments:   {
-    body: string
-  }[],
-  challengeId:string,
-  postId: string
+import { ResponseBase } from "../common"
+
+export interface PostResponse  extends ResponseBase{
+  post: {
+    title: string,
+    description: string,
+    postId: number,
+    challengeId: string,
+    media: {
+      type: number,
+      url: string
+    }[]
+  }
 }
 
-export interface Like{
-  postId: string,
-  userId: string,
-  username: string
-}
-
-export interface FetchNumberOfLikesResponse {
-  postId: string,
-  likes: number
+export interface PostListResponse extends ResponseBase {
+  posts: {
+    title: string,
+    description: string,
+    postId: string,
+    challengeId: string,
+    media: {
+      type: number,
+      url: string
+    }[]
+  }[]
 }

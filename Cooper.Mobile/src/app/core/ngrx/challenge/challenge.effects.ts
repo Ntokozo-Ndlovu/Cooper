@@ -5,6 +5,7 @@ import { Store } from "@ngrx/store";
 import * as fromChallenge from './'
 import { mergeMap, switchMap } from "rxjs";
 import { Challenge } from "../../models";
+import { ChallengeService } from "../../services/api/challenge/challenge.service";
 
 @Injectable()
 export class ChallengeEffects {
@@ -12,10 +13,9 @@ export class ChallengeEffects {
     return this.actions$.pipe(
       ofType(fromChallenge.challengeActions.reqChallenges),
       switchMap(()=>{
-        return this.http.get<Challenge[]>('https://localhost:7248/api/v1/challenge')
-        .pipe(
-          mergeMap((challenges)=>{
-            return [fromChallenge.challengeActions.reqChallengesSuccess({challenges})]
+        return  this.challengeService.fetchChallenges().pipe(
+          mergeMap((response)=>{
+            return [fromChallenge.challengeActions.reqChallengesSuccess({challenges:response.challenges})]
           })
         )
       })
@@ -23,6 +23,5 @@ export class ChallengeEffects {
   })
 
   constructor(private actions$:Actions,
-    private http:HttpClient,
-    private store:Store<fromChallenge.ChallengeState>){}
+    private challengeService:ChallengeService){}
 }
