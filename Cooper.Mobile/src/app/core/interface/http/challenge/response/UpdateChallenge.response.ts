@@ -1,4 +1,7 @@
-type Challenge ={
+import { ResponseBase } from "../../common"
+
+export interface UpdateChallengeResponse extends ResponseBase {
+  challenge:{
     name: string,
     description: string,
     challengeId: string,
@@ -7,4 +10,4 @@ type Challenge ={
     endDate: string,
     price: number
   }
-export {Challenge};
+}

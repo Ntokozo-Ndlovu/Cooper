@@ -19,6 +19,7 @@ const initialState: State = {
 const postReducer = createReducer(initialState,
   on(fromActions.reqPostsSuccessful, (state, action) => {
     const newState = { ...state, posts: action.posts }
+    console.log("{Post: ", action.posts)
     return newState
   }),
   on(fromActions.reqPostsForChallenge, (state, action) => {
@@ -66,6 +67,7 @@ const postReducer = createReducer(initialState,
     return newState;
   }),
   on(fromActions.reqFetchNumberOfLikesSuccesful, (state, action) => {
+    console.log("REq: num", action, state)
     const postIndex = state.posts.findIndex(post => post.postId == action.postId)
     let posts = [...state.posts]
     if (postIndex > -1) {

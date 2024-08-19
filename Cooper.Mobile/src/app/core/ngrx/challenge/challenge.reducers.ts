@@ -23,7 +23,7 @@ const challengeReducer = createReducer(initialState,
     return {...state, challenges: action.challenges}
   }),
   on(fromActions.reqViewChallenge,(state,action)=>{
-    const activeChallenge = state.challenges.find(challenge => challenge.id == action.challengeId);
+    const activeChallenge = state.challenges.find(challenge => challenge.challengeId == action.challengeId);
     if(activeChallenge)
     return {...state, activeChallenge}
     return state;
