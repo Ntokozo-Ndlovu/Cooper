@@ -10,6 +10,14 @@ namespace Cooper.API.Service.Extensions
                 PostId = postId
             };
         }
+        public static Like DTO (this Domain.Like like, long postId,long userId, string username ){
+            return new Like(){
+                Username = username,
+                PostId = postId,
+                UserId = userId
+            };
+        }
+
 
         public static Like DTO(this List<Domain.Like> likes)
         {

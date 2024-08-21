@@ -38,6 +38,11 @@ export class PostPageComponent  implements OnInit, OnDestroy{
       return false;
 
   }
+
+  postTrackByFn(index:number,postItem:Post){
+    return postItem.postId
+  }
+
   ngOnDestroy(): void {
     this.destroy$.emit();
   }

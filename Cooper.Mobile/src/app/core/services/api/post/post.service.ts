@@ -1,32 +1,32 @@
 import { Injectable } from '@angular/core';
 import { HttpGatewayService } from '../http';
-import { LikeRequest, LikeResponse } from 'src/app/core/interface/http/post';
 import { HttpHeaders } from '@angular/common/http';
-import { PostListResponse, PostResponse } from 'src/app/core/interface/http/post/post.interface';
 import { Observable } from 'rxjs';
+import { DeleteLikePostResponse, DeletePostLikeRequest, FetchLikesForPostResponse, FetchPostListResponse, LikePostResponse, PostLikeRequest } from 'src/app/core/interface/http/post';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
 
-  constructor(private http:HttpGatewayService) { }
+  constructor(private http: HttpGatewayService) { }
 
-  public likePost(likeRequest:LikeRequest){
-    return this.http.post<LikeResponse>('post/like', likeRequest)
+  public likePost(likeRequest: PostLikeRequest) {
+    return this.http.post<LikePostResponse>('post/like', likeRequest)
   }
 
-  public removeOnLikePost(likeRequest:LikeRequest){
-    const httpHeaders = new HttpHeaders({...likeRequest});
-    return this.http.delete<LikeResponse>('post/like',httpHeaders);
+  public removeOnLikePost(likeRequest: DeletePostLikeRequest) {
+    const httpHeaders = new HttpHeaders({userId:parseInt( likeRequest.userId), postId: parseInt(likeRequest.postId)});
+    return this.http.delete<DeleteLikePostResponse>('post/like',httpHeaders);
   }
 
-  public getAllPosts(){
-    return this.http.get<PostListResponse>('post')
+  public getAllPosts(userId: string) {
+    return this.http.get<FetchPostListResponse>(`post/list/${userId}`)
+
   }
 
-  public getLikesForPost(postId:string):Observable<LikeResponse>{
-    return this.http.get<LikeResponse>(`post/like/${postId}`);
+  public getLikesForPost(postId: string): Observable<FetchLikesForPostResponse> {
+    return this.http.get<FetchLikesForPostResponse>(`post/like/${postId}`);
   }
 
 }

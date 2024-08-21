@@ -1,38 +1,52 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { fromActions } from ".";
-import { catchError, mergeMap, switchMap } from "rxjs";
+import { ReplaySubject, catchError, mergeMap, switchMap } from "rxjs";
 import { PostService } from "../../services/api/post";
+import * as fromApp from "src/app/core/ngrx/app"
+import { Store } from "@ngrx/store";
 
 @Injectable()
-export class PostEffects{
-  reqPost$ = createEffect(()=>{
-    return this.actions$
-    .pipe(
-      ofType(fromActions.reqPosts),
-      switchMap(()=>{
-        return this.post.getAllPosts()
-        .pipe(
-          mergeMap((response)=>{
+export class PostEffects {
 
-            return [fromActions.reqPostsSuccessful({posts:response.posts})]
-          })
-        )
-      })
-    )
+  getUserId() {
+    return this.store.select(fromApp.fromSelectors.selectAppUserId)
+  }
+
+
+  reqPost$ = createEffect(() => {
+    return this.actions$
+      .pipe(
+        ofType(fromActions.reqPosts),
+        switchMap(() => {
+          return this.getUserId().pipe(
+            mergeMap(
+              (userId) => this.fetchAllPosts(userId)))
+        }))
   })
 
-  reqFetchNumberOfLikes$ = createEffect(()=>this.actions$.pipe(
+  fetchAllPosts(userId: string) {
+    {
+      return this.post.getAllPosts(userId)
+        .pipe(
+          mergeMap((response) => {
+            return [fromActions.reqPostsSuccessful({ posts: response.posts })]
+          }))
+    }
+  }
+
+
+
+  reqFetchNumberOfLikes$ = createEffect(() => this.actions$.pipe(
     ofType(fromActions.reqFetchNumberOfLikes),
-    mergeMap(({postId})=>{
+    mergeMap(({ postId }) => {
       return this.post.getLikesForPost(postId).pipe(
-        mergeMap((response)=>{
-          console.log("Likes: ", response)
-            return [fromActions.reqFetchNumberOfLikesSuccesful({postId:response.likes.postId, likes: response.likes.likes})]
-          }),
-        catchError((err)=>{
+        mergeMap((response) => {
+          return [fromActions.reqFetchNumberOfLikesSuccesful({ postId: response.likes.postId, likes: response.likes.likes })]
+        }),
+        catchError((err) => {
           console.log("error stus")
-            return []
+          return []
         })
 
       )
@@ -40,36 +54,46 @@ export class PostEffects{
   ))
 
 
-  reqLikePost$ = createEffect(()=>{
+  reqLikePost$ = createEffect(() => {
     return this.actions$
-    .pipe(
-      ofType(fromActions.reqLikePost),
-      switchMap((action)=>{
-        return this.post.likePost({userId:action.userId,postId:action.postId})
-        .pipe(mergeMap((response)=>{
-          const like = response.likes;
-          return [fromActions.reqLikePostSuccessful({like:{userId:like.userId, username: like.username,postId:like.postId}})]
-        }))
-      })
+      .pipe(
+        ofType(fromActions.reqLikePost),
+        switchMap(({ postId }) => {
+          return this.getUserId().pipe(
+            mergeMap((userId) => this.likePost(userId, postId)))
+        })
       )
   })
 
-
-  reqRemoveLikeOnPost$ = createEffect(()=>{
-    return this.actions$
-    .pipe(
-      ofType(fromActions.reqRemoveLikeOnPost),
-      switchMap((action)=>{
-        return this.post.removeOnLikePost({userId:action.userId, postId:action.postId})
-        .pipe(
-          mergeMap((response)=>{
-            const like = response.likes;
-            return [fromActions.reqRemoveLikeOnPostSuccessful({like:{userId:like.userId, username: like.username,postId:like.postId}})]
-          }))
+  likePost(userId: string, postId: string) {
+    return this.post.likePost({ userId, postId })
+      .pipe(switchMap((response) => {
+        const like = response.like;
+        return [fromActions.reqLikePostSuccessful({ like: { userId: like.userId, username: like.username, postId: like.postId } })]
       }))
+  }
+
+  reqRemoveLikeOnPost$ = createEffect(() => {
+    return this.actions$
+      .pipe(
+        ofType(fromActions.reqRemoveLikeOnPost),
+        switchMap(({ postId }) => {
+          return this.getUserId().pipe(
+            switchMap((userId) => this.removeLikeFromPost(userId, postId)))
+
+        }))
   })
 
-  constructor(private post:PostService, private actions$:Actions){
+  removeLikeFromPost(userId: string, postId: string) {
+    return this.post.removeOnLikePost({ userId, postId })
+      .pipe(
+        mergeMap((response) => {
+          const like = response.like;
+          return [fromActions.reqRemoveLikeOnPostSuccessful({ like: { userId: like.userId, username: like.username, postId: like.postId } })]
+        }))
+
+  }
+  constructor(private post: PostService, private store: Store, private actions$: Actions) {
 
   }
 }
