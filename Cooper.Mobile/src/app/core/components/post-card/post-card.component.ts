@@ -1,4 +1,4 @@
-import { Component, OnInit ,Input, OnDestroy, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Post } from 'src/app/core/models';
 import * as fromPost from 'src/app/core/ngrx/post';
@@ -10,28 +10,22 @@ import { takeUntil } from 'rxjs';
   templateUrl: './post-card.component.html',
   styleUrls: ['./post-card.component.scss'],
 })
-export class PostCardComponent  implements OnInit,OnDestroy {
-  @Input() post?:Post;
-  private destroy$:EventEmitter<unknown> = new EventEmitter();
+export class PostCardComponent implements OnInit, OnDestroy {
+  @Input() post?: Post;
+  private destroy$: EventEmitter<unknown> = new EventEmitter();
 
-  constructor(private store:Store) { }
+  constructor(private store: Store) { }
 
   ngOnInit() {
-
-    console.log('Log: ', this.post)
   }
 
   likePost() {
-    this.store.select(fromApp.fromSelectors.selectAppUserId)
-    .pipe(
-      takeUntil(this.destroy$))
-      .subscribe((userId)=>{
-        if(this.post){
-          console.log('Liking a post',{postId:this.post.postId,userId:userId})
-          this.store.dispatch(fromPost.fromActions.reqLikePost({postId:this.post.postId,userId:userId}))
-
-        }
-      })
+    if (this.post) {
+     if(this.post.userLiked)
+      this.store.dispatch(fromPost.fromActions.reqRemoveLikeOnPost({ postId: this.post.postId}))
+      else
+      this.store.dispatch(fromPost.fromActions.reqLikePost({ postId: this.post.postId}))
+    }
   }
 
 
@@ -43,7 +37,7 @@ export class PostCardComponent  implements OnInit,OnDestroy {
     console.log("Share the post")
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.destroy$.emit();
   }
 }

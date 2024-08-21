@@ -1,3 +1,2 @@
-export { PostListResponse, PostResponse } from "./post.interface";
-export { LikeResponse, LikeRequest } from "./like.interface";
-
+export { PostLikeRequest, DeletePostLikeRequest } from "./request";
+export { LikePostResponse, DeleteLikePostResponse, FetchPostResponse, FetchPostListResponse, FetchLikesForPostResponse  } from "./response";

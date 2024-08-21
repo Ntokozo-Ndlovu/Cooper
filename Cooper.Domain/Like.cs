@@ -26,10 +26,18 @@ namespace Cooper.Domain
             return new Like(like);
         }
         
+        public static bool HasUserLikePost(long userId, long postId, CooperDbContext _db){
+            Data.Entity.Like? like = _db.Like.FirstOrDefault(f => f.UserId == userId && f.PostId == postId);
+            if(like != null){
+                return true;
+            }
+            return false;
+        }
+
           public static Like Create(long userId, long postId, CooperDbContext _db)
         {
             var like = _db.Like.FirstOrDefault(x => x.UserId == userId && x.PostId == postId);
-
+            
             if (like == null)
             {
                 var newLike = new Data.Entity.Like(){

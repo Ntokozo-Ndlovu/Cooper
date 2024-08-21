@@ -16,9 +16,8 @@ export class AppEffects{
         switchMap(({userId})=>{
           return this.user.getUserInformation(userId)
             .pipe(
-              mergeMap((user)=>{
-                console.log('user', user)
-                return [fromActions.reqUserInformationSuccesful({user})]
+              mergeMap((response)=>{
+                return [fromActions.reqUserInformationSuccesful({user:response.user})]
               }),
               catchError((err)=>{
                 return of(err)

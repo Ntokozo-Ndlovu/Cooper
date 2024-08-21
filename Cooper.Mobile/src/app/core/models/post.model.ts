@@ -6,6 +6,7 @@ type Post = {
   title: string,
   description: string,
   like?:number,
+  userLiked?:boolean,
   comments?:  {
     body: string
   }[],

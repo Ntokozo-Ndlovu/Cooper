@@ -30,4 +30,7 @@ export class ChallengePostsComponent  implements OnInit {
 
   }
 
+  postTrackByFn(index:number, postItem:Post){
+    return postItem.postId;
+  }
 }

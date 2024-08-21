@@ -1,6 +1,6 @@
 export interface Person {
   name: string,
   surname: string,
-  age: 0,
+  age: number,
   gender: string
 }
