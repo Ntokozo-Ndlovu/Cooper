@@ -38,6 +38,7 @@ namespace Cooper.Data
             modelBuilder.ApplyConfiguration(new AddressConfiguration());
             modelBuilder.ApplyConfiguration(new ChallengeConfiguration());
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
+            modelBuilder.ApplyConfiguration(new CommentRelationshipConfiguration());
             modelBuilder.ApplyConfiguration(new MediaConfiguration());
             modelBuilder.ApplyConfiguration(new MediaPostConfiguration());
             modelBuilder.ApplyConfiguration(new PersonConfiguration());
@@ -59,6 +60,7 @@ namespace Cooper.Data
         public DbSet<Contact> Contact { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Comment> Comment { get; set; }
+        public DbSet<CommentRelationship> CommentRelationship { get; set; }
         public DbSet<Password> Password { get; set; }
         public DbSet<Like> Like { get; set; }
     }
