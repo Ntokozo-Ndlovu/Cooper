@@ -13,6 +13,7 @@ import { takeUntil } from 'rxjs';
 export class PostCardComponent implements OnInit, OnDestroy {
   @Input() post?: Post;
   private destroy$: EventEmitter<unknown> = new EventEmitter();
+  public showComments:boolean = false;
 
   constructor(private store: Store) { }
 
@@ -30,7 +31,7 @@ export class PostCardComponent implements OnInit, OnDestroy {
 
 
   commentOnPost() {
-    console.log('Commented on Post')
+    this.showComments = true;
   }
 
   sharePost() {
