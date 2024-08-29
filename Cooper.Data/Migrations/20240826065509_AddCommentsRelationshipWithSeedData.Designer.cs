@@ -3,6 +3,7 @@ using System;
 using Cooper.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Cooper.Data.Migrations
 {
     [DbContext(typeof(CooperDbContext))]
-    partial class CooperDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240826065509_AddCommentsRelationshipWithSeedData")]
+    partial class AddCommentsRelationshipWithSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,6 +148,9 @@ namespace Cooper.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("Root")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
@@ -159,96 +164,112 @@ namespace Cooper.Data.Migrations
                         {
                             Id = 1L,
                             Body = "You are the best",
+                            Root = true,
                             Title = "Comment 1"
                         },
                         new
                         {
                             Id = 2L,
                             Body = "You are the best",
+                            Root = true,
                             Title = "Comment 2 "
                         },
                         new
                         {
                             Id = 3L,
                             Body = "You are the best",
+                            Root = false,
                             Title = "Comment 3 "
                         },
                         new
                         {
                             Id = 4L,
                             Body = "You are the best",
+                            Root = false,
                             Title = "Comment 4 "
                         },
                         new
                         {
                             Id = 5L,
                             Body = "You are the best",
+                            Root = false,
                             Title = "Comment 5 "
                         },
                         new
                         {
                             Id = 6L,
                             Body = "You are the best",
+                            Root = false,
                             Title = "Comment 6 "
                         },
                         new
                         {
                             Id = 7L,
                             Body = "You are the best",
+                            Root = false,
                             Title = "Comment 7 "
                         },
                         new
                         {
                             Id = 8L,
                             Body = "You are the best",
+                            Root = false,
                             Title = "Comment 8 "
                         },
                         new
                         {
                             Id = 9L,
                             Body = "You are the best",
+                            Root = false,
                             Title = "Comment 9 "
                         },
                         new
                         {
                             Id = 10L,
                             Body = "You are the best",
+                            Root = false,
                             Title = "Comment 10 "
                         },
                         new
                         {
                             Id = 11L,
                             Body = "You are the best",
+                            Root = false,
                             Title = "Comment 11 "
                         },
                         new
                         {
                             Id = 12L,
                             Body = "You are the best",
+                            Root = false,
                             Title = "Comment 12 "
                         },
                         new
                         {
                             Id = 13L,
                             Body = "You are the best",
+                            Root = false,
                             Title = "Comment 13 "
                         },
                         new
                         {
                             Id = 14L,
                             Body = "You are the best",
+                            Root = false,
                             Title = "Comment 14 "
                         },
                         new
                         {
                             Id = 15L,
                             Body = "You are the best",
+                            Root = false,
                             Title = "Comment 15 "
                         },
                         new
                         {
                             Id = 16L,
                             Body = "You are the best",
+                            Root = false,
                             Title = "Comment 16 "
                         });
                 });
@@ -261,10 +282,10 @@ namespace Cooper.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("ParentId")
+                    b.Property<long>("CommentId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("PostId")
+                    b.Property<long>("ParentId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -275,98 +296,98 @@ namespace Cooper.Data.Migrations
                         new
                         {
                             Id = 1L,
-                            ParentId = 0L,
-                            PostId = 3L
+                            CommentId = 1L,
+                            ParentId = 0L
                         },
                         new
                         {
                             Id = 2L,
-                            ParentId = 0L,
-                            PostId = 3L
+                            CommentId = 2L,
+                            ParentId = 0L
                         },
                         new
                         {
                             Id = 3L,
-                            ParentId = 1L,
-                            PostId = 3L
+                            CommentId = 2L,
+                            ParentId = 1L
                         },
                         new
                         {
                             Id = 4L,
-                            ParentId = 2L,
-                            PostId = 3L
+                            CommentId = 4L,
+                            ParentId = 2L
                         },
                         new
                         {
                             Id = 5L,
-                            ParentId = 1L,
-                            PostId = 3L
+                            CommentId = 5L,
+                            ParentId = 1L
                         },
                         new
                         {
                             Id = 6L,
-                            ParentId = 1L,
-                            PostId = 3L
+                            CommentId = 6L,
+                            ParentId = 1L
                         },
                         new
                         {
                             Id = 7L,
-                            ParentId = 5L,
-                            PostId = 3L
+                            CommentId = 7L,
+                            ParentId = 5L
                         },
                         new
                         {
                             Id = 8L,
-                            ParentId = 5L,
-                            PostId = 3L
+                            CommentId = 8L,
+                            ParentId = 5L
                         },
                         new
                         {
                             Id = 9L,
-                            ParentId = 4L,
-                            PostId = 3L
+                            CommentId = 9L,
+                            ParentId = 4L
                         },
                         new
                         {
                             Id = 10L,
-                            ParentId = 4L,
-                            PostId = 3L
+                            CommentId = 10L,
+                            ParentId = 4L
                         },
                         new
                         {
                             Id = 11L,
-                            ParentId = 4L,
-                            PostId = 3L
+                            CommentId = 11L,
+                            ParentId = 4L
                         },
                         new
                         {
                             Id = 12L,
-                            ParentId = 4L,
-                            PostId = 3L
+                            CommentId = 12L,
+                            ParentId = 4L
                         },
                         new
                         {
                             Id = 13L,
-                            ParentId = 12L,
-                            PostId = 3L
+                            CommentId = 13L,
+                            ParentId = 12L
                         },
                         new
                         {
                             Id = 14L,
-                            ParentId = 13L,
-                            PostId = 3L
+                            CommentId = 1L,
+                            ParentId = 13L
                         },
                         new
                         {
                             Id = 15L,
-                            ParentId = 12L,
-                            PostId = 3L
+                            CommentId = 1L,
+                            ParentId = 12L
                         },
                         new
                         {
                             Id = 16L,
-                            ParentId = 4L,
-                            PostId = 3L
+                            CommentId = 1L,
+                            ParentId = 4L
                         });
                 });
 
@@ -763,6 +784,123 @@ namespace Cooper.Data.Migrations
                             ChallengeId = new Guid("a3bb21c7-9ea2-4c9b-9811-e3526856d05b"),
                             Description = "King Burger Tastes really good",
                             Title = "King Burger"
+                        });
+                });
+
+            modelBuilder.Entity("Cooper.Data.Entity.PostComment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CommentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("PostId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PostComment");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CommentId = 1L,
+                            PostId = 3L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CommentId = 2L,
+                            PostId = 3L
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CommentId = 3L,
+                            PostId = 3L
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CommentId = 4L,
+                            PostId = 3L
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            CommentId = 5L,
+                            PostId = 3L
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            CommentId = 6L,
+                            PostId = 3L
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            CommentId = 7L,
+                            PostId = 3L
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            CommentId = 8L,
+                            PostId = 3L
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            CommentId = 9L,
+                            PostId = 3L
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            CommentId = 10L,
+                            PostId = 3L
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            CommentId = 11L,
+                            PostId = 3L
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            CommentId = 12L,
+                            PostId = 3L
+                        },
+                        new
+                        {
+                            Id = 13L,
+                            CommentId = 13L,
+                            PostId = 3L
+                        },
+                        new
+                        {
+                            Id = 14L,
+                            CommentId = 14L,
+                            PostId = 3L
+                        },
+                        new
+                        {
+                            Id = 15L,
+                            CommentId = 15L,
+                            PostId = 3L
+                        },
+                        new
+                        {
+                            Id = 16L,
+                            CommentId = 16L,
+                            PostId = 3L
                         });
                 });
 
